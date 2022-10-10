@@ -1,0 +1,4 @@
+CATEGORY,SUBCATEGORY,AGE,TIMEALLOWED,REGION,QUESTION,ANSWER1,ANSWER2,ANSWER3,ANSWER4,HINT,CORRECTANSWER,IMAGEURL,VIDEOURL,SOUNDURL,FILETYPE,questionMasterId ,status,creditBy,questionActiveStatus,questionState
+QUICK THINKING,NONE,"JUNIOR,ADULT",20,Deutschland,How many different people can you count? Don't count the same person twice!,7 people,5 people,8 people,6 people,,D,,storage/questions/videos/2rw0T1619624858258.m4v,,3,120357,0,,1,1
+PUB QUIZ,NONE,"TEEN,ADULT",30,Deutschland,At which club did Frank Lampard start his career?,Chelsea,Nottingham Forest,West Ham United,Tottenham Hotspur,(NULL),C,storage/questions/images/TXJxZ1622926074457.jpg,,,1,120387,0,,1,0
+Music Questions NL,NONE,ADULT,35,Deutschland,"How would the UK garage duo, Artful Dodger, characterize their movement?",Fast,Slow,Much,Little,,A,,,storage/questions/sounds/z115P1637083014087.mp3,2,148865,0,,0,1

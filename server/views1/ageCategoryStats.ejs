@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let age ="";
+   
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/userAge/0" style="font-weight:bold;">Age Categories</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-sm-12 col-md-6">
+                  <i class="fas fa-table"></i>
+                  <b>Ages</b>
+                </div>
+           
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S.no</th>
+                      <th>Category</th>
+                      <th>Age</th>
+                      <th>Questions </th>
+                      <th>Correct</th>
+                      <th>Percentage</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(cateInfo.length > 0){ %>
+                      <% let i=0; %>
+                      <%  cateInfo.forEach(function(cateInfo){i++%>
+                        <tr>
+                          <td rowspan="<%=cateInfo.info.length+1%>" >
+                            <%=i%>
+                          </td>
+                          <td rowspan="<%=cateInfo.info.length+1%>" >
+                              <%=cateInfo.category%>
+                            </td>
+                          </tr>    
+                          </td>
+                          <% for(let i=0;i<cateInfo.info.length;i++){%>
+                          <tr>
+                            <td>
+                              <%=cateInfo.info[i].age%>
+                            </td>
+                            <td>
+                              <%=cateInfo.info[i].questionCount%>
+                            </td>
+                            <td>
+                              <%=cateInfo.info[i].answerCount%>
+                            </td>
+			    <td>
+                              <% let per = Math.round((parseInt(cateInfo.info[i].answerCount)/parseInt(cateInfo.info[i].questionCount))*100) %>
+                              <%=per%>
+
+                            </td>
+                          </tr>
+                          <% } %>
+                          
+                          
+                            
+                          
+                          
+                        
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="7">
+                            <h3><b> No Value </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+  </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="",distributor="",country_id=0;
+    if(info)
+    {
+      id=info.id;
+      country_id = info.country_id;
+      distributor=info.distributor;
+    }
+    %>
+
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/distributors/0" style="font-weight:bold;">Distributors</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:40px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-1 col-form-label">
+                <%= messages.notify %>
+              </label>
+              <form method="post" action="/addDistributor" id="distributorForm">
+              <div class="form-group">
+                <div class="col-md-12 col-xs-12 col-sm-12" >
+                  <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    <b>Add Distributor</b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+
+                    <div class="col-md-3 col-sm-12 col-xs-12  paddingSt" >
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label" >
+                            Country :
+                          </label>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                          <select class="form-control form-control-sm" id="country" name="country">
+                            <option value="">Select</option>
+                            <% countries.forEach(function(countries){ %>
+                              <% if(countries.id == country_id){ %>
+                              <option value="<%=countries.id %>" selected>
+                                <%= countries.name %> (<%= countries.code %>)
+                              </option>
+                              <% }else{ %>
+                                <option value="<%=countries.id %>">
+                                  <%= countries.name %> (<%= countries.code %>)
+                                </option>
+                              <% } %>
+                            <% }); %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12  paddingSt" >
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label" >
+                            Name :
+                          </label>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                          <input type="text" class="form-control" name="distributor" id="distributor" value="<%=distributor%>"/>
+                          <input type="hidden" class="form-control" name="id" id="id" value="<%=id%>"/>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="hidden"/ id="country_id" >
+                    <div class="col-md-2 col-sm-12 col-xs-12 paddingSt" style="text-align:center">
+                      <input type="submit" class="btn btn-success" value="Save" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>All Distributors</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>Country</th>
+                      <th>Distributor</th>
+                      <th>Created</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(distributors.length > 0){ %>
+                      <% let i=0; %>
+                      <%  distributors.forEach(function(distributors){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=distributors.toJSON().countries.name%></td>
+                          <td><%=distributors.distributor%></td>
+                          <td>
+                            <%=distributors.created.toLocaleString('en-us')%>
+                          </td>
+                          <td>
+                            <a href="/distributors/<%=distributors.id%>"><i class="fas fa-pencil-alt"></i></a>
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="5">
+                            <h3><b> No Distributor Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+                <% if(paginator > 10) { %>
+                <div style="float:right">
+                  <% let pages = Math.ceil(paginator/10)%>
+                  <ul class="pagination">
+                    <% for(let i=0;i<pages;i++){%>
+                      <li class="page-item">
+                        <a class="page-link" href="/distributors/<%=i+10 %>?filter[skip]=<%=i*10 %>"><%=i+1%></a>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

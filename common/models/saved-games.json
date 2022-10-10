@@ -1,0 +1,36 @@
+{
+  "name": "saved_games",
+  "plural": "saved_games",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_id": {
+      "type": "number",
+      "required": true
+    },
+    "game_id": {
+      "type": "number",
+      "required": true
+    },
+    "game": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

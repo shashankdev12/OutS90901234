@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../views/elements/head %>
+    <link href="https://playground.anychart.com/gallery/src/Pie_and_Donut_Charts/3D_Pie_Chart/iframe" rel="canonical">
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
+    <style>
+      #container {width: 100%;height: 350px;margin: 0;padding: 0;}
+      #container_2 {width: 100%;height: 350px;margin: 0;padding: 0;}
+      .box-shadow {box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
+      .anychart-credits {display: none}
+      </style>
+  </head>
+  
+  <body id="page-top">
+      <% include ../views/elements/header.html %>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <% include ../views/elements/left-panel.html %>
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+          </ol>
+          <div class="col-12">
+            <!-- <div class="row mb-5">
+              <div class="col-lg-6 col-md-12">
+                <div class="row">
+                  <div class=" col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class='input-group date' id='from_date'>
+                        <input type='text' class="form-control" placeholder="From Date"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class=" col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class='input-group date' id='to_date'>
+                        <input type='text' class="form-control" placeholder="To Date"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                
+              </div>
+            </div> -->
+            <div class="row mb-5">
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=juniorCount%>" id="juniorcount">
+                    <input type="hidden" value="<%=teenCount%>" id="teenCount">
+                    <input type="hidden" value="<%=adultCount%>" id="adultCount">
+                    <div id="container"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=totalLicences%>" id="licences">
+                    <input type="hidden" value="<%=userCount%>" id="userCount">
+                    <div id="container_2"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+          <!-- Icon Cards-->
+          <!-- <div class="row">
+          <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-id-badge"></i>
+                  </div>
+                  <div class="mr-5"><b></b> Licences</div>
+                </div>
+                <% if(userStatus == 1){%>
+                  <input type="hidden" value="<%=totalLicences%>" id="licences">
+                  <a class="card-footer text-white clearfix small z-1" href="/exportedLicences/0/0/0">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                 <% } %> 
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-id-badge"></i>
+                  </div>
+                  <div class="mr-5"><b><%=userCount%></b> Registered Users</div>
+                </div>
+                <% if(userStatus == 1){%>
+                  <input type="hidden" value="<%=userCount%>" id="userCount">
+                  <a class="card-footer text-white clearfix small z-1" href="/users/0">
+                    <span class="float-left">View Details</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                <% }%>  
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-id-badge"></i>
+                  </div>
+                  <div class="mr-5"><b></b> Junior Users</div>
+                </div>
+                <% if(userStatus == 1){%>
+                  <input type="hidden" value="<%=juniorCount%>" id="juniorcount">
+                  <a class="card-footer text-white clearfix small z-1" href="#">
+                    <span class="float-left"><%=juniorCount%></span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                 <% } %> 
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-id-badge"></i>
+                  </div>
+                  <div class="mr-5"><b></b> Teen Users</div>
+                </div>
+                <% if(userStatus == 1){%>
+                  <input type="hidden" value="<%=teenCount%>" id="teenCount">
+                  <a class="card-footer text-white clearfix small z-1" href="/users/0">
+                    <span class="float-left"><%=teenCount%></span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                <% } %>  
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-id-badge"></i>
+                  </div>
+                  <div class="mr-5"><b></b> Adult Users</div>
+                </div>
+                <% if(userStatus == 1){%>
+                  <input type="hidden" value="<%=adultCount%>" id="adultCount">
+                  <a class="card-footer text-white clearfix small z-1" href="/users/0">
+                    <span class="float-left"><%=adultCount%></span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                <% } %>  
+                </a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+          
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+        
+      </div>
+      
+      <!-- /.content-wrapper -->
+    </div>
+    
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <% include ../views/elements/bootom %>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <script type="text/javascript">
+   
+    anychart.onDocumentLoad(function () {
+      
+      // create pie chart with passed data
+      var chart = anychart.pie3d([
+       
+        ['Junior Users', $('#juniorcount').val()],
+        ['Teen Users', $('#teenCount').val()],
+        ['Adult Users', $('#adultCount').val()],
+      
+      ]);
+
+      var chart2 = anychart.pie3d([
+        ['Licences', $('#licences').val()],
+        ['Registered Users', $('#userCount').val()],
+       
+      
+      ]);
+      chart.overlapMode('allow-overlap');
+      chart2.overlapMode('allow-overlap');
+      var margin = chart.margin();
+      var margin2 = chart2.margin();
+
+      
+      margin.top(0);
+      margin2.top(0);
+      // set chart title text settings
+      chart
+        // .title('Population in The Shire')
+        // set chart radius
+        .radius('50%');
+        chart2.radius('50%');
+    
+      // set container id for the chart
+      chart.container('container');
+      chart2.container('container_2');
+      // initiate chart drawing
+      chart.draw();
+      chart2.draw();
+      chart.autoRedraw(false);
+      
+    });
+
+    </script>
+  </body>
+
+</html>
+

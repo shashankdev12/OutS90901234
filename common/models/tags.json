@@ -1,0 +1,47 @@
+{
+  "name": "tags",
+  "plural": "tags",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "category_id": {
+      "type": "string",
+      "required": true
+    },
+    "tagName": {
+      "type": "string",
+      "required": true
+    },
+    "tagIndex": {
+      "type": "string",
+      "required": true
+    },
+    "region": {
+      "type": "number",
+      "required": true
+    },
+    "order":{
+      "type":"number",
+      "required":true
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

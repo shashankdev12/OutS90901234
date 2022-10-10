@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let age ="";
+    if(ageInfo != null)
+    {
+      id = ageInfo.id;
+      age = ageInfo.age;
+    }
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/userAge/0" style="font-weight:bold;">Age Categories</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label" style="text-align:center">
+                <%= messages.notify %>
+              </label>
+            <form method="post" action="/addAge" id="age">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Add Age</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="col-md-2 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                      <input type="hidden" name="id" value="<%=id%>" required/>
+                      <input type="text" class="form-control" id="userAges" placeholder="Age" name="age" value="<%=age%>" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12 col-xs-12 paddingSt algnCenter">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Ages</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>Age</th>
+                      <th>Created</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(ageData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  ageData.forEach(function(ageData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=ageData.age%></td>
+                          <td>
+                            <%=ageData.created.toLocaleString('en-us')%>
+                          </td>
+                          <td>
+                            <a href="/userAge/<%=ageData.id%>">
+                              <i class="fas fa-pencil-alt"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="4">
+                            <h3><b> No Age Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+                <% if(paginator > 10) { %>
+                <div style="float:right">
+                  <% let pages = Math.ceil(paginator/10)%>
+                  <ul class="pagination">
+                    <% for(let i=0;i<pages;i++){%>
+                      <li class="page-item">
+                        <a class="page-link" href="/userAge/<%=i+10 %>?filter[skip]=<%=i*10 %>"><%=i+1%></a>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+  </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

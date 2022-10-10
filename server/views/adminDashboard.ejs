@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../views/elements/head %>
+    <link href="https://playground.anychart.com/gallery/src/Pie_and_Donut_Charts/3D_Pie_Chart/iframe" rel="canonical">
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <style>
+      #container {width: 100%;height: 350px;margin: 0;padding: 0;}
+      #container_2 {width: 100%;height: 350px;margin: 0;padding: 0;}
+      .box-shadow {box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
+      .anychart-credits {display: none}
+      </style>
+  </head>
+  
+  <body id="page-top">
+      <% include ../views/elements/header.html %>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <% include ../views/elements/left-panel.html %>
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              TOTAL NUMBER OF REGISTERED GAME OWNERS : <%=userCount%>
+            </li>
+
+            <li class="breadcrumb-item">
+              TOTAL NUMBER OF PLAYERS : <%=totalChilds%>
+            </li>
+          </ol>
+          <div class="col-12">
+            <!-- <div class="row mb-5">
+              <div class="col-lg-6 col-md-12">
+                <div class="row">
+                  <div class=" col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class='input-group date' id='from_date'>
+                        <input type='text' class="form-control" placeholder="From Date"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class=" col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class='input-group date' id='to_date'>
+                        <input type='text' class="form-control" placeholder="To Date"/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                
+              </div>
+            </div> -->
+
+   
+            <div class="row mb-5">
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=juniorCount%>" id="juniorcount">
+                    <input type="hidden" value="<%=teenCount%>" id="teenCount">
+                    <input type="hidden" value="<%=adultCount%>" id="adultCount">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="col-md-4">
+                          <label>Start Date</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="startTime"/>
+                        </div>  
+                      </div>
+                      <div class="col-md-5"><div class="col-md-4">
+                        <label>End Date</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" id="endTime" />
+                      </div>
+                        
+                      </div>
+                      <div class="col-md-2 col-sm-12 col-xs-12 ">
+                        <a href="#" class="btn btn-success" id="search" onclick="getAjaxCall('<%=webURL%>','bar1')">Search</a>
+                      </div>  
+                    </div>            
+                    <canvas id="bar-chart" width="800" height="450"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=JSON.stringify(userLicenLast)%>" id="usersC">
+                    <div class="col-md-8">
+                      <select onchange="changeDate('<%=webURL%>')" id="userUnique">
+                        <option value="30">30</option>
+                        <option value="180">180</option>
+                      </select>
+                    </div>
+                    <canvas id="bar-chart2" width="800" height="450"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=JSON.stringify(userGames)%>" id="usersC">
+                    <div class="col-md-8">
+                      <select onchange="changeDate2('<%=webURL%>')" id="userUniqueG">
+                        <option value="30">30</option>
+                        <option value="180">180</option>
+                      </select>
+                    </div>
+                    <canvas id="bar-chart3" width="800" height="450"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=JSON.stringify(userGames)%>" id="usersC">
+                    <div class="col-md-8">
+                      <table class="table">
+                        <tr>
+                          <th> Top 10 categories for last 7 days</th>
+                        </tr>
+                        <tr>
+                          <th>Category</th>
+                          <th>Count</th>
+                        </tr>
+                        <% let i=0; addontopten.forEach(function(item){i++%>
+                          <tr>
+                            <%if(i < 11){%>
+                              <td><%=item.category%></td>
+                              <td><%=item.topTen%></td>
+                            <% } %>  
+                          </tr>
+                        <%})%> 
+                      </table>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="card box-shadow">
+                  <div class="card-body">
+                    <input type="hidden" value="<%=JSON.stringify(userGames)%>" id="usersC">
+                    <div class="col-md-8">
+                      <table class="table">
+                        <tr>
+                          <th> Top 10 categories for ALL Time</th>
+                        </tr>
+                        <tr>
+                          <th>Category</th>
+                          <th>Count</th>
+                        </tr>
+                        <% let j=0; addontopALL.forEach(function(item){j++%>
+                          <tr>
+                            <%if(j < 11){%>
+                              <td><%=item.category%></td>
+                              <td><%=item.topTen%></td>
+                            <% } %>  
+                          </tr>
+                        <%})%> 
+                      </table>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+          <!-- Icon Cards-->
+          
+          
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+        
+      </div>
+      
+      <!-- /.content-wrapper -->
+    </div>
+    
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <% include ../views/elements/bootom %>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    
+    <script type="text/javascript">
+
+      let juniorcount = $("#juniorcount").val()
+      let teencount = $("#teenCount").val()
+      let adultcount = $("#adultCount").val()
+      let chart = new Chart(document.getElementById("bar-chart"), {
+      type: 'bar',
+      data: {
+        labels: ["Junior", "Teen", "Adult"],
+        datasets: [
+          {
+            label: "Users",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+            data: [juniorcount,teencount,adultcount]
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'User count '
+        },
+        scales: {
+        xAxes: [{
+            barPercentage: 0.4
+        }]
+    }
+      }
+    });
+   
+    
+
+
+  $('#startTime').datetimepicker();
+  $('#endTime').datetimepicker();
+
+  $("#startTime").on("dp.change", function (e) {
+      //$('#endTime').data("DateTimePicker").minDate(e.date);
+      });
+  $("#endTime").on("dp.change", function (e) {
+      //$('#startTime').data("DateTimePicker").maxDate(e.date);
+  });
+
+    function getAjaxCall(url)
+  {
+    
+    let startDate= $("#startTime").val()
+    let endDate= $("#endTime").val();  
+    if(startDate !='' && endDate !='')
+    {
+      
+      
+      $.ajax({
+        type: "POST",
+        url: url+'getUserCount',
+        data: 'startDate='+startDate+'&endDate='+endDate,
+        success: function(data)
+        {
+          let info= JSON.parse(data);
+          console.log(info.data)
+          let juniorcount = $("#juniorcount").val(info.data.teen);
+          let teencount = $("#teenCount").val(info.data.junior);
+          let adultcount = $("#adultCount").val(info.data.adult);
+          chart.data.datasets[0].data = [info.data.junior, info.data.teen, info.data.adult];
+          chart.update();
+          }
+      })
+    }
+    else
+    {
+      $("#errorMessage").show();
+    }
+  }
+
+  
+      let lastUserRecords = JSON.parse($("#usersC").val());
+      let labelV = []
+      let dataV = []
+      console.log(lastUserRecords)
+      let backgroundColor=[];
+      let colors = ["#3e95cd", "#8e5ea2","#3cba9f","#FFFF00","#FFC0CB","#6a329f","#008080","#c1d5ee","#91a8d0","#ff9738"]
+      for(let i=0;i<lastUserRecords.length;i++)
+      {
+        var currentDate = new Date(lastUserRecords[i].created);
+        var date = currentDate.getDate();
+        var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+        var year = currentDate.getFullYear();
+        var dateString = date + "-" +(month + 1) + "-" + year;
+        labelV.push(dateString)
+        dataV.push(lastUserRecords[i].countV);
+
+        const lastDigit1Str = String(i).slice(-1); // 👉️ '9'
+        const lastDigit1Num = Number(lastDigit1Str);
+        console.log(lastDigit1Num)
+        backgroundColor.push(colors[lastDigit1Num])
+
+
+      }
+      
+      let chart2 = new Chart(document.getElementById("bar-chart2"), {
+      type: 'bar',
+      data: {
+        labels: labelV,
+        datasets: [
+          {
+            label: "Users",
+            backgroundColor: backgroundColor,
+            data: dataV
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'User Acquisition'
+        },
+        scales: {
+        xAxes: [{
+            barPercentage: 0.4
+        }]
+    }
+      }
+    });
+  
+    function changeDate(url)
+    {
+      
+      let days= $("#userUnique").val()
+      //alert(days)
+        $.ajax({
+          type: "POST",
+          url: url+'getUniqueUser',
+          data: 'days='+days,
+          success: function(data)
+          {
+
+              let lastUserRecords2 = JSON.parse(data);
+              //console.log(lastUserRecords2);
+              let labelNew = []
+              let dataNew = []
+              let backgroundColor=[];
+              let colors = ["#3e95cd", "#8e5ea2","#3cba9f","#FFFF00","#FFC0CB","#6a329f","#008080","#c1d5ee","#91a8d0","#ff9738"]
+              for(let i=0;i<lastUserRecords2.data.userLicenLast.length;i++)
+              {
+                //console.log(i)
+                var currentDate = new Date(lastUserRecords2.data.userLicenLast[i].created);
+                
+                var date = currentDate.getDate();
+                var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+                var year = currentDate.getFullYear();
+
+                var dateString = date + "-" +(month + 1) + "-" + year;
+
+                labelNew.push(dateString)
+                dataNew.push(lastUserRecords2.data.userLicenLast[i].countV);
+                const lastDigit1Str = String(i).slice(-1); // 👉️ '9'
+                const lastDigit1Num = Number(lastDigit1Str);
+                console.log(lastDigit1Num)
+                backgroundColor.push(colors[lastDigit1Num])
+              }
+
+              chart2.data.labels = labelNew
+              chart2.data.datasets[0].backgroundColor = backgroundColor
+              chart2.data.datasets[0].data = dataNew
+
+              chart2.update();
+
+            }
+        })
+      
+    }
+
+
+
+
+    let lastGameRecords = JSON.parse($("#usersC").val());
+      let labelG = []
+      let dataG = []
+      let backgroundColor2=[];
+      let colors2 = ["#3e95cd", "#8e5ea2","#3cba9f","#FFFF00","#FFC0CB","#6a329f","#008080","#c1d5ee","#91a8d0","#ff9738"]
+      console.log(lastGameRecords)
+      for(let i=0;i<lastGameRecords.length;i++)
+      {
+        var currentDate = new Date(lastGameRecords[i].created);
+        
+        var date = currentDate.getDate();
+        var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+        var year = currentDate.getFullYear();
+
+        var dateString = date + "-" +(month + 1) + "-" + year;
+
+        labelG.push(dateString)
+        dataG.push(lastGameRecords[i].countV);
+        const lastDigit1Str = String(i).slice(-1); // 👉️ '9'
+        const lastDigit1Num = Number(lastDigit1Str);
+        console.log(lastDigit1Num)
+        backgroundColor2.push(colors2[lastDigit1Num])
+
+      }
+      
+      let chart3 = new Chart(document.getElementById("bar-chart3"), {
+      type: 'bar',
+      data: {
+        labels: labelG,
+        datasets: [
+          {
+            label: "Games",
+            backgroundColor: backgroundColor2,
+            data: dataG
+          }
+        ]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Games played'
+        },
+        scales: {
+        xAxes: [{
+            barPercentage: 0.4
+        }]
+    }
+      }
+    });
+  
+    function changeDate2(url)
+    {
+      
+      let days= $("#userUniqueG").val()
+      //alert(days)
+        $.ajax({
+          type: "POST",
+          url: url+'getUniqueGames',
+          data: 'days='+days,
+          success: function(data)
+          {
+
+              let lastUserRecords2 = JSON.parse(data);
+              //console.log(lastUserRecords2);
+              let labelNew = []
+              let dataNew = []
+              console.log("ssss",lastUserRecords2.data.userGames)
+              let backgroundColor3=[];
+              let colors3 = ["#3e95cd", "#8e5ea2","#3cba9f","#FFFF00","#FFC0CB","#6a329f","#008080","#c1d5ee","#91a8d0","#ff9738"]
+              for(let i=0;i<lastUserRecords2.data.userGames.length;i++)
+              {
+                //console.log(i)
+                var currentDate = new Date(lastUserRecords2.data.userGames[i].created);
+                
+                var date = currentDate.getDate();
+                var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+                var year = currentDate.getFullYear();
+
+                var dateString = date + "-" +(month + 1) + "-" + year;
+
+                labelNew.push(dateString)
+                dataNew.push(lastUserRecords2.data.userGames[i].countG);
+                const lastDigit1Str = String(i).slice(-1); // 👉️ '9'
+                const lastDigit1Num = Number(lastDigit1Str);
+                console.log(lastDigit1Num)
+                backgroundColor3.push(colors3[lastDigit1Num])
+              }
+              
+              chart3.data.labels = labelNew
+              chart3.data.datasets[0].backgroundColor = backgroundColor3
+              chart3.data.datasets[0].data = dataNew
+              chart3.update();
+
+
+            }
+        })
+      
+    }
+    
+
+    </script>
+  </body>
+
+</html>
+

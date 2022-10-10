@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <% let id =0,categoryName ="",cost=0,finalRegionData = [],desp="",
+    iconImage=0,buttonImage=0,region = [],country2=[],iconEImage='iconImage',buttonEsImage='buttonImage',images=1,isPackageD=0;
+	select1="",select2="",select3="",select4="",select5="",select6="",select7="",select8="",select9="",select10="",
+	select11="",select12="",select13="",select14="",regionType=""
+    
+    if(speficData)
+    {
+      iconEImage='';
+      buttonEsImage='';
+      id=speficData.id;
+      categoryName=speficData.category;
+      desp = speficData.description;
+      region=speficData.categoryRegion.split(',');
+      regionType = speficData.regionId
+
+      if(speficData.isPackage == 1)
+      {
+        isPackageD=1
+      }
+      
+      if(speficData.iconImage != '')
+      {
+        iconImage=1
+      }
+
+      if(speficData.type == 1)
+      {
+        images=0
+      }
+
+
+      if(speficData.buttonImage != '')
+      {
+        buttonImage=1
+      }
+
+      let category_id=0
+      cost=speficData.amount;
+      if(speficData != null)
+      {
+        
+        if(cost == 0)
+        {
+          select1="selected";
+        }
+        else if(cost == 0.99)
+        {
+          select2="selected";
+        }else if(cost == 1.99)
+        {
+          select3="selected";
+        }else if(cost == 2.99)
+        {
+          select4="selected";
+        }else if(cost == 3.99)
+        {
+          select5="selected";
+        }else if(cost == 4.99)
+        {
+          select6="selected";
+        }else if(cost == 5.99)
+        {
+          select7="selected";
+        }else if(cost == 6.99)
+        {
+          select8="selected";
+        }else if(cost == 7.99)
+        {
+          select9="selected";
+        }else if(cost == 8.99)
+        {
+          select10="selected";
+        }else if(cost == 9.99)
+        {
+          select11="selected";
+        }else if(cost == 10.99)
+        {
+          select12="selected";
+        }else if(cost == 11.99)
+        {
+          select13="selected";
+        }else if(cost == 12.99)
+        {
+          select14="selected";
+        }
+
+
+        for(let i=0;i<countries.length;i++)
+        {
+          objRegion = {id:countries[i].id,name:countries[i].name,checked:"unchecked"}
+          for(let j=0;j<countries.length;j++)
+          {
+            if(countries[i].id == region[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+          finalRegionData.push(objRegion);
+        }
+      }
+    }%>
+    
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Category</a>
+          </li>
+        </ol>
+        <div class="row">
+          
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Category List</b>
+            <a href="/addCategory" class="btn btn-info">Add Category</a>
+
+              <a href="/newCategory/4" class="btn btn-success">Create Tag</a>
+              <a href="/viewRTag/4" class="btn btn-secondary">View Tag</a>
+
+                
+            </div>
+
+            
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+		                  <th>ID</th>
+                      <th>Icon Image</th>
+                      <th>Image1</th>
+                      <th>Image2</th>
+                      <th>Image3</th>
+                      <th>Image4</th>
+                      <th>Image5</th>
+                      <th>Category</th>
+                      <th>Description</th>
+                      <th>Cost</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(categoryData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  categoryData.forEach(function(categoryData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+			                    <td><%=categoryData.id%></td>
+                          
+                          <td>
+                            <% if(categoryData.buttonImage != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.buttonImage%>"  width='40'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+                          <td>
+                            <% if(categoryData.image1 != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.image1%>"  width='40'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+                          
+                          <td>
+                            <% if(categoryData.image2 != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.image2%>"  width='40'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+                          <td>
+                            <% if(categoryData.image3 != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.image3%>"  width='40'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+                          <td>
+                            <% if(categoryData.image4 != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.image4%>"  width='40'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+                          <td>
+                            <% if(categoryData.image5 != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.image5%>"  width='30'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+
+                          <td><%=categoryData.category%></td>
+                          <td>
+                            <%=categoryData.description%>
+                          </td>
+                          <td style="width:5%">
+                            <%=categoryData.amount%>
+                          </td>
+                         
+                          <td style="width:15%">
+                            <a href="/editCategory/<%=categoryData.id%>" class='btn btn-secondary' onclick="changeButtonAble()">
+				                      Edit
+                            </a>
+                            <% if(categoryData.status == 1){%>
+                              <a href="javascript:void(0)" class='btn btn-success' data-toggle="modal" data-target="#myModal" onClick="categoryState('<%=webURL%>',0,'<%=categoryData.id%>')">Active</a>
+                            <% }else{%>  
+                              <a href="javascript:void(0)" class='btn btn-danger' data-toggle="modal" data-target="#myModal" onClick="categoryState('<%=webURL%>',1,'<%=categoryData.id%>')">InActive</a>
+                            <% } %>  
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="4">
+                            <h3><b> No Categories Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Active/Deactive Package</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Are you Sure
+              </div>
+              <div class="col-md-12" style="padding: 10px;text-align:center">
+                <div class="col-md-6" id="optionPack">
+                </div>
+              </div>  
+              <!-- Modal footer -->
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+            let countryArr = document.getElementById('country_arr').value.split(",");
+           // alert(countryArr);
+            function addCountryArray(country, e) 
+            {
+              //console.log(country)
+              if (e.checked) {
+                countryArr.push(country);
+              }
+              else {
+                removeA(countryArr, country);
+              }
+              document.getElementById('country_arr').value = countryArr;
+            }
+
+
+            function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+              what = a[--L];
+              while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+              }
+            }
+            return arr;
+          }
+
+
+          
+        function categoryState(url,type,userid)
+        {
+        
+         $("#optionPack").html("")
+         $("#optionPack").append('<tr><td><a  href='+url+'updateCategoryState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+        }
+
+
+        function goToTagUpdate(webUrl)
+        {
+          let ut = $("#uT").val()
+
+          document.getElementById("updateTag").href = webUrl+"/updateCategory/"+ut;
+       
+        }
+        </script>
+
+    </body>
+  </html>

@@ -1,0 +1,54 @@
+{
+  "name": "region_categories",
+  "plural": "region_categories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "category_id": {
+      "type": "number",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "country_id": {
+      "type": "number",
+      "required": true
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "tag_index": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "categories": {
+      "type": "belongsTo",
+      "model": "categories",
+      "foreignKey": "category_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

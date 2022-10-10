@@ -1,0 +1,2 @@
+CATEGORY,SUBCATEGORY,AGE,TIMEALLOWED,REGION,QUESTION,ANSWER1,ANSWER2,ANSWER3,ANSWER4,HINT,CORRECTANSWER,IMAGEURL,VIDEOURL,SOUNDURL,FILETYPE,questionMasterId ,status,creditBy,questionActiveStatus,questionState
+PUB QUIZ,NONE,ADULT,30,La France,At which club did Frank Lampard start his career?,Chelsea,Nottingham Forest,West Ham United,Tottenham Hotspur,(NULL),C,storage/questions/images/TXJxZ1622926074457.jpg,,,1,120385,0,,1,0

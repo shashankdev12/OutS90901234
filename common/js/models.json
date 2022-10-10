@@ -1,0 +1,4 @@
+{
+  "userModel" : "app.models.user",
+  "userInfoModel" : "app.models.user_info"
+}

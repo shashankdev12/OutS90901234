@@ -1,0 +1,55 @@
+{
+  "name": "category_age_stats",
+  "plural": "category_age_stats",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "category_id": {
+      "type": "number",
+      "required": true
+    },
+    "age_id": {
+      "type": "number",
+      "required": true
+    },
+    "questionCount": {
+      "type": "string",
+      "required": true
+    },
+    "answerCount": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "categories": {
+      "type": "belongsTo",
+      "model": "categories",
+      "foreignKey": "category_id"
+    },
+    "age_categories": {
+      "type": "belongsTo",
+      "model": "age_categories",
+      "foreignKey": "age_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

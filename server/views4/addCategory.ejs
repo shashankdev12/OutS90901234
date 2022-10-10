@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+        let finalRegionData = [],country2=[]
+        for(let i=0;i<countries.length;i++)
+        {
+          objRegion = {id:countries[i].id,name:countries[i].name,code:countries[i].code,checked:"unchecked"}
+          for(let j=0;j<countries.length;j++)
+          {
+            if(countries[i].id == region[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+          finalRegionData.push(objRegion);
+        }
+      
+  
+%>    
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Category</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label algnCenter">
+                <%= messages.notify %>
+              </label>
+            <form action="/editCategory" method="post" enctype="multipart/form-data" id="categoryData">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Add Category</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  
+                  <input type="hidden" name="id" value="0"/>
+                  <input type="hidden" name="countriesIn" id="countriesIn" value="">
+                  <div id="newRegionCategory">
+
+                  </div>
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Icon Image:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="iconImage"  class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Button Image:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="buttonImage"  class="form-control" />
+                        
+                    </div>
+                  </div>
+
+
+                  
+                  
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 1:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image1"  class="form-control" />
+                        
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 1:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image1"  class="form-control" />
+                        
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 2:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image2"  class="form-control" />
+                        
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 3:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image3"  class="form-control" />
+                        
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 4:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image4"  class="form-control" />
+                        
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 5:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="image5"  class="form-control" />
+                        
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Region:
+                        </label>
+                      </div>
+                      <div class="col-md-11 col-sm-12 col-xs-12">
+                        
+
+                        <% finalRegionData.forEach(function(country){ %>
+                          
+                          <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <label for="countryVal[]">
+                              <b style="padding:10px;"><%=country.name%></b>
+                              <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
+                                name="countryVal[]" <%=country.checked%>
+                                onclick="addCountryArray(<%=country.id%>,'<%=country.code%>',this)">
+                                
+                            </label>
+                          </div>
+                          <% }) %>
+                        
+                        <div class="col-md-12" style="text-align:center">
+                          <b id="validateRegionError" style="color:red">
+                          </b>
+                        </div>
+                        <input type="hidden" value="<%=country2%>"  id="country_arr" name="region" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Cost:</label>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-12">
+                      <select class="form-control" name="cost" id="cost">
+                        <option value=""  >Please Select Cost</option>
+                        <option value="0,0"  >Free</option>
+                            <option value="1,0.99"  >0.99</option>
+                            <option value="2,1.99"  >1.99</option>
+                            <option value="3,2.99" >2.99</option>
+                            <option value="4,3.99"  >3.99</option>
+                            <option value="5,4.99" >4.99</option>
+                            <option value="6,5.99" >5.99</option>
+                            <option value="7,6.99" >6.99</option>
+                            <option value="8,7.99" >7.99</option>
+                            <option value="9,8.99" >8.99</option>
+                            <option value="10,9.99">9.99</option>
+                            <option value="11,10.99">10.99</option>
+                            <option value="12,11.99">11.99</option>
+                            <option value="13,12.99" >12.99</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  
+                  <div class="col-md-12 col-sm-12 col-xs-12 paddingSt algnCenter">
+                    <input type="submit" class="btn btn-success" id="buttonSubmit" value="Save" />
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+          </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Active/Deactive Package</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Are you Sure
+              </div>
+              <div class="col-md-12" style="padding: 10px;text-align:center">
+                <div class="col-md-6" id="optionPack">
+                </div>
+              </div>  
+              <!-- Modal footer -->
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+            let countryArr = document.getElementById('country_arr').value.split(",");
+           
+            let countryIdD = [];
+            function addCountryArray(countryId,country, e) 
+            {
+              if(e.checked)
+              {
+                countryIdD.push(countryId)
+                $("#countriesIn").val(countryIdD)
+                let html ="";
+                html += '<div class="col-md-12 mb-3" id="newCategoryDiv_'+countryId+'">';
+                  html += '<div class="col-md-1 mb-3">';
+                    html += '<label>Category :';
+                    html += '</label>';  
+                  html += '</div>';
+                  html += '<div class="col-md-2 mb-3">';
+                    html += '<input type="text" class="form-control" id="category" placeholder="Category" name="category_'+country+'"/>'
+                  html += '</div>';
+                  html += '<div class="col-md-2 mb-3">';
+                    html += '<label>Description :';
+                    html += '</label>';  
+                  html += '</div>';
+                  html += '<div class="col-md-5 mb-3">';
+                    html += '<textarea class="form-control" id="description"  name="description_'+country+'" rows="4" cols="150"></textarea>'
+                  html += '</div>';    
+		  html += '<div class="col-md-2 mb-3">';
+                    html += '<label>Region : '+country;
+                    html += '</label>';
+         	  html += '</div>';
+
+                html += '</div>';
+                $("#newRegionCategory").append(html)
+              }
+              else
+              {
+                const index = countryIdD.indexOf(countryId);
+                if (index > -1) { // only splice array when item is found
+                  countryIdD.splice(index, 1); // 2nd parameter means remove one item only
+                }
+                $("#countriesIn").val(countryIdD)
+                $("#newCategoryDiv_"+countryId).remove()
+              }
+            }
+
+
+            function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+              what = a[--L];
+              while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+              }
+            }
+            return arr;
+          }
+
+
+          
+        function categoryState(url,type,userid)
+        {
+        
+         $("#optionPack").html("")
+         $("#optionPack").append('<tr><td><a  href='+url+'updateCategoryState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+        }
+
+
+        function goToTagUpdate(webUrl)
+        {
+          let ut = $("#uT").val()
+
+          document.getElementById("updateTag").href = webUrl+"/updateCategory/"+ut;
+       
+        }
+        </script>
+
+    </body>
+  </html>

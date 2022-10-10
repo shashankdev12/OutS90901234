@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <% let id =0,username ="",password,countryId="",countryName="",passwordDebug="",finalRegionData = [],country2=[],region=[];
+    if(userInf != null)
+    {
+      id =userInf.id;
+      username = userInf.username;
+      
+      passwordDebug = userInf.passwordEncript;
+      region=userInf.countryCode.split(',');
+      for(let i=0;i<countryInfo.length;i++)
+        {
+          objRegion = {id:countryInfo[i].id,name:countryInfo[i].name,checked:"unchecked"}
+          for(let j=0;j<region.length;j++)
+          {
+            if(countryInfo[i].id == region[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+          finalRegionData.push(objRegion);
+        }
+    }
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Region Admins</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label algnCenter">
+                <%= messages.notify %>
+              </label>
+            <form method="post" action="/setRegionAdmin" id="setRegionAdmin">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Region wise Admin </b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+				  <div class="col-md-12" style="text-align:center">
+                    <div class="col-md-3 col-xs-3 col-sm-3">
+                      <input type="hidden" name="id" value="<%=id%>"/>
+                      <input type="text" class="form-control" id="username" placeholder="Username" name="username"  value="<%=username%>" required/>
+                    </div>
+                    <div class="col-md-3 col-xs-3 col-sm-3">
+                      <input type="text" class="form-control" id="password" placeholder="Password" name="password" value="<%=passwordDebug%>" required/>
+                    </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                      <div class="row">
+                        <div class="col-md-1 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label">
+                            Region:
+                          </label>
+                        </div>
+                        <div class="col-md-11 col-sm-12 col-xs-12">
+                          <% if(!userInf){%>
+                            <% countryInfo.forEach(function(countryInfo){ %>
+                            <div class="col-md-3"  id="regionCa">
+                            
+                              <label for="countryVal[]">
+                                <b style="padding:10px;"><%=countryInfo.name%></b>
+                                <input type="checkbox" id="country" class="floatLeft" value="<%=countryInfo.id%>"
+                                onclick="addCountryArray('<%=countryInfo.id%>',this)" >
+  
+                              </label>
+                            </div>
+                            <% }) %>
+                           <% }else{ %> 
+                            
+                          <% finalRegionData.forEach(function(country){ %>
+                            <div class="col-md-3"  id="regionCa">
+                              <label for="countryVal[]">
+                                <b style="padding:10px;"><%=country.name%></b>
+                                <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
+                                  name="countryVal[]" <%=country.checked%>
+                                  onclick="addCountryArray('<%=country.id%>',this)">
+                              </label>
+                            </div>
+                            <% }) %>
+                          <% } %>  
+                          <div class="col-md-12" style="text-align:center">
+                            <input type="hidden" value="<%=country2%>"  id="country_arr" name="region" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 paddingSt algnCenter">
+                      <input type='submit' value="Save" class="btn btn-success"/>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Category List</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>username</th>
+                      <th>Region</th>
+                      <th>Created</th>
+                      <th>Modified</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <% let i=0;adminInfo.forEach(function(adminInfo)
+                          { i++%>
+                            <tr>
+                              <td><%=i%></td>
+                              <td><%=adminInfo.username%></td>
+                              <td><%=adminInfo.countryName%></td>
+                              <td><%=adminInfo.created%></td>
+                              <td><%=adminInfo.modified%></td>
+                              <td>  
+                                <a href="/regionAdmins/<%=adminInfo.id%>">Edit</a>
+                                <a href="/deleteAdmin/<%=adminInfo.id%>">Delete</a>
+                              </td>
+                            </tr>
+                      <%})%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+      <script>
+         let countryArr = document.getElementById('country_arr').value.split(",");
+		 if(countryArr[0] != '')
+        {
+          //alert(1)
+          countryArr = document.getElementById('country_arr').value.split(",");
+        }
+        else
+        {
+          //alert(2)
+          countryArr = [];
+        }
+		 
+		 
+        function countryNameValue()
+        {
+          var e = document.getElementById("country");
+          var strUser = e.options[e.selectedIndex].text;
+          $("#countryName").val(strUser);
+        }
+
+
+        function addCountryArray(country, e) {
+            console.log(country)
+          if (e.checked) {
+            countryArr.push(country);
+          }
+          else {
+            removeA(countryArr, country);
+          }
+
+          document.getElementById('country_arr').value = countryArr;
+        }
+		
+		
+		function removeA(arr) {
+          var what, a = arguments, L = a.length, ax;
+          while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+              arr.splice(ax, 1);
+            }
+          }
+          return arr;
+        }
+      </script>
+    </body>
+  </html>

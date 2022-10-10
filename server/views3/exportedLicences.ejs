@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",cost="",image="",disable = "";
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/exportedLicences/1/0/0" style="font-weight:bold;">Export Licences</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-xs-12 col-sm-12 card-header" style="float-right">
+              <div class="col-md-4 col-xs-12 col-sm-12">
+                <i class="fas fa-table"></i>
+                <b>All Licences</b>
+              </div>
+              <div class="col-md-2 col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-4 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Count :
+                  </label>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12" style="padding-top:7px;font-size:15px">
+                  <b ><%=paginator%></b>
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                  <a href="/exportedLicences/0/0/0" class="btn btn-info">
+                    <i class="fas fa-sync"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-3 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Distributors
+                  </label>
+                </div>
+                <div class="col-md-9 col-xs-12 col-sm-12">
+                  <select class="form-control form-control-sm" id="distributorFilter" onchange="filterByDistributor('<%=webURL%>')">
+                    <% if(distributor != null){ %>
+                    <option value="">Select Distributor</option>
+                    <option value="0">Select All</option>
+                      <% distributor.forEach(function(distributor){ %>
+                        <% if(distributor.id == distributor_id ){ %>
+                          <option value="<%=distributor.id %>">
+                            <%= distributor.distributor %>
+                          </option>
+                        <% }else{ %>
+                          <option value="<%=distributor.id %>" >
+                            <%= distributor.distributor %>
+                          </option>
+                        <% } %>
+                      <% }); %>
+
+                    <% }else{ %>
+                        <option value="">Select Country</option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-3 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Courtry
+                  </label>
+                </div>
+                <div class="col-md-9 col-xs-12 col-sm-12">
+                  <select class="form-control form-control-sm" id="country" onchange="filterByCountry('<%=webURL%>')" >
+                    <option value="">Select</option>
+                    <option value="0">Select All</option>
+                    <% countryData.forEach(function(countryData){ %>
+                      <% if(countryData.id ==  country_id){%>
+                      <option value="<%=countryData.id %>" selected>
+                        <%= countryData.name %> (<%= countryData.code %>)
+                      </option>
+                      <% }else{ %>
+                        <option value="<%=countryData.id %>">
+                          <%= countryData.name %> (<%= countryData.code %>)
+                        </option>
+                      <% } %>
+                    <% }); %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12 card-header">
+             <form method="post" action="/searchLincence" id="licence">
+              <div class="col-md-1 col-xs-12 col-sm-12">
+                <label>Licence Name</label>
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-12">
+                <input type="text" class="form-control" id="licenceName"/>
+              </div>
+              <div class="col-md-1 col-xs-12 col-sm-12">
+                <label>Type</label>
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-12">
+                <select class="form-control" id="statusType">
+                  <option value="1">Active</option>
+                  <option value="0">InActive</option>
+                </select>
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-12">
+                <input type="button" class="btn btn-success" value="Search" onclick="searchLincece('<%=webURL%>')"/>
+              </div>
+            </form>
+            </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>Licence</th>
+                      <th>Countries</th>
+                      <th>Distributor</th>
+                      <th>Created</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="multpleData">
+                    <% if(licenceData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  licenceData.forEach(function(licenceData){i++%>
+                        <tr >
+                          <td><%=i%></td>
+                          <td><%=licenceData.licence%></td>
+                          <td><%=licenceData.toJSON().countries.name%></td>
+                          <td><%=licenceData.distributorName%></td>
+                          <td>
+                            <%
+
+                              var dd = licenceData.created.getDate();
+                              var mm = licenceData.created.getMonth()+1;
+                              var yyyy = licenceData.created.getFullYear();
+                              if(dd<10)
+                              {
+                                  dd='0'+dd;
+                              }
+
+                              if(mm<10)
+                              {
+                                  mm='0'+mm;
+                              }
+                              %>
+                            <%=today = dd+'/'+mm+'/'+yyyy;%>
+                          </td>
+                          <td>
+                            <% if(licenceData.status == 1){%>
+                              <a href="#" class="paddingSt"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=licenceData.id%>)">
+                              Clean Licence
+                            </a>
+                               |
+                               <a href="#" class="paddingSt"  data-toggle="modal" data-target="#myModal2" onclick="stopLicence('<%=webURL%>',<%=licenceData.id%>)">
+                               Inactivate Licence
+                             </a>
+                            <% }else{ %>
+                              <a href="#" class="paddingSt"  data-toggle="modal" data-target="#myModal3" onclick="startLicence('<%=webURL%>',<%=licenceData.id%>)">
+                              Activate Licence
+                            </a>
+                            <% } %>
+
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="5">
+                            <h3><b> No Licence Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+                <%
+                let j=1;
+
+                if (paginator > 0) { %>
+                <ul class="pagination text-center" id="pagiHideShow">
+                    <% var k = (Number(page) > 5 ? Number(page) - 4 : 1) %>
+                  <% if (page == 0) { %>
+                      <li class="disabled"><a>First</a></li>
+                  <% } else { %>
+                      <li><a href="/exportedLicences/<%=country_id%>/<%=distributor_id%>/0">First</a></li>
+                  <% } %>
+
+                  <% if (k !== 1) { %>
+                      <li class="disabled"><a>...</a></li>
+                  <% } %>
+                  <% for (; k <= (Number(page)+20) && k < Math.round(paginator/15); k++) {
+                      %>
+                        <% if (k == page) { %>
+                            <li class="active"><a><%= k %></a></li>
+                        <% } else { %>
+                            <li><a href="/exportedLicences/<%=country_id%>/<%=distributor_id%>/<%=parseInt(k)%>/?filter[skip]=<%=k*15 %>"><%= k %></a></li>
+                        <% } %>
+
+                        <% if (k == Number(page) + 20 && k < paginator) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+
+                  <% } %>
+                  <% if (j == paginator) { %>
+                    <li class="disabled"><a>Last</a></li>
+                  <% } else { %>
+                    <li>
+                      <a href="/exportedLicences/<%=country_id%>/<%=distributor_id%>/<%=Math.round(paginator/15)%>/?filter[skip]=<%=k*(15) %>">
+                        Last
+                      </a>
+                    </li>
+                  <% } %>
+                </ul>
+                <% } %>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Alert</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body algnCenter" >
+                <b style="font-size:16px;">Are you Sure, you want to clean this users from this licence.</b>
+                <br>
+                <br>
+                <div>
+                  <table class="table" id="optionRemove">
+
+                  </table>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="myModal2">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Alert</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body algnCenter" >
+                <b style="font-size:16px;">Are you Sure, you want to stop this licence.</b>
+                <br>
+                <br>
+                <div>
+                  <table class="table" id="stopOptionRemove">
+
+                  </table>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal" id="myModal3">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Alert</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body algnCenter" >
+                <b style="font-size:16px;">Are you Sure, you want to start this licence.</b>
+                <br>
+                <br>
+                <div>
+                  <table class="table" id="startOptionRemove">
+
+                  </table>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+    <script>
+    function filterByCountry(web)
+    {
+      let webURL =  web;
+      let country = $("#country").val();
+      //alert(sub_category_id);
+      window.location.href=webURL+'exportedLicences/'+country+'/0/0'
+    }
+
+    function filterByDistributor(web)
+    {
+      let webURL =  web;
+      let country = $("#country").val();
+      let distributor = $("#distributorFilter").val();
+      //alert(sub_category_id);
+      window.location.href=webURL+'exportedLicences/'+country+'/'+distributor+'/0'
+    }
+
+    /* ===================  Seach licence ===============*/
+
+     function searchLincece(webURL)
+     {
+       var licenceName = $("#licenceName").val();
+       var statusType = $("#statusType").val();
+       $.ajax({
+         type: "POST",
+         url: webURL+'searchLicence',
+         data: 'licenceName='+licenceName+'&statusType='+statusType,
+         success: function(data)
+         {
+            $("#multpleData").html("");
+            let html,i=0;
+           $.each(JSON.parse(data), function(key,value)
+           {
+             i++;
+             html += '<tr>';
+             html += '<td>'+i+'</td>';
+             html += '<td><b>'+value.licence+'</b></td>';
+             html += '<td><b>'+value.countryCode+'</b></td>';
+             html += '<td><b>'+value.distributorName+'</b></td>';
+             html += '<td><b>'+value.created+'</b></td>';
+             if(value.status == 1)
+             {
+               html += '<td><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" onclick="deleteQF(`'+webURL+'`,'+value.id+')">Clean Licence</a>';
+               html += '<a href="javascript:void(0)" style="margin-left:10px;" data-toggle="modal" data-target="#myModal2" onclick="stopLicence(`'+webURL+'`,'+value.id+')">Inactivate Licence</a>';
+             }
+             else
+             {
+               html += '<td><a href="javascript:void(0)" style="margin-left:10px;"  data-toggle="modal" data-target="#myModal3" onclick="startLicence(`'+webURL+'`,'+value.id+')">Activate Licence</a></td>';
+             }
+             html += '</td>';
+             html += '<tr>';
+           })
+
+           $("#multpleData").append(html);
+           $("#pagiHideShow").hide();
+         }
+         })
+     }
+
+     /* clean users*/
+
+     function deleteQF(url,id)
+     {
+       $("#optionRemove").html("");
+       $("#optionRemove").append('<tr><td><a  href='+url+'cleanLicence/'+id+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+     }
+
+
+     function test()
+     {
+       alert(1)
+     }
+
+     /* stop licence */
+
+     function stopLicence(url,id)
+     {
+       $("#stopOptionRemove").html("");
+       $("#stopOptionRemove").append('<tr><td><a  href='+url+'stopLicence/'+id+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+     }
+
+     /* start licence */
+
+     function startLicence(url,id)
+     {
+       $("#startOptionRemove").html("");
+       $("#startOptionRemove").append('<tr><td><a  href='+url+'startLicence/'+id+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+     }
+
+
+
+    </script>
+  </html>

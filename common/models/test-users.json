@@ -1,0 +1,76 @@
+{
+  "name": "test_users",
+  "plural": "test_users",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "deviceToken": {
+      "type": "string",
+      "required": true
+    },
+    "genratedUserName": {
+      "type": "string"
+    },
+    "PubQuizQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "PubQuizRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "BKSQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "BKSRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "QTQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "QTRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "SNMQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "SNMRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "TVBQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "TVBRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "BKNQuestionAsked": {
+      "type": "string",
+      "default": "0"
+    },
+    "BKNRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,139 @@
+{
+  "name": "questions_NL",
+  "plural": "questions_NL",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "category_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "sub_category_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "age_id": {
+      "type": "string",
+      "required": true
+    },
+    "time_Allowed": {
+      "type": "number",
+      "index": true
+    },
+    "region": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string"
+    },
+    "answer1": {
+      "type": "string"
+    },
+    "answer2": {
+      "type": "string"
+    },
+    "answer3": {
+      "type": "string"
+    },
+    "answer4": {
+      "type": "string"
+    },
+    "hint": {
+      "type": "string"
+    },
+    "correct_Answer": {
+      "type": "string"
+    },
+    "image_URL": {
+      "type": "string"
+    },
+    "video_URL": {
+      "type": "string"
+    },
+    "sound_URL": {
+      "type": "string"
+    },
+    "fileType": {
+      "type": "number"
+    },
+    "requires_Sound": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "pack_ID": {
+      "type": "string"
+    },
+    "proofRead": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "questionMasterId": {
+      "type": "number",
+      "index": true
+    },
+    "status": {
+      "type": "number",
+      "index": true,
+      "default": 0
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "creditBy": {
+      "type": "string"
+    },
+    "questionActiveStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "questionState": {
+      "type": "number",
+      "default": 1
+    },
+    "priority": {
+      "type": "number",
+      "default": 2
+    },
+    "SupportVideoURL": {
+      "type": "string"
+    },
+    "AnswerOrder": {
+      "type": "string"
+    },
+    "countryCreated": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "categories": {
+      "type": "belongsTo",
+      "model": "categories",
+      "foreignKey": "category_id"
+    },
+    "sub_categories": {
+      "type": "belongsTo",
+      "model": "sub_categories",
+      "foreignKey": "sub_category_id"
+    },
+    "question_packages": {
+      "type": "belongsTo",
+      "model": "question_packages",
+      "foreignKey": "pack_ID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

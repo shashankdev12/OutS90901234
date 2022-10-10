@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",code="";
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/country/0" style="font-weight:bold;">Users</a>
+          </li>
+        </ol>
+          <div class="form-group">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Filter</b>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;margin-bottom:10px;">
+              <div class="row" >
+                  <!-- <div class="col-md-1 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label"> First Name:</label>
+                    <input type="text" class="form-control" placeholder="firstName" name="userName" id="userName" />
+
+                  </div> -->
+
+                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                    <div class="row mb-3 align-items-center">
+                      <div class="col-12 col-md-4">
+                        <label for="city" class="col-form-label"> First Name:</label>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <input type="text" class="form-control" placeholder="First Name" name="userName" id="userName" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                    <div class="row mb-3 align-items-center">
+                      <div class="col-12 col-md-4">
+                        <label for="city" class="col-form-label"> Last Name:</label>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <input type="text" class="form-control" placeholder="Last Name" name="lastName" id="lastName" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-sm-flex d-inline-lg-flex d-inline-xl-flex">
+                    <div class="row mb-3 align-items-center">
+                      <div class="col-12 col-md-4">
+                        <label for="city" class="col-form-label"> Email Id:</label>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <input type="text" class="form-control" placeholder="Email Id" name="email" id="emailAddress" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                    <div class="row mb-3 align-items-center">
+                      <div class="col-12 col-md-4">
+                        <label for="city" class="col-form-label"> Licence Id:</label>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <input type="text" class="form-control" placeholder="Licence Id" name="licence" id="licence" />
+                      </div>
+                    </div>
+                  </div>
+
+
+          
+                  <!-- <div class="col-md-1 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >Email Id:</label>
+                  </div>
+                  <div class="col-md-2 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control" placeholder="Email Id" name="email" id="emailAddress" />
+                  </div>
+                  <div class="col-md-1 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >:</label>
+                  </div>
+                  <div class="col-md-2 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control" placeholder="Licence Id" name="licence" id="licence" />
+                  </div> -->
+                  <div class="mt-3">
+                  <div class="col-12 col-md-3 text-left" style="text-align:center;">
+                    <a href="#" class="btn btn-success" id="search" onclick="searchUserList('<%=webURL%>')">Search</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <div class="row align-items-center">
+              <div class="col-sm-12 col-md-6">
+              <!-- <a href="/users/0/1">Asc</a>
+              <a href="/users/0/0">desc</a> -->
+              <i class="fas fa-table"></i>
+              <b>Users List</b>
+            </div>
+              <div class="col-sm-12 col-md-6 text-sm-left text-md-right">
+              <div class="btn-group my-3 my-lg-0 mr-3">
+                <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Select Sorting 
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/users/0/1/1">Recently Game Played</a></li>
+                    <li><a href="/users/0/1/0">Most Game Played</a></li>
+                   
+                </ul>
+              </div>
+        
+              <!-- <div class="btn-group btn-group-sm" role="group" id="myTab">
+                <% if(orderby == 0){ %>
+                  <a type="button" class="btn btn-success asc active " id="asc" data-toggle="tab" onclick="window.location.href='/users/0/1'">ASC</a>
+                <%}else{%>
+                  <a type="button" class="btn btn-success asc " id="asc" data-toggle="tab" onclick="window.location.href='/users/0/1'">ASC</a>
+                <% }%>  
+                <% if(orderby == 1){%>  
+                  <a type="button" class="btn btn-success desc active" id="desc" data-toggle="tab" onclick="window.location.href='/users/0/0'">DESC</a>
+                <%}else{%>  
+                  <a type="button" class="btn btn-success desc" id="desc" data-toggle="tab" onclick="window.location.href='/users/0/0'">DESC</a>
+                 <%}%> 
+              </div> -->
+              <div class="btn-group btn-group-sm card p-2 mx-2" role="group" id="myTab" style="border-color: #ccc;">
+                <% if(orderby == 1){ %>
+                  <a href="/users/0/0/<%=type%>">
+                    <i class=' fa fa-sort-up' style="font-size:20px;"></i>
+                  </a>
+                <% } %>
+
+                <% if(orderby == 0){ %>
+                  <a href="/users/0/1/<%=type%>">
+                    <i class='fa fa-sort-down' style="font-size:20px;"></i>
+                  </a>
+                <% } %>
+
+                  <!-- <a type="button" class="btn btn-success asc <% if(orderby ==1){ %> active <% } %>" id="asc" data-toggle="tab" onclick="window.location.href='/users/0/1'">ASC</a>
+               
+                  <a type="button" class="btn btn-success desc <% if(orderby ==0){ %> active <% } %>" id="desc" data-toggle="tab" onclick="window.location.href='/users/0/0'">DESC</a> -->
+     
+              </div>
+              
+            </div>
+          </div>
+
+            </div>
+
+            
+           
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Licence</th>
+                      <th>Country Code</th>
+                      <!-- <th>Created</th> -->
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userArray">
+                    <% if(userData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  userData.forEach(function(userData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=userData.firstName%></td>
+                          <td><%=userData.lastName%></td>
+                          <td><%=userData.email%></td>
+                          <td>
+                              <% if(userData.licences){ %>
+                                <%=userData.licence%>
+                              <% } %>
+                          </td>
+                          <td><%=userData.countryCode%></td>
+                          <!-- <td><%=userData.created.toLocaleString('en-us')%></td> -->
+                          <td>
+                            <a href="/userDetails/<%=userData.id%>">
+                              <i class="fa fa-eye"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="8">
+                            <h3><b> No User created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+                <span id='pagination'>
+                  <%
+                  let j=1;
+
+                  if (paginator > 0) { %>
+                  <ul class="pagination text-center">
+                      <% var k = (Number(page) > 5 ? Number(page) - 4 : 1) %>
+
+                      <% if (page == 0) { %>
+                          <li class="disabled"><a>First</a></li>
+                      <% } else { %>
+                          <li><a href="/users/0">First</a></li>
+                      <% } %>
+
+
+                    <% if (k !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                    <% for (; k <= (Number(page)+10) && k < Math.round(paginator/10); k++) {
+                        %>
+                          <% if (k == page) { %>
+                              <li class="active"><a><%= k %></a></li>
+                          <% } else { %>
+                              <li><a href="/users/<%=parseInt(k)%>/<%=orderby%>/<%=type%>?filter[skip]=<%=k*10 %>"><%= k %></a></li>
+                          <% } %>
+
+                          <% if (k == Number(page) + 10 && k < paginator) { %>
+                              <li class="disabled"><a>...</a></li>
+                          <% } %>
+
+                    <% } %>
+                    <% if (j == paginator) { %>
+                      <li class="disabled"><a>Last</a></li>
+                    <% } else { %>
+                      <li>
+                        <a href="/users/<%=Math.round(paginator/10)%>/<%=orderby%>/<%=type%>/?filter[skip]=<%=k*(10) %>">
+                          Last
+                        </a>
+                      </li>
+                    <% } %>
+                  </ul>
+                  <% } %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+          function searchUserList(url)
+          {
+            let userName = $("#userName").val();
+            let licence = $("#licence").val();
+            let emailId = $("#emailAddress").val();
+            let lastName = $("#lastName").val();
+
+            //console.log("emailId==sss======>",emailId);
+
+            if(userName == '' && licence == '' && emailId == '' &&  lastName == '')
+            {
+              alert("please enter")
+            }
+            else
+            {
+              $.ajax({
+                type: "POST",
+                url: url+'getUserListSearch',
+                data: 'userName='+userName+'&licence='+licence+'&email='+emailId+'&lastName='+lastName,
+                success: function(data)
+                {
+                  $("#userArray").html("");
+                  let html,i=0;
+                  $.each(JSON.parse(data), function(key,value)
+                  {
+                    let cCode ='<'+value.countryCode.type+' '+value.countryCode.data+'>';
+                    let cccode = cCode.toString('utf8')
+                    
+                    i++;
+                    html += '<tr>';
+                    html += '<td>'+i+'</td>';
+                    html += '<td>'+value.firstName+'</td>';
+                    html += '<td>'+value.lastName+'</td>';
+                    html += '<td>'+value.email+'</td>';
+                    html += '<td>'+value.licenceName+'</td>';
+                    html += '<td>'+value.countryCode.toString()+'</td>';
+                    html += '<td>'+value.created.toLocaleString('en-us')+'</td>';
+                    html += '<td><a href="/userDetails/'+value.id+'">';
+                    html += '<i class="fa fa-eye"></i>';
+                    html += '</a></td>';
+
+                    html += '</tr>';
+                  })
+                  $("#userArray").append(html);
+                }
+              })
+            }
+          }
+         
+        </script>
+    
+    </body>
+  </html>

@@ -1,0 +1,61 @@
+{
+  "name": "question_packages",
+  "plural": "question_packages",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "required": true
+    },
+    "packageDescription": {
+      "type": "string"
+    },
+    "packageLogo": {
+      "type": "string"
+    },
+    "packageSubcategory": {
+      "type": "string"
+    },
+    "costIndex": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "string"
+    },
+    "countries": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "string"
+    },
+    "age": {
+      "type": "string"
+    },
+    "corePack": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "questions": {
+      "type": "hasMany",
+      "model": "questions",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

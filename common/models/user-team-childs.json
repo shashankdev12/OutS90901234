@@ -1,0 +1,48 @@
+{
+  "name": "user_team_childs",
+  "plural": "user_team_childs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_team_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "user_child_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user_teams": {
+      "type": "belongsTo",
+      "model": "user_teams",
+      "foreignKey": "user_team_id"
+    },
+    "user_childs": {
+      "type": "belongsTo",
+      "model": "user_childs",
+      "foreignKey": "user_child_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

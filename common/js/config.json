@@ -1,0 +1,4 @@
+{
+  "profile_storage" : "../client/storage/profile/child/",
+  "get_profile_storage" : "storage/profile/child/"
+}

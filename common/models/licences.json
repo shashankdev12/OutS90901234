@@ -1,0 +1,67 @@
+{
+  "name": "licences",
+  "plural": "licences",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "licence": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "country_id": {
+      "type": "number"
+    },
+    "distributor_id": {
+      "type": "number"
+    },
+    "distributorName": {
+      "type": "string"
+    },
+    "count": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "hasMany",
+      "model": "user",
+      "foreignKey": "licence_id"
+    },
+    "distributors": {
+      "type": "belongsTo",
+      "model": "distributors",
+      "foreignKey": "id"
+    },
+    "countries": {
+      "type": "belongsTo",
+      "model": "countries",
+      "foreignKey": "country_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

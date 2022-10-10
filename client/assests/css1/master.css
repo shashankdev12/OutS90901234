@@ -1,0 +1,644 @@
+
+
+    .heading {
+        color: #b5a18f;
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-family: Arial, Verdana, Tahoma;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .loginWrap input, .loginWrap input:focus {
+        border: 1px solid #999999;
+        color: #333;
+        font-family: Arial, Verdana, Tahoma;
+        font-size: 14px;
+        font-weight: 400;
+        width: 69%;
+        padding: 7px 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        outline: 0px;
+    }
+    .loginWrap .fieldWrap {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        position: relative;
+    }
+    .loginWrap 
+    .resetPassword .error{color: red;width:98%;text-align: center;margin-top: -20px;}
+    .responseerror{color: red; width:100%;text-align: center;margin-top:20px !important;}
+    /* .gamesetting .error{color: red;width:98%;text-align: center;margin-top: -20px;}
+
+    .gamesetting .fieldWrap label {
+        width: 40%;
+    }
+    .gamesetting .fieldWrap input, .gamesetting .fieldWrap input:focus {
+        width: 55%;
+    } */
+
+    .loginWrap .fieldWrap label {
+        width: 25%;
+        color: #676c72;
+        font-family: Arial, Verdana, Tahoma;
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0px;
+    }
+    .loginWrap {
+        background: #2b3036 ;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 445px;
+        padding: 10px 20px 26px;
+        border-radius: 5px;
+    }
+    .loginWrap .loginBtn,.loginWrap .loginBtn:focus {
+        background: #3D4755;
+        border: medium none;
+        color: #fff;
+        border-radius: 5px;
+        font-family: Arial, Verdana, Tahoma;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 10px 10px 8px;
+        cursor: pointer;
+        width: 90px;
+        margin: auto;
+        margin-top: 25px;
+    }
+    table thead  th {
+        background: #2B3036;
+        color: #676c72;
+        padding: 13px 15px;
+        font-family: Arial, Verdana, Tahoma;
+        font-size: 16px;
+        text-align: left;
+        vertical-align: top;
+    }
+    
+     table td {
+        padding: 13px 15px;
+        font-family: Arial, Verdana, Tahoma;
+        font-size: 16px;
+        color: #333;
+        text-align: left;
+        vertical-align: top;
+        background: #fff;
+    }
+    table .online {
+        color: #ec6b33;
+    }
+    table tr {
+        border-bottom: 1px solid #ccc
+    }
+    table tr:last-child() {
+        border-bottom: 0px;
+    }
+    table {
+        border: 1px solid #676c72;
+        margin: auto;
+    }
+    .s-no {
+        width: 12%;
+    }
+    .status {
+        width: 16%
+    }
+    .userName, .email, .address {
+        width: 28%;
+    }
+    .Pay a {
+        text-decoration: none;
+        background: #FF5E4D;
+        padding: 5px 5px;
+        display: block;
+        text-align: center;
+        font-family: Arial, Verdana, Tahoma;
+        font-size: 14px;
+        width: 79px;
+        text-transform: uppercase;
+        font-weight: 700;
+        border-radius: 5px;
+        color: #fff!important;
+        margin: auto;
+    }
+    table {
+        max-width: 1040px;
+    }
+    .itemMiddleWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .mui-appbar {
+        background-color: #2B3036 !important;
+    }
+    .paymentWrap table .userName, .paymentWrap table .email {
+        width: 27%
+    }
+    .paymentWrap .s-no {
+        width: 12%
+    }
+    .paymentWrap table .ammount {
+        width: 14%;
+    }
+    .paymentWrap table .Paystatus {
+        width: 20%
+    }
+    .tableWrap {
+        min-height:500px;
+        max-width: 100%;
+    }
+    .resetPassword .fieldWrap label {
+        width: 35%;
+    }
+    .resetPassword .fieldWrap input, .resetPassword .fieldWrap input:focus {
+        width: 55%;
+    }
+    .resetPassword .fieldWrap textarea, .resetPassword .fieldWrap textarea:focus {
+        margin-bottom: 20px;
+        width: 60%;
+    }
+     .resetPassword .fieldWrap select, .resetPassword .fieldWrap select:focus {
+        padding: 7px 10px;
+        margin-bottom: 20px;
+        width: 60%;
+    }
+    #sidedrawer ul li a {
+        color: #333;
+    }
+    .active{
+        background-color: #ccced1;
+    }
+    .Pay a:hover {
+        text-decoration: none;
+    }
+    .logoutBtn {
+        background: #3d4755;
+        border: medium none;
+        border-radius: 5px;
+        color: #fff;
+        float: right;
+        font-weight: 700;
+        margin-top: 16px;
+        padding: 8px 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    body.outerScreen{
+        background-color: #515761;
+    }
+    .text-center{text-align: center;}
+    .loginbtnWrap{position: relative;}
+    .loginbtnWrap .error{bottom: -20px;}
+    .loginWrap.resetPassword{margin-top: 60px;}
+    .loginWrap.resetPassword .error{
+        left: 40%;
+    }
+
+   .loginWrap .confirmpass{
+        top:65%;
+   }
+
+    @media (max-width: 767px) {
+        table th, table td {
+            padding: 7px 5px;
+            font-size: 14px;
+        }
+        .Pay a {
+            width: 50px;
+            font-size: 12px;
+        }
+        .heading {
+            font-size: 18px;
+        }
+        .loginWrap {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+    }
+    @media (max-width: 450px) {
+        .loginWrap .fieldWrap {
+            flex-wrap: wrap;
+        }
+        .loginWrap .fieldWrap label {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .loginWrap input, .loginWrap input:focus {
+            width: 100%;
+        }
+        .loginWrap .loginBtn {
+            margin-top: 0px;
+        }
+        .heading {
+            margin-bottom: 20px;
+        }
+        .logoutBtn {
+            margin-top: 13px;
+            font-size: 12px;
+        }
+        .resetPassword .fieldWrap input, .resetPassword .fieldWrap input:focus {
+            width: 100%;
+        }
+        table{
+            width: 500px;
+        }
+        .error{left:0;}
+        .loginWrap.resetPassword{margin-top: 20px;}
+    }
+
+    .resetsubmitdiv{
+        width:100%;position:relative;
+    }
+    .reseterrordiv{
+        left:0;right:0;margin:auto
+    }
+    .resetpassword form{
+        width:100%;
+    }
+    .loginpageheight{
+        height:100%;
+    }
+
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+.form {
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.formBlock {
+    float: left;
+    width: 300px;
+}
+.dateformBlock {
+    float: left;
+    width: 300px;
+    /*margin: 0 10px;*/
+}
+.dateformBlock .searchdatePicker{
+    width: 175px;
+    float: left;
+    padding: 5px 0;
+}
+.dateformBlock label {
+    width: 100px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    padding: 10px
+}
+
+.formBlock label {
+    width: 100px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    float: left;
+    padding-top:6px;
+    padding-right: 10px;
+    padding-left: 10px
+}
+
+
+.formBlock input {
+    width:160px;
+    border: 0px;
+    padding: 5px 10px;
+    height: 25px;
+    border-radius: 3px;
+    float: left;
+}
+
+.formBlock select {
+    width:180px;
+    border: 0px;
+    padding: 5px 10px;
+    height: 35px;
+    border-radius: 3px;
+    float: left;
+}
+
+.ceterText {
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.memceterText {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding:2px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.uploadceterText {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding:15px;
+    font-weight: bold;
+    color: #fff;
+}
+.orText {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding-top:30px;
+    font-weight: bold;
+    color: #fff;
+}
+.mydp .selectiongroup{
+
+    width:70% !important;
+}
+.uploadBtn {
+        background: #3d4755;
+        border: medium none;
+        border-radius: 5px;
+        color: #fff;
+        float: right;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .btnBlock {
+        text-align: center;
+        padding: 15px 0;
+        float: left;
+        width: 100%;
+    }
+
+    .memberformBlock {
+        text-align: center;
+        padding: 15px 0;
+        float: left;
+        width: 100%;
+    }
+
+    .memberformBlock label {
+        width: 100px;
+        font-size: 15px;
+        font-weight: bold;
+        color: #fff;
+        padding-top:6px;
+        padding-right: 10px;
+        padding-left: 10px
+    }
+
+
+    .memberformBlock input , select{
+        width:160px;
+        border: 0px;
+        padding: 5px 10px;
+        height: 25px;
+        border-radius: 3px;
+    }
+
+
+.btnBlock button {
+    padding: 5px 10px;
+    /* height: 20px; */
+    border-radius: 3px;
+    background: #2b3036;
+    border: 0px;
+    padding:10px 0;
+    width: 120px;
+    color: #fff;
+    cursor: pointer
+}
+
+.addCaption {
+    background: #2b3036;
+    width: 600px;
+    margin:  0 auto;
+    padding: 20px;
+    padding-right:0px;
+}
+
+.col50 {
+    float: left;
+     width: calc(50% - 20px);
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+
+.addCaption label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.addCaption input , .addCaption select , .addCaption textarea {
+    border: 0px;
+    padding: 5px 10px;
+    height: 25px;
+    border-radius: 3px;
+    width: calc(100% - 20px);
+}
+
+.addCaption select {
+    height: 35px;
+    width: 100%;
+}
+
+.btnsubmitBlock {
+    width: 100%;
+    float: left;
+    text-align: center
+}
+
+.btnsubmitBlock button {
+    float: none
+}
+
+
+.addCaption textarea {
+    height: 90px;
+    border-radius: 5px;
+    resize: none
+}
+
+.addCaption input#custom-input{
+  height: 100%;
+}
+
+.show{
+    display:block;
+}
+
+.hide{
+    display:none;
+}
+
+.error{color: red; width:80%;text-align: center;}
+.listvalidateerror{color: red;font-weight: bold; width:100%;text-align: center;margin-bottom: 10px;}
+.formfielderror{color: red; width:50%;text-align: center;}
+.green{color:green;}
+.hand{cursor: pointer;}
+
+.hand:hover { 
+    color: blue;
+}
+
+@media (max-width: 767px) {
+    
+    .form {
+        width: 100%;
+    }
+
+    .formBlock {
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .formBlock label {
+        width:30%;
+    }
+
+    .formBlock input {
+        width: 60%;
+    }
+
+    .formBlock select {
+        width: 100%;
+    }
+
+    .ceterText {
+        padding: 5px 0;
+        margin-bottom: 10px;
+    }
+
+    .addCaption {
+        width: 100%
+    }
+}
+
+@media (max-width: 630px) {
+  .dateformBlock{
+    float: none;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 480px) {
+    .formBlock label {
+        width: 100%;
+        padding-top: 0px;
+        padding-left: 0px;
+        margin-bottom: 12px;
+    }
+
+    .formBlock input {
+        width: calc(100% - 10px);
+        padding: 5px 0px;
+        padding-left: 10px;
+    }
+}
+
+    
+  .result {
+      margin-top: 30px;
+      border: 1px solid rgba(125,125,125,0.6);
+      display: inline-block;
+      padding: 1px;
+  }
+
+  .result.rounded > img {
+      border-radius: 100px;
+  }
+
+  .pull-left {
+      min-width: 400px;
+      float: left;
+      margin: 10px;
+      padding: 10px;
+      background-color: rgba(0,0,0,0.05);
+  }
+  
+  .file-upload {
+/*          height: 25px;*/
+    width: 100%;
+    position: relative;
+  /*  border-radius: 3px;*/
+    display: flex;
+    float: right;
+    
+    /*border: 1px solid #FFF;*/
+    overflow: hidden;
+    background-size: 100% 200%;
+    color: #FFF;
+    font-size: 10px;
+  }
+  
+  .text {
+    font-size: 14px;
+  }
+  
+  input[type='file'] {
+    height: 25px;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+.previewclose{
+  float:right;
+  padding-right:10px;
+  cursor: pointer;
+}
+.imagecropperouterdiv{
+    
+}
+/***************Member Profile Page****************/
+.usercol50 {
+    float: left;
+    width: calc(50% - 20px);
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.usercol50 label{
+    font-size:16px;
+    font-weight: bold;
+}
+
+.usercol50 .userprofile {
+    color:#ec6b33;
+}

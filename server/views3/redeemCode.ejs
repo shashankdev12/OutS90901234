@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/uploadQuestions" style="font-weight:bold;">Upload Redeem code via csv</a>
+            </li>
+          </ol>
+          <% let messages = getMessages()%>
+          <div class="row">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center">
+              <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first-name" style="color:green">
+                  <%= messages.notify %>
+              </label>
+            </div>
+            
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <form  action="/addUploadRedeemCode" method="post" enctype="multipart/form-data" id="csvForm">
+                <div class="form-group row" style="margin-top:50px;padding:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">File</label>
+                      <div class="col-md-10 col-xs-12 col-sm-12">
+                        <input type="file" class="form-control" id="xls"
+                         name="xls" onchange="validateCSV()" autocomplete="off"  required>
+                         <p id="errorCSV" style="color:red"></p>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-xs-12 col-sm-12" >
+                      <ul id="uploadedCSV">
+                      </ul>
+                    </div>
+                    <div clas="col-md-4 col-xs-12 col-sm-12">
+                      <input type="submit"  id="submitCSV" class="btn  btn-success">
+                      <!-- <input type="submit" class="btn btn-success" id="submitBB"/> -->
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+            <!-- Upload Multiple file -->
+            
+          </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer.ejs %>
+        </footer>
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <% include ../views/elements/bootom %>
+    <script>
+    function validateCSV() {
+     var uploadCSV = document.getElementById('xls');
+     let wrongeFile = 0;
+     $("#uploadedCSV").html("");
+     for (var i = 0; i < uploadCSV.files.length; i++) {
+        var f = uploadCSV.files[i];
+
+        if (!endsWith(f.name, 'csv')) {
+            wrongeFile++;
+            $("#errorCSV").html("Only CSV File is Allowed");
+            $("#submitCSV").attr("disabled", true);
+            $("#uploadedCSV").append("<li>"+f.name+" <i style='color:red' class='fa fa-times'></i></li>");
+        }
+        else
+        {
+          $("#uploadedCSV").append("<li>"+f.name+" <i style='color:green' class='fa fa-check'></i></li>");
+        }
+     }
+     if(wrongeFile == 0 )
+     {
+       $("#errorCSV").html("");
+       $("#submitCSV").attr("disabled", false);
+     }
+ }
+    /* upload image*/
+
+
+ function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+ }
+
+
+
+    </script>
+  </body>
+</html>

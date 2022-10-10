@@ -1,0 +1,36 @@
+{
+  "db": {
+    "host": "",
+    "port": 3306,
+    "url": "",
+    "database": "liveStage",
+    "password": "",
+    "name": "db",
+    "user": "root",
+    "connector": "mysql"
+  },
+  "email": {
+    "name": "email",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "SMTP",
+        "host": "mail.authsmtp.com",
+        "secure": false,
+        "port": 587,
+        "ignoreTLS": false,
+        "auth": {
+          "user": "ac67167",
+          "pass": "ttqcqhm9mvvddw"
+        }
+      }
+    ]
+  },
+  "amazons3": {
+    "name": "amazons3",
+    "connector": "loopback-component-storage",
+    "provider": "amazon",
+    "key": "LgSbih91cpzR99k+zAqdAGwTOi/YOCBjfSqZqsfc",
+    "keyId": "AKIAJCUKXXOB532MLL3Q"
+  }
+}

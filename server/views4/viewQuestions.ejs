@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head2 %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>f
+    <%
+    let id ="";
+    let name ="",code="",category_id=0;
+    let displayVal =""
+    if(fileType_id != 3)
+    {
+      displayVal="style=display:none"
+    }
+    %>
+    <style>
+      .buttonload 
+      {
+        background-color: #4CAF50; /* Green background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 24px; /* Some padding */
+        font-size: 16px; /* Set a font-size */
+      }
+
+      /* Add a right margin to each icon */
+      .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+      }
+      
+
+      .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+      }
+      .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+input.largerCheckbox {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            top:0;
+            right:0;
+            padding-left: 10px;
+        }
+
+
+
+.wrapper{
+  
+  overflow:hidden;
+}
+
+.frame{
+  height:100%;
+  width:100%;
+  background-position:center;
+  background-size:cover;
+  
+}
+.frame{
+   -webkit-animation: zoomeffect 20s infinite;
+   -moz-animation: zoomeffect 20s infinite;
+   animation: zoomeffect 20s infinite;
+}
+@-webkit-keyframes zoomeffect{
+		0%{
+			background-position:center;
+		  transform:scale(3,3);
+		}
+		50%{
+			background-position:center;
+		  transform:scale(2,2);
+		}
+		100%{
+			background-position:center;
+		  transform:scale(1,1);
+		}
+}
+@keyframes zoomeffect{
+		0%{
+			background-position:center;
+		  transform:scale(3,3);
+		}
+		50%{
+			background-position:center;
+		  transform:scale(2,2);
+		}
+		100%{
+			background-position:center;
+		  transform:scale(1,1);
+		}
+}
+    </style>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb" style="margin-bottom: 0px;">
+          <li class="breadcrumb-item">
+            <a href="/viewQuestions/0/0/0/0/0/0/0/0/0/0/0/0" style="font-weight:bold;">
+              <% if(type == 0){%>
+                Normal Questions
+              <% }else if(type == 1){ %>
+                Final Questions
+              <% }else{ %>   
+                Free Questions
+               <% }%> 
+            </a>
+          </li>
+        </ol>
+        <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <form method="post" action="/filterQuestions" id="package">
+          <div class="form-group">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Filter</b>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+              <div class="row" >
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >Category:</label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                    <select class="form-control form-control-sm" id="category" name="category" onchange="getCategory('<%=webURL%>')">
+                      <option value="0">Select Category</option>
+                      <% category.forEach(function(category)
+                      { %>
+                        <% if(category.id == category_page_id ){%>
+                          <option value="<%= category.id %>" selected>
+                            <%= category.category %>
+                          </option>
+                          <% }else
+                          {%>
+                            <option value="<%= category.id %>">
+                              <%= category.category %>
+                           </option>
+                          <% }%>
+                        <% }); %>
+                      </select>
+                    </div>
+                    </div>
+
+                      <!-- <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label" >
+                            Sub Category:
+                          </label>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                          <select class="form-control form-control-sm" id="subCategory" name="subCategory" onchange="getSubCategory(this,'<%=webURL%>')">>
+                            <option value="0">Select SubCategory</option>
+                          </select>
+                        </div>
+                      </div> -->
+                      <!-- <% if(userStatus == 1){ %>
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label" >
+                            Package:
+                          </label>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                          <select class="form-control form-control-sm" id="sltPackage" name="sltPackage" onchange="setPackage('<%=webURL%>')">
+                            <option value="0">Select Package</option>
+                            <% packages.forEach(function(packages){ %>
+                              <% if(packages.id == package_id ){%>
+                                <option value="<%= packages.id %>" selected>
+                                  <%= packages.packageName %>
+                                </option>
+                              <% }else{ %>
+                                <option value="<%= packages.id %>">
+                                  <%= packages.packageName %>
+                                </option>
+                              <% } %>
+                              <% }); %>
+                            </select>
+                          </div>
+                        </div>
+                       <% }else{  %> 
+                        <input type="hidden" id="sltPackage" value="0"/>
+                       <% }%>  -->
+                       <input type="hidden" id="sltPackage" value="1"/>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                          <div class="col-md-4 col-sm-12 col-xs-12">
+                            <label for="city" class="col-form-label" >Age:</label>
+                          </div>
+                          <div class="col-md-8 col-sm-12 col-xs-12">
+                            <select class="form-control form-control-sm" id="age_id" name="age_id" onchange="setAge('<%=webURL%>')">
+                              <option value="0">Select Age</option>
+                              <% ageInfo.forEach(function(ageInfo){ %>
+                                <% if(ageInfo.id == age_id ){%>
+                                  <option value="<%= ageInfo.id %>" selected>
+                                    <%= ageInfo.age %>
+                                  </option>
+                                <% }else{ %>
+                                  <option value="<%= ageInfo.id %>">
+                                    <%= ageInfo.age %>
+                                  </option>
+                                <% } %>
+                                <% }); %>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                          <div class="col-md-4 col-sm-12 col-xs-12">
+                            <label for="city" class="col-form-label" >Region : </label>
+                          </div>
+                          <div class="col-md-6 col-sm-12 col-xs-12">
+                            
+                              <select class="form-control form-control-sm" id="regionCountry" name="category" onchange="setRegion('<%=webURL%>')">
+                                <option value="0">Select Region</option>
+                                <% countryInfo.forEach(function(countryInfo){ %>
+
+                                  <% if(countryInfo.id == region_id ){%>
+                                    <option value="<%= countryInfo.id %>" selected>
+                                      <%= countryInfo.name %>
+                                    </option>
+                                  <% }else{ %>
+                                    <option value="<%= countryInfo.id %>">
+                                      <%= countryInfo.name %>
+                                    </option>
+                                  <% } %>
+                                  <% }); %>
+                              </select>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="city" class="col-form-label" >Only this region: </label>
+                            <% if(countryTType == '1')
+                            { %>
+                              <input type="checkbox" onchange="oneCounrySelected(this,'<%=webURL%>')" checked id="countryCheck"/>
+                              <input type="hidden" name ="countryCheck" id="countryTypeHidden" value="1"/>
+                            <% }
+                            else
+                            { %>
+                              <input type="checkbox" onchange="oneCounrySelected(this,'<%=webURL%>')"  id="countryCheck"/>
+                              <input type="hidden" name ="countryCheck" id="countryTypeHidden" value="0"/>
+                            <% } %>
+                            
+                          </div>
+                        </div>
+                        
+                        <% if(type == 0){%>
+                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >File Type : </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                              <div class="form-check form-check-inline">
+                                <% if(fileType_id == 1){ %>
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio1"
+                                    value="1" onchange="setFileType('<%=webURL%>')"
+                                  checked />
+                                <% }else{  %>  
+                                  <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="inlineRadioOptions"
+                                  id="inlineRadio1"
+                                  value="1" onchange="setFileType('<%=webURL%>')"
+                                />
+                                <% } %>  
+                                <label class="form-check-label" for="inlineRadio1">Images</label>
+                              </div>
+                              
+                              <div class="form-check form-check-inline">
+                                <% if(fileType_id == 2){ %>
+                                <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="inlineRadioOptions"
+                                  id="inlineRadio2"
+                                  value="2" onchange="setFileType1('<%=webURL%>')"
+                                  checked />
+                                <% } else { %>
+                                  <input
+                                  class="form-check-input"
+                                  type="radio"
+                                  name="inlineRadioOptions"
+                                  id="inlineRadio2"
+                                  value="2" onchange="setFileType1('<%=webURL%>')"
+                                 /> 
+                                <% } %> 
+                                <label class="form-check-label" for="inlineRadio2">Sound</label>
+                              </div>
+                              
+                              <div class="form-check form-check-inline">
+                                <% if(fileType_id == 3){ %>
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio3"
+                                    value="3" onchange="setFileType2('<%=webURL%>')"
+                                   checked />
+                                <% }else{ %>  
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio3"
+                                    value="3" onchange="setFileType2('<%=webURL%>')"
+                                  />
+                                  <% } %>  
+                                <label class="form-check-label" for="inlineRadio3">Video</label>
+                              </div>
+				<div class="form-check form-check-inline">
+                                <% if(fileType_id == 4){ %>
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio4"
+                                    value="4" onchange="setFileType3('<%=webURL%>')"
+                                   checked />
+                                <% }else{ %>  
+                                  <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="inlineRadioOptions"
+                                    id="inlineRadio4"
+                                    value="4" onchange="setFileType3('<%=webURL%>')"
+                                  />
+                                  <% } %>  
+                                <label class="form-check-label" for="inlineRadio4">Zoom</label>
+                              </div>
+
+                              
+                            </div>
+                          </div>
+                         <% } %> 
+                         <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >Quest Status : </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                              <select class="form-control form-control-sm" id="questionActiveInactive" name="category" onchange="setActive('<%=webURL%>')">
+                                <option value="0">Select </option>
+                                <% if(questionStatus == 1){ %>
+                                  <option value="2">Inactive</option>
+                                  <option value="1" selected>Active</option>
+                                <% }else if(questionStatus == 2){ %>  
+                                  <option value="2" selected>Inactive</option>
+                                  <option value="1">Active</option>
+                                <% }else{ %>  
+                                  <option value="2">Inactive</option>
+                                  <option value="1">Active</option>
+                                <% } %>                                  
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >Question Type : </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                              
+                              
+                                <div class="form-check-inline">
+                                  <label class="form-check-label">
+                                    <% if(questionState == 1){%>
+                                      <input type="radio" class="form-check-input" name="optradio" id="inlineQuestionTypeRadio1"
+                                      value="1" onchange="setQuestionType1('<%=webURL%>')" checked>Checked
+                                    <% }else{ %>    
+                                      <input type="radio" class="form-check-input" name="optradio" id="inlineQuestionTypeRadio1"
+                                      value="1" onchange="setQuestionType1('<%=webURL%>')">Checked
+                                    <% }%>  
+                                  </label>
+                                </div>
+                              
+                              <div class="form-check-inline">
+                                <label class="form-check-label">
+                                  <% if(questionState == 2){%>
+                                    <input type="radio" class="form-check-input" name="optradio"   id="inlineQuestionTypeRadio2"
+                                    value="2" onchange="setQuestionType2('<%=webURL%>')" checked/>
+                                  <% }else{ %>  
+                                    <input type="radio" class="form-check-input" name="optradio"   id="inlineQuestionTypeRadio2"
+                                    value="2" onchange="setQuestionType2('<%=webURL%>')"/>
+                                  <% } %>  
+                                
+                                Remove
+                                </label>
+                              </div>
+                              
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt" id="supportUrlId" <%=displayVal%>>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >Support Video Url : </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+
+                              <% if(supportUrl == 1){%>
+                                <input type="checkbox" onchange="activeSupport2(this,'<%=webURL%>')" id="activeSupport1" checked/>
+                              <% } else{%>
+                                <input type="checkbox" onchange="activeSupport2(this,'<%=webURL%>')" id="activeSupport1"/>
+                              <% } %>    
+
+
+                              <input type="hidden" value="<%=supportUrl%>" id="activeSupport">
+                              
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >Answer Order: </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                              <% if(answerOrder == 1){%>
+                                <input type="checkbox" onchange="activeAnswerOrder1(this,'<%=webURL%>')" id="activeAnswerStatus" checked/>
+                              <% } else{%>
+                                <input type="checkbox" onchange="activeAnswerOrder1(this,'<%=webURL%>')" id="activeAnswerStatus"/>
+                              <% } %>    
+                              <input type="hidden" value="<%=answerOrder%>" id="activeAnswerOrder">
+                            </div>
+                          </div>
+
+
+                        <input type="hidden" id="hdnCategory" value="<%=category_page_id%>"/>
+                        <input type="hidden" id="hdnSubCategory" value="<%=sub_page_category_id%>"/>
+                        <div class="col-md-12 col-sm-12">
+                          <div class="col-md-12 col-sm-12 col-xs-12 paddingSt" style="text-align:center;">
+                            <input type="hidden" value="<%=type%>" id="questionType"/>
+                            <input type="hidden" value="<%=fileType_id%>" id="radioClicked"/>
+                            <input type="hidden" value="<%=questionState%>" id="radioQuestionTypeClicked"/>
+                            <a href="#" class="btn btn-success" id="search">Search</a>
+                            <a href="<%=webURL%>viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0" class="btn btn-info" id="search">
+                              <i class="fas fa-sync"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="row" style="padding:15px;">
+                  <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/0/0/0/0" class="btn btn-success">Normal Game PLay Questions</a></div> -->
+                  <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/2/0" class="btn btn-info">Free Gameplay Questions</a></div> -->
+                  <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/1/0/0/0" class="btn btn-danger">Final Round Questions</a></div> -->
+                </div>
+                <div class="row" style="padding:15px;">
+                  
+                  <div class="col-md-12" style="border:1px solid #dedede;padding:10px;text-align:center">
+                    <div class="col-md-3 col-sm-12 col-xs-12 paddingSt" style="float:left">
+                     
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        
+                          <select class="form-control form-control-sm" id="regionCountryFilter" onchange="opensearchInput()" >
+                            <option value="0">Select Region</option>
+                            <% countryInfo.forEach(function(countryInfo){ %>
+
+                              <% if(countryInfo.id == region_id ){%>
+                                <option value="<%= countryInfo.id %>" selected>
+                                  <%= countryInfo.name %>
+                                </option>
+                              <% }else{ %>
+                                <option value="<%= countryInfo.id %>">
+                                  <%= countryInfo.name %>
+                                </option>
+                              <% } %>
+                              <% }); %>
+                          </select>
+                         
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12 paddingSt" style="float:left">
+                      <input type="text" id="QuestionData" class="form-control" placeholder="Filter Question" onKeyup="searchQuestion('<%=webURL%>','<%=type%>','<%=imageURL%>',0)" disabled/>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6" style="border:1px solid #dedede;padding:10px;text-align:center">
+                    <input type="text" class="form-control" id="optionSearch" placeholder="Answer Search"/>
+                  </div> -->
+                  <div class="col-md-12" style="text-align:center">
+                    <!-- <button class="buttonload">
+                      <i class="fa fa-circle-o-notch fa-spin"></i>Loading
+                    </button> -->
+                    <!-- <input type="button"style="margin-top:10px;" value="Search" class="btn btn-success" /> -->
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-9 card-header">
+                    <i class="fas fa-table"></i>
+                    <b>
+                      <% if(type == 0){%>
+                        Normal Questions List
+                      <% }else if(type == 1){ %>
+                        Final Questions List
+                      <% }else{ %>   
+                        Free Questions List
+                       <% }%>   
+                    </b>
+                  </div>
+                  <div class="col-md-2">
+                    <b>Found <%=paginator%> results </b>
+                  </div>
+                  <% if(userStatus == 1){%>
+                    <div class="col-md-1">
+                      <a href="/exportQuestions" class="btn btn-success" style="float:right">Export</a>
+                    </div>
+                  <% }%> 
+                </div>
+              
+            <div class="row">
+            <div class="col-md-4" style="margin-bottom:10px;">
+              
+              <select class="form-control" id="multiplSelectValue" onchange="multipleActions('<%=webURL%>')">
+                <option>Select your action</option>
+                <option value="delete">Delete</option>
+                <option value ="copy">Copy</option>
+                <option value ="Activate">Active</option>
+                <option value ="Inactivate">Inactive</option>
+              </select>
+            </div>
+            <% if(userStatus == 1){%>
+              <div class="col-md-4" style="margin-bottom:10px;">
+                <select class="form-control" id="selectPackage" onchange="setmultipleQuestionPackage('<%=webURL%>','<%=questionsData.country%>')">
+                  <option>Select your package</option>
+                  <% packages.forEach(function(packages){ %>
+                      <option value="<%= packages.id %>">
+                        <%= packages.packageName %>
+                      </option>
+                    <% }); %>
+                </select>
+              </div>
+            <% }%>  
+            <% if(type == 0){%>
+              <div class="col-md-4" style="margin-bottom:10px;">
+                <input type="button" class="btn btn-success" value="Final Round" onclick="setFinalQuestion('<%=webURL%>','<%=questionsData.country%>')"/>
+              </div>
+            <% } %>  
+
+            <input type="hidden" id="checkBoxValue" value="" />
+            <input type="hidden" id="checkBoxregion" value="" />
+          </div>        
+          <div class="row">
+		
+          <div class="col-md-12" id="questionArray">
+            <div class="row">
+            <%  questionsData.forEach(function(questionsData){%>
+              <div class="col-md-3 mb-3" >
+                <div class="innercard" >
+                  <input type="checkbox" class="largerCheckbox" id="customCheck<%=questionsData.questionMasterId%>" onclick="checkBoxBox('<%=questionsData.questionMasterId%>','<%=questionsData.country%>')">
+                <div  style="background:#dedede;padding-bottom:10px;border: 1px solid #000; margin-bottom:3px;text-align: center;">
+                  <% if((questionsData.image_URL != '') &&(questionsData.image_URL != '(NULL)' ) && (questionsData.image_URL != null )){ %>
+		     <% if(questionsData.fileType == 4){ %>	
+			<div class="wrapper">
+				<div class="frame">
+			                     <img src="<%=imageURL+questionsData.image_URL%>" width="100%;" style="height:200px"/>
+				</div>
+			</div>
+		     <% }else{ %>	
+			     <img src="<%=imageURL+questionsData.image_URL%>" class="" width="100%;" style="height:200px"/>
+		    <% } %>
+
+                    <br>
+                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </a>
+                    <br>
+                  <% } else if((questionsData.video_URL != '') && (questionsData.video_URL != '(NULL)') && (questionsData.video_URL != null )){ %>
+                    <video width="280" height="240" controls>
+                      <source src="<%=imageURL+questionsData.video_URL%>" type="video/mp4">
+                      <source src="<%=imageURL+questionsData.video_URL%>" type="video/ogg">
+                    Your browser does not support the video tag.
+                    </video>
+                    <br>
+                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </a>
+                  <% } else if(questionsData.sound_URL!= '' && questionsData.sound_URL != '(NULL)' && (questionsData.sound_URL != null ))
+                  {%>
+
+                    <audio controls>
+                      <source src="<%=imageURL+questionsData.sound_URL%>" type="audio/ogg">
+                      <source src="<%=imageURL+questionsData.sound_URL%>" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio>
+                    <!-- <img src="/assests/images/no-file.png"  width="100%;" style="height:200px"/> -->
+                    <!-- <a href="<%=imageURL+questionsData.sound_URL%>" target="_blank"> To See Sound Click Here</a> -->
+                    <br>
+                   
+                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </a>
+                    
+                  <% }
+                  else
+                  { %>
+                    <img src="/assests/images/no-file.png"  width="100%;" style="height:200px"/>
+                    <br>
+                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                  <% } %>
+                </div>
+                <div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px">
+                  <b>
+                    <%=questionsData.category%>
+                  </b>
+                </div>
+                <div style="border:1px solid #000;;color:#fff;padding:0px">
+                <div style="display: flex;" >
+                  <%
+                    let arrAgeSet=ageInfo;
+                    for(let i=0;i<arrAgeSet.length;i++)
+                    {%>
+                      <%for(let j=0;j<questionsData.age.length;j++)
+                      {%>
+                        <%if(arrAgeSet[i].age == questionsData.age[j])
+                        {
+                          const index = arrAgeSet.indexOf(arrAgeSet[i].age); %>
+                      <%}%>
+                        
+                    <%}%>
+
+                  <%}%>
+                  <% let age =  questionsData.age.split(",")%>       
+                  <% if(age.length >0){%>
+                    <%  age.forEach(function(age1){%>
+                      <div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%">
+                        <%let arr2 = ageInfo.filter(a => a.id === parseInt(age1) )%>
+                          <%=arr2[0].age%> 
+                      </div>  
+                    <% } )%>
+                  <% }else{
+
+                  }%>
+                </div>
+              </div>
+                <div  style=" color:#fff;padding: 5px;line-height: 18px;">
+                  <div style="display: flex;" >
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    
+                      <%=questionsData.packageName%>
+
+                  </div>
+                </div>
+                <div style="color:#fff;padding: 5px;line-height: 18px;">
+                  <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                  <% if(userStatus == 1){ %>
+                    <% let region =  questionsData.country.split(",")%>
+                    <% if(region.length >0){%>
+                      <%  region.forEach(function(country){%>
+                        <%let arr = countryInfo.filter(a => a.id === parseInt(country) )%>
+                        <% if(arr[0].image == null || arr[0].image == ''){%>
+                          <%=arr[0].name%> ,
+                         <% }else{%>
+                          <img src="<%=imageURL+arr[0].image%>" style="height:30px"/>
+                         <% }%>
+                      <% } )%>
+                    <% }else{
+                    }%> 
+                  <% }else{ %>  
+                    <%=regionName%>
+                  <% } %>  
+                </div>
+                <div style="color:#fff;padding: 5px;line-height: 18px;">
+                 <div class="row" >
+                    <div class="col-sm-12" style="margin-bottom:10px">
+                      <div  id="fullQuestion<%=questionsData.id%>" style="display:none">
+                        <b><%=questionsData.question.substr(0, 60)%>....</b><a href="javascript:void(0)" onclick="openFullQuestion('<%=questionsData.id%>')">more</a>
+                      </div> 
+                      <div id="hideQuestion<%=questionsData.id%>" >
+                        <p> <b><%=questionsData.question%> </b></p>
+                        <p>A : <%=questionsData.answer1%></p>
+                        <p>B : <%=questionsData.answer2%></p>
+                        <p>C : <%=questionsData.answer3%></p>
+                        <p>D : <%=questionsData.answer4%></p>
+                        <p>Answer : <%=questionsData.correct_Answer%></p>
+                        <%if(questionsData.hint != null && questionsData.hint != ""){%>
+                          <p>Hint : <i><%=questionsData.hint%></i></p>
+                        <%}else{%>
+                          <p>Hint : <i style="font-weight:bold">-</i></p>
+                        <%}%>
+                        
+                      </div>  
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
+                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                        <b>Created Country: </b>
+                          <%if(questionsData.countryCreated !=  null){  %>
+                            <%let arr = countryInfo.filter(a => a.id === parseInt(questionsData.countryCreated) )%>
+                            <%if(arr.length>0){%>
+                              <img src="<%=imageURL+arr[0].image%>" style="height:30px"/>
+                            <% }%>  
+                          <%}else{%>
+                            <% let region =  questionsData.country.split(",")%>
+                            <% if(region.length >0){ let arr%>
+                              <%  region.forEach(function(country){%>
+                                <% arr = countryInfo.filter(a => a.id === parseInt(country) )%>
+                              <% } )%>
+                              
+                              <%if(arr.length > 0){%>
+
+                                <img src="<%=imageURL+arr[0].image%>" style="height:30px"/>
+                              <% }else{%>  
+
+                                <img src="<%=imageURL+countryInfo[0].image%>" style="height:30px"/>
+                              <% } %>                              <% } %>
+                          <% } %>  
+                      </div> 
+                    </div>  
+                    
+
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
+                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                        <b>Time Allowed:</b>
+                      </div> 
+                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                        <select name="timeAllowed" id="timeAllowed<%=questionsData.questionMasterId%>">
+                          <% if(questionsData.time_Allowed == 15){%>
+                            <option selected>15</option>
+                            <% }else{%>
+                            <option>15</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == 20){%>
+                            <option selected>20</option>
+                            <% }else{%>
+                            <option>20</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == 25){%>
+                            <option selected>25</option>
+                            <% }else{%>
+                            <option>25</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "30"){%>
+                            <option selected>30</option>
+                            <% }else{%>
+                            <option>30</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "35"){%>
+                            <option selected>35</option>
+                            <% }else{%>
+                            <option>35</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "40"){%>
+                            <option selected>40</option>
+                            <% }else{%>
+                            <option>40</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "45"){%>
+                            <option selected>45</option>
+                            <% }else{%>
+                            <option>45</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "50"){%>
+                            <option selected>50</option>
+                            <% }else{%>
+                            <option>50</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "55"){%>
+                            <option selected>55</option>
+                            <% }else{%>
+                            <option>55</option>
+                            <% }%>
+                            <% if(questionsData.time_Allowed == "60"){%>
+                            <option selected>60</option>
+                            <% }else{%>
+                            <option>60</option>
+                            <% }%>
+                        </select>
+                      </div>
+
+                    </div>
+
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
+                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                        <b>Priority:</b>
+                      </div> 
+                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                      <select name="priority" id="priority<%=questionsData.questionMasterId%>">
+                        <% if(questionsData.priority == 1){%>
+                          <option value="1" selected>1</option>
+                        <% }else{ %>  
+                          <option value="1" >1</option>
+                        <% }%>
+                        <% if(questionsData.priority == 2){%>
+                          <option value="2" selected>2</option>
+                        <% }else{ %>  
+                          <option value="2" >2</option>
+                        <% }%>
+                        
+                      </select>
+                    </div>
+
+                  </div>   
+
+                    <div class="col-sm-6">
+                      <%=questionsData.created.toLocaleDateString('en-us')%>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="switch">
+                        <%if(questionsData.questionActiveStatus == 1){%>
+                          <input type="checkbox" onchange="inactiveQuestion('<%=webURL%>','<%=questionsData.questionMasterId%>',0,'<%=questionsData.country%>')" checked>
+                          <span class="slider round"></span>
+                        <%}else{%>  
+                          <input type="checkbox" onchange="inactiveQuestion('<%=webURL%>','<%=questionsData.questionMasterId%>',1,'<%=questionsData.country%>')">
+                          <span class="slider round"></span>
+                        <%}%>    
+                      </label>
+                    </div>
+                    <div class="col-sm-12">
+                      <a href="/editQuestions/<%=questionsData.questionMasterId%>/1/3/<%=region_id%>/0" class="btn btn-success">
+                        Edit
+                      </a>
+                      <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                        Delete
+                      </a>
+                      <a href="#" class="btn btn-info"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                        Copy
+                      </a>
+                      
+                        <% if(questionsData.questionState == 1){%>
+                          <a href="javascript:void(0)" class="btn btn-success"  onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,0,'<%=questionsData.country%>')">Checked</a>
+                        <%}else{%>
+                          <a href="javascript:void(0)" class="btn btn-primary"   onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,1,'<%=questionsData.country%>')",1>No</a>
+                        <%}%>
+                        <a href="javascript:void(0)" class="btn btn-info"  onclick="SaveQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                          Save
+                        </a>
+                    </div>
+                 </div>
+                </div>
+              </div>
+              </div>
+            <% }) %>  
+            
+                  <!-- <% if(paginator > 10) { %>
+                    <div style="float:right">
+                      <% let pages = Math.ceil(paginator/10)%>
+                      <ul class="pagination">
+                        <% for(let i=0;i<pages;i++) { %>
+                          <li class="page-item">
+                            <a class="page-link" href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%=package_id%>/<%=i%>?filter[skip]=<%=i*10 %>">
+                              <%=i+1%>
+                            </a>
+                          </li>
+                          <% } %>
+                        </ul>
+                      </div>
+                    <% } %> -->
+                  
+            </div>
+          </div>
+              
+          </div>
+            <div class="row" id="paginator">
+              <div class='col-sm-12'>
+                <div class="col-sm-1" style="float:left;text-align: right;">
+                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/0">First</a>
+                </div>
+                <div class="col-sm-2" style="float:left;text-align: center;">
+                  <div  class="col-md-6" style="float:left;text-align: center;">
+                    <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=category_page_id%>','<%=sub_page_category_id%>','<%= package_id%>','<%=age_id%>','<%=region_id%>','<%=fileType_id%>','<%=type%>','<%=questionStatus%>','<%=questionState%>',<%=supportUrl%>,<%=answerOrder%>,'<%=countryTType%>','<%=Math.round(paginator/40)%>')" />
+                  </div>
+                  <input type='hidden' value="<%=page%>" id='hiddenPage'/>
+                  
+                  <div  class="col-md-6" style="float:left;text-align: left;">
+                    <label style='margin-left:10px;font-size:25px'> /<%=Math.round(paginator/40)%></label>  
+                  </div>  
+                </div>
+                <div class="col-sm-1" style="float:left;text-align: left;">
+                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=Math.round(paginator/40)%>/?filter[skip]=<%=(Math.round(paginator/40)-1)*10%>">Last</a>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+                <!-- Delete Pop up -->
+
+                <div class="modal" id="myModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Alert</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body algnCenter" >
+                        <b style="font-size:16px;">Are you Sure, you want to delete this question.</b>
+                        <br>
+                        <br>
+                        <div>
+                          <table class="table" id="multpleData">
+
+                          </table>
+                        </div>
+                      </div>
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Copy Question pop up -->
+
+                <div class="modal" id="myModal3">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Alert</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body algnCenter" >
+                        <b style="font-size:16px;">Are you Sure, you want to Copy this question.</b>
+                        <br>
+                        <br>
+                        <div>
+                          <span id="copyGroupId">
+                            <a class="btn btn-success" href="">YES</a>
+                          </span>
+                          <a class="btn btn-danger" style="color:#fff" data-dismiss="modal" >NO</a>
+                        </div>
+                      </div>
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal" id="myModal4">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Alert</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body algnCenter" >
+                        <b style="font-size:16px;">Are you Sure, you want to Inactive this question.</b>
+                        <br>
+                        <br>
+                        <div>
+                          <table class="table" id="inactiveQuestionId">
+
+                          </table>
+                        </div>
+                      </div>
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                  <% include ../views/elements/footer %>
+                </footer>
+              </div>
+              <!-- /.content-wrapper -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Pop Up -->
+
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog">
+            <form method="post" action="/addEditFile" id="addEditForm" enctype="multipart/form-data">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="changeImageTitle">
+                  Add/Edit File
+                </h4>
+              </div>
+             
+              <div class="modal-body">
+                <div class="col-md-12">
+                  <div class="col-md-3">
+                    <label>File Type</label>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="hidden" value="" name="editQuestionId" id="editQuestionId"/>
+                    <input type="hidden" value="<%=sessionRegion%>" name="regionName" id=""/>
+                    <select class="form-control form-control-sm" id="fileType" name="fileType" onchange="changeFileType1()" required>
+                      <option value="">Select File Type</option>
+                      <option value="0">No File</option>
+                      <option value="1">Image</option>
+                      <option value="2">Sound</option>
+                      <option value="3">Video</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 col-sm-12 col-xs-12" style="display:none" id="zoomEffect">
+                    <input type="checkbox" id="zoom" name="zoom">
+                      <b class="paddingSt">
+                        Zoom
+                      </b>
+                  </div>
+              </div>
+             
+                <div class="col-md-12 col-sm-12 col-xs-12 mrgTp" id="imageContainer" style="display:none">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="image" class="col-form-label" >
+                      Image:
+                    </label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                    <input type="file" id="image" class="form-control" name="image"/>
+                  </div>
+                  <b id="response" style="color:red"></b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 mrgTp" id="soundContainer" style="display:none">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >
+                      Sound:
+                    </label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                    <input type="file" id="sound" class="form-control" name="Sound"/>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 mrgTp" id="videoContainer" style="display:none">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >
+                      Video:
+                    </label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                    <input type="file" id="video" class="form-control" name="Video"/>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding:10px;text-align:center">
+                  <input type="submit" class="btn btn-success" value="Save" id="btnSubmit">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <p id="msg"></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+          <% include ../views/elements/bootom2 %>
+        </footer>
+
+        <script>
+        function addFile(id)
+        {
+          $("#editQuestionId").val(id);
+        }
+          // function  multpleAge(url,id)
+          // {
+          //
+          //     $.ajax({
+          //       type: "POST",
+          //       url: url+'getMultipleAge',
+          //       data: 'id='+id,
+          //       success: function(data)
+          //       {
+          //         $("#multpleAgeData"+id).html("");
+          //         $.each(JSON.parse(data), function(key,value)
+          //         {
+          //           $("#multpleAgeData"+id).append(value.age+" ")
+          //         })
+          //       }
+          //     });
+          // }
+
+
+          function deleteQF(url,id,region)
+          {
+            //alert(region)
+            $.ajax({
+              type: "POST",
+              url: url+'getMultipleQuestion',
+              data: 'id='+id,
+              success: function(data)
+              {
+                //$("#multpleData").html("");
+                let i=0
+                $.each(JSON.parse(data), function(key,value)
+                {
+                  //alert(id);
+                  //alert(value[0].questionGroupId);
+            //       if(value.length > 1)
+            //       {
+            //         $("#multpleData").append('<tr><td colspan="3"><b>DELETE ALL </b></td><td><a href='+url+'deleteQuestion/'+value[0].questionGroupId+'/2'+'><i class="fa fa-trash"></a></i></td><tr>');
+            //         $.each(value, function(key1,value1)
+            //         {
+            //           i++
+            //           $("#multpleData").append('<tr><td>'+i+'</td><td>'+value1.age+'</td><td>'+value1.name+'</td><td><a href='+url+'deleteQuestion/'+value1.id+'/1'+'><i class="fa fa-trash"></a></i></td><tr>');
+            //         })
+            //       }
+            //       else
+            //       {
+                    
+                  //}
+                  //$("#multpleData").append(value.age+" ")
+                })
+
+              }
+              
+            });
+            $("#multpleData").html("");
+            let regionD =  $("#regionCountry").val()
+            $("#multpleData").append('<tr><td><a  href='+url+'deleteQuestion/'+id+'/2/'+regionD+' class="btn btn-danger">Yess</a></td><td><a class="btn btn-info">No</a></td><tr>');
+          }
+
+
+          /* Inactive Question */
+
+          function activeQuestion(url,id,type)
+          {
+            if(type == 0)
+            {
+              $("#inactiveQuestionId").append('<tr><td><a  href='+url+'inActiveQuestion/'+id+'/1'+' class="btn btn-anger">Yes</a></td><td><a class="btn btn-info">No</a></td><tr>');
+            }
+            else
+            {
+              $("#inactiveQuestionId").append('<tr><td><a  href='+url+'inActiveQuestion/'+id+'/0'+' class="btn btn-anger">Yes</a></td><td><a class="btn btn-info">No</a></td><tr>');
+            }
+          }
+
+
+          function CopyQuestion(webUrl,groupId,regions)
+          {
+              //alert(1);
+              $("#copyGroupId").html('<a href="/copyQuestion/'+groupId+'/'+regions+'" class="btn btn-success">Yes</a>')
+          }
+
+
+
+
+          function changeQuestionType(webUrl,id,type,region)
+          {
+            $.ajax({
+              type: "POST",
+              url: webUrl+'changeQuestionType',
+              data: 'id='+id+'&type='+type+'&region='+region,
+              success: function(data)
+              {
+                console.log(data);
+                location.reload();
+              }})
+              
+              
+          }
+
+
+          function searchQuestion(url,type,imageUrl,page)
+          {
+            let quest = $("#QuestionData").val();
+            let option = $("#optionSearch").val();
+            let package = $("#sltPackage").val();
+            let region = $("#regionCountryFilter").val();
+            //alert(region)
+            
+            //alert(package);
+            $("#questionArray").html("");
+            $("#pagination").html("");
+            //alert(quest);
+            //console.log(quest);
+            $.ajax({
+              type: "POST",
+              url: url+'getQuestionSearch',
+              data: 'quest='+quest+'&option='+option+'&likeQuestion=1'+'&type='+type+'&page='+page+"&package="+package+"&region="+region,
+              success: function(data)
+              {
+
+                console.log("data",data);
+                //$("#questionArray").html("");
+                //$("#pagination").html("");
+
+                //let html=''
+                let html,i=0;
+                let nData= JSON.parse(data)
+                let ageInfo = nData.age;
+                let countryInfo = nData.regions;  
+                html += '<div class="row">';
+                $.each(nData.questionsData, function(key,value)
+                {
+                  let age =  value.age.split(",")       
+                  let region =  value.country.split(",")
+                    
+                 
+                  // $.each(value1, function(key,value)
+                  // {
+                    console.log(value);
+                    html += '<div class="col-md-3 mb-3">';
+                    html += '<div class="innercard" >';
+                    html +=  '<div class="custom-control custom-checkbox">'
+                    html +=  '<input type="checkbox" class="custom-control-input" id="customCheck'+value.questionMasterId+'" onclick="checkBoxBox('+value.questionMasterId+')">'
+                    html +=  '<label class="custom-control-label" for="customCheck'+value.questionMasterId+'"></label>'
+                    html += '</div>'
+                    html += '<div  style="background:#898383;;padding-bottom:10px; margin-bottom:3px;text-align: center;">';
+                    if(value.image_URL != '' &&  value.image_URL != '(NULL)' &&  value.image_URL != null){  
+                    if(value.fileType == 4)
+                    {
+                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" class="zoom-in-zoom-out" style="height:200px"/><br>';
+                    }else{
+                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" style="height:200px"/><br>';
+                    }
+                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
+                      html += '</a>';  
+                    }else if(value.video_URL != '' &&  value.video_URL != '(NULL)' &&  value.video_URL != null)
+                    {
+                      html += ' <video width="320" height="240" controls>';
+                      html += ' <source src="'+value.video_URL+'" type="video/mp4">';
+                      html += ' <source src="'+value.video_URL+'" type="video/ogg"> Your browser does not support the video tag.';
+                      html += ' </video>';
+                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
+                      html += '</a>'; 
+                      
+                    }
+                    else if(value.sound_URL != '' &&  value.sound_URL != '(NULL)' &&  value.sound_URL != null )
+                    {
+                      html += ' <audio controls>';
+                      html += ' <source src="'+value.sound_URL+'" type="video/mp4">';
+                      html += ' <source src="'+value.sound_URL+'" type="video/ogg"> Your browser does not support the video tag.';
+                      html += ' </audio>';
+                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
+                      html += '</a>';  
+                    }
+                    else
+                    {
+                      html += ' <img src="/assests/images/no-file.png" width="100%;" style="height:200px"/><br>';
+                    }
+                    html += '<div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px"><b>';
+                    html += value.category;  
+                    html += '</b></div>';
+                    
+                    html += '<div style="border:1px solid #000;;color:#fff;padding:0px">';
+                    html += '<div style="display: flex;" >';  
+                      //let age =  value.age.split(",")       
+                     if(age.length >0){
+                        age.forEach(function(age1){
+                    html += '<div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%">';
+                        let arrww = ageInfo.filter(a => a.id === parseInt(age1) )
+                        html += arrww[0].age; 
+                        html += '</div>';  
+                       } )
+                     }else{
+
+                    }
+                    html += '</div>';
+                    html += '</div>';  
+
+                    html += '<div  style=" color:#fff;padding: 5px;line-height: 18px;">';
+                    html += '<div style="display: flex;" >';
+                    html += '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>'+value.packageName;  
+                    html += '</div>';
+                    html += '</div>';
+
+
+                    html += '<div  style=" color:#fff;padding: 5px;line-height: 18px;">';
+                    html += '<div style="display: flex;" >';
+                    html += '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>';
+                    if(region.length >0){
+                        region.forEach(function(country){
+                        let arr = countryInfo.filter(a => a.id === parseInt(country) )
+                         if(arr[0].image == null || arr[0].image == ''){
+                          html +=arr[0].name;
+                          }else{
+                            html += '<img src="'+imageUrl+arr[0].image+'" style="height:30px"/>';
+                          }
+                       } )
+                     }else{
+                      }  
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div style="color:#fff;padding: 5px;line-height: 18px;">';
+                    html += '<div class="row" style="text-align:left" >';
+                        html += '<div class="col-sm-12" style="margin-bottom:10px">';
+                            html += '<div  id="fullQuestion'+value.id+'" style="display:none" style="text-align:left">';
+                            html +=  value.question.substr(0, 60)+'....<a href="javascript:void(0)" onclick="openFullQuestion('+value.id+')">more</a>'
+                            html += '</div>';
+                            html += '<div id="hideQuestion'+value.id+'">';
+                            html += '<p><b> '+value.question+'</b></p>';
+                            html += '<p>A : '+value.answer1+'</p>';
+                            html += '<p>B : '+value.answer2+'</p>';
+                            html += '<p>C : '+value.answer3+'</p>';
+                            html += '<p>D : '+value.answer4+'</p>';
+                            html += '<p>Answer : '+value.correct_Answer+'</p>';
+			                      html += '<p>Hint : '+value.hint+'</p>';
+                            
+                            html += '</div>';  
+                        html += '</div>';
+                        html +=  '<div class="col-sm-12" style="margin-bottom:10px;float: left;">';
+                          html +='<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                            html +='<b>Created Country: </b>'
+                          if(value.countryCreated !=  null){  
+                            let arr = countryInfo.filter(a => a.id === parseInt(value.countryCreated) )
+                            if(arr.length>0){
+                              html +=  '<img src="'+imageUrl+arr[0].image+'" style="height:30px"/>'
+                             }  
+                          }else{
+                             let region =  value.country.split(",")
+                             if(region.length >0){ 
+                              let arr;
+                                region.forEach(function(country){
+                                 arr = countryInfo.filter(a => a.id === parseInt(country) )
+                               } )
+                              
+                               html +='<img src="'+imageUrl+arr[0].image+'" style="height:30px"/>';
+                              } 
+                           }   
+                           html += '</div>'; 
+                           html += '</div>'; 
+                        html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;">';
+                    html += '<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                    html += '<b>Time Allowed:</b>';
+                    html += '</div>';
+                    html += '<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                    html +=  '<select name="timeAllowed" id="timeAllowed">';
+                      if(value.timeAllowed == 15)
+                      {
+                        html +=  '<option selected>15</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>15</option>';
+                      }
+
+                      if(value.timeAllowed == 20)
+                      {
+                        html +=  '<option selected>20</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>20</option>';
+                      }
+
+                      if(value.timeAllowed == 25)
+                      {
+                        html +=  '<option selected>25</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>25</option>';
+                      }
+
+                      if(value.timeAllowed == 30)
+                      {
+                        html +=  '<option selected>30</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>30</option>';
+                      }
+
+
+                      if(value.timeAllowed == 35)
+                      {
+                        html +=  '<option selected>35</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>35</option>';
+                      }
+
+
+                      if(value.timeAllowed == 40)
+                      {
+                        html +=  '<option selected>40</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>40</option>';
+                      }
+
+
+                      if(value.timeAllowed == 45)
+                      {
+                        html +=  '<option selected>45</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>45</option>';
+                      }
+
+
+                      if(value.timeAllowed == 50)
+                      {
+                        html +=  '<option selected>50</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>50</option>';
+                      }
+
+
+                      if(value.timeAllowed == 55)
+                      {
+                        html +=  '<option selected>55</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>55</option>';
+                      }
+
+                      if(value.timeAllowed == 60)
+                      {
+                        html +=  '<option selected>60</option>';
+                      }
+                      else
+                      {
+                        html +=  '<option>60</option>';
+                      }
+
+
+
+                      
+
+                    
+                    html +=  '</select>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;">'
+                        html +=   '<div class="col-md-6" style="margin-bottom:10px;float: left;">'
+                          html +=  '<b>Priority:</b>'
+                          html +='</div>' 
+                          html +='<div class="col-md-6" style="margin-bottom:10px;float: left;">'
+                            html +=  '<select name="priority" id="priority">'
+                              if(value.priority == 1)
+                              {
+                               html +=     '<option value="1" selected>1</option>'
+                              }else
+                              {  
+                                html +=   '<option value="1" >1</option>'
+                              }
+
+                              if(value.priority == 2)
+                              {
+                               html +=     '<option value="2" selected>2</option>'
+                              }else
+                              {  
+                                html +=   '<option value="2" >2</option>'
+                              }
+                              html +=  '</select>'
+                              html += '</div>'
+                              html += '</div>'
+
+                              html += '<div class="col-sm-12" style="float:left">';       
+                    html += '<div class="col-sm-6" style="float:left">';
+                    html += value.created;
+                    html +='</div>';
+                    html +='<div class="col-sm-6" style="float:left">'
+                    html +=  '<label class="switch">'
+                        if(value.questionActiveStatus == 1){
+                    html += '<input type="checkbox" onchange="inactiveQuestion(`'+url+'`,'+value.questionMasterId+',0,`'+value.country+'`)" checked>'
+                    html +='<span class="slider round"></span>'
+                        }else{
+                    html +='<input type="checkbox" onchange="inactiveQuestion(`'+url+'`,'+value.questionMasterId+',1,`'+value.country+'`)">'
+                    html +='<span class="slider round"></span>';
+                        }    
+                    html += '</label>';
+                    html +='</div>'
+                    html +='</div>'
+                    html +='<div class="col-sm-12">'
+                    html +='<a href="/editQuestions/'+value.questionMasterId+'/1/3/'+region+'/0" class="btn btn-success">Edit'
+                    html +='</a>'
+                    html +='<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Delete'
+                    html += '</a>'
+                    html += '<a href="#" class="btn btn-info"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Copy'
+                    html +=  '</a>'
+                    if(value.questionState == 1){
+                    html += '<a href="javascript:void(0)" class="btn btn-success"  onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',0,`'+value.country+'`)">Checked'
+                    html += '</a>'
+                    
+                    }else{
+                    html +='<a href="javascript:void(0)" class="btn btn-primary"   onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',1,`'+value.country+'`)",1>No'
+                    html += '</a>'
+                    }
+                    html += '<a href="javascript:void(0)" class="btn btn-info"  onclick="SaveQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Save'
+                    html += '</a>'
+
+
+                    html +='</div>';
+                    html += '</div>';          
+                    html += '</div>';
+                    
+                    html += '</div>';  
+                    html += '</div>';
+                    html += '</div>';
+                  //})
+                  
+                  
+                  
+                  
+
+                })
+                html += '</div>';
+                html += '<div class="row">';
+                  html += '<div class="col-md-12" style="float:left;">';  
+                  html += '<div class="col-sm-1" style="float:left;text-align:right">'; 
+                  html += '<a href="javascript:void(0)" onclick="searchQuestion(`'+url+'`,`'+type+'`,`'+imageUrl+'`,0)">First';   
+                  html += '</a>';     
+                  html += '</div>'; 
+                  html += '<div class="col-sm-2" style="float:left;text-align:right">'; 
+                  html += '<div class="col-sm-6" style="float:left;text-align:right">';   
+                  html +=  '<input type="number"  min="0" class="col-md-12 col-xs-6 col-sm-6 form-control" value='+nData.questionsData[0].page+' id="pageSearchNumber" oninput="paginator2(`'+url+'`,`'+type+'`,`'+imageUrl+'`,`'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40)-1)+'`)"/>'
+                  html += '</div>'; 
+                  html +=  '<input type="hidden" value='+nData.questionsData[0].page+' id="hiddenSearchPage"/>'
+                  html += '<div class="col-sm-6" style="float:left;text-align:right">';  
+                  html +=  '<label style="margin-left:10px;font-size:25px"> /'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40))+'</label>'   
+                  html += '</div>'; 
+                  html += '</div>'; 
+                  
+                  html += '<div class="col-sm-1" style="float:left;text-align:right">';
+                  html += '<a href="javascript:void(0)" onclick="searchQuestion(`'+url+'`,`'+type+'`,`'+imageUrl+'`,`'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40)-1)+'`)">Last';   
+                  html += '</a>';               
+                  html += '</div>'; 
+                  html += '</div>';                 
+                  html += '</div>';     
+                $("#questionArray").html(html);
+                $("#paginator").hide();
+              }
+            })
+          }
+
+
+          function inactiveQuestion(url,id,type,region)
+          {
+            //alert(type);
+            $.ajax({
+              type: "POST",
+              url: url+'setQuestionActiveInactive',
+              data: 'id='+id+'&type='+type+'&region='+region,
+              success: function(data)
+              {
+                location.reload();
+              }
+            })
+          }
+
+
+          function openFullQuestion(id)
+          {
+            $("#fullQuestion"+id).hide();
+            $("#hideQuestion"+id).show();
+            
+          }
+
+
+          function closeFullQuestion(id)
+          {
+            $("#fullQuestion"+id).show();
+            $("#hideQuestion"+id).hide();
+          }
+
+          let qGroupid=[];
+          function checkBoxBox(id,region)
+          {
+            if(document.getElementById("customCheck"+id).checked == true)
+            {
+              let obj = {id:id,region:region}
+               qGroupid.push(obj)
+              //$("#checkBoxValue").val(qGroupid);
+            }
+            else if(document.getElementById("customCheck"+id).checked == false)
+            {
+              const index = qGroupid.indexOf(id);
+              //alert(index);
+              if (index > -1) {
+                qGroupid.splice(index, 1);
+              }
+            }
+
+            $("#checkBoxValue").val(JSON.stringify(qGroupid));
+            //document.getElementById("customCheck"+id).checked = false;
+            
+            //alert(qGroupid);
+          }
+
+          /**/
+
+          function multipleActions(url,region)
+          {
+            //console.log("region",region)
+            let type = $("#multiplSelectValue").val();
+            let checkBoxValue = $("#checkBoxValue").val();
+            console.log("checkBoxValue",checkBoxValue)
+            let activateType=1;
+            if(checkBoxValue)
+            {
+              if(type ==  'delete')
+              {
+                $.ajax({
+                type: "POST",
+                url: url+'deleteMultipleQuestions',
+                data: 'id='+checkBoxValue,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+              }
+              else if(type =='copy')
+              {
+                $.ajax({
+                type: "POST",
+                url: url+'copyMultipleQuestions',
+                data: 'id='+checkBoxValue+'&region='+region,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+              }
+              else if(type =='Activate')
+              {
+                activateType=1;
+                $.ajax({
+                type: "POST",
+                url: url+'setQuestionActiveInactiveMultiple',
+                data: 'id='+checkBoxValue+'&type='+activateType+'&region='+region,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+              }
+              else if(type =='Inactivate')
+              {
+                activateType=0;
+                $.ajax({
+                type: "POST",
+                url: url+'setQuestionActiveInactiveMultiple',
+                data: 'id='+checkBoxValue+'&type='+activateType+'&region='+region,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+              }
+            }
+            else
+            {
+              alert("Please select atleast check box")
+            }
+          }
+
+
+          function SaveQuestion(webUrl, groupId,region) {
+            // console.log($("#priority").val());
+            
+            let priority = $("#priority"+groupId).val();
+            let timeAllowed = $("#timeAllowed"+groupId).val();
+            // alert(priority)
+             //alert(timeAllowed)
+            // alert(region)
+             //alert(priority)
+            // alert(timeAllowed)
+              $.ajax({
+                type: "POST",
+                url: webUrl+'updateQuestionPriorityTime',
+                data: 'id='+groupId+'&priority='+priority+'&time='+timeAllowed+'&region='+region,
+                success: function(data)
+                {
+                  console.log(data)
+                  // location.reload();
+                }})
+          }
+
+
+          function setmultipleQuestionPackage(url,region)
+          {
+            let packageId = $("#selectPackage").val();
+            let checkBoxValue = $("#checkBoxValue").val();
+            //alert(packageId);
+            //alert(checkBoxValue);
+            $.ajax({
+                type: "POST",
+                url: url+'changePackageMultipleQuestions',
+                data: 'id='+checkBoxValue+"&packageId="+packageId,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+          }
+
+
+
+          function setFinalQuestion(url)
+          {
+            //let packageId = $("#selectPackage").val();
+            let checkBoxValue = $("#checkBoxValue").val();
+            //alert(packageId);
+            //alert(checkBoxValue);
+            $.ajax({
+                type: "POST",
+                url: url+'setToFinalRound',
+                data: 'id='+checkBoxValue,
+                success: function(data)
+                {
+                  location.reload();
+                }
+              })
+          }
+
+
+          function paginator(url,category_page_id,sub_page_category_id,package_id,age_id,region_id,fileType_id,type,questionStatus,questionState,supportUrl,answerOrder,countryTType,page)
+          {
+            //alert(page)
+            //alert($('#pageNumber').val());
+            let pagenUmer =$('#pageNumber').val();
+            let hiddenPage =$('#hiddenPage').val();
+            //alert(pagenUmer);
+            if(parseInt(page) > parseInt(pagenUmer))
+            {
+              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+pagenUmer+'?filter[skip]='+pagenUmer*40,"_self");
+            }
+            else
+            {
+              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+hiddenPage+'?filter[skip]='+hiddenPage*40,"_self");
+            }
+          }
+          // function myFunction()
+          // {
+          //     alert($("#QuestionData").val())
+          // }
+
+
+          function paginator2(url,type,imageUrl,length)
+          {
+            //alert(page)
+            //alert($('#pageNumber').val());
+            let pagenUmer = parseInt($('#pageSearchNumber').val());
+            //let hiddenPage =$('#hiddenPage').val();
+            //alert(pagenUmer);
+            //alert(length);
+            if(length > pagenUmer)
+            {
+              searchQuestion(url,type,imageUrl,pagenUmer)
+              //window.open(url+'users/'+type+'/'+headerType+'/'+sortType+'/'+pagenUmer+'?filter[skip]='+pagenUmer*10,"_self");
+            }
+            else
+            {
+searchQuestion(url,type,imageUrl,pagenUmer)
+              //window.open(url+'users/'+type+'/'+headerType+'/'+sortType+'/'+hiddenPage+'?filter[skip]='+hiddenPage*10,"_self");
+            }
+          }
+
+
+
+          function opensearchInput()
+         {
+            if($("#regionCountryFilter").val() >0)
+            {
+              $('#QuestionData').removeAttr('disabled');
+            }
+            else
+            {
+              $('#QuestionData').attr('disabled', 'disabled');
+            }
+         }
+
+
+
+//   $('#QuestionData').keyup(function(e) {
+//     clearTimeout($.data(this, 'timer'));
+//     if (e.keyCode  5)
+//       search(true);
+//     else
+//       $(this).data('timer', setTimeout(search, 500));
+// });
+// function search(force) {
+//   //alert(12)
+//     var existingString = $("#QuestionData").val();
+//     alert(existingString);
+//     if (!force && existingString.length < 3) return; //wasn't enter, not > 2 char
+//     $.get('/Tracker/Search/' + existingString, function(data) {
+//         $('div#results').html(data);
+//         $('#results').show();
+//     });
+// }
+
+
+        // function activeSupport(type)
+        // {
+        //   $("#activeSupport").val(type)
+        // }
+
+
+        // function activeAnswerOrder(type)
+        // {
+        //   $("#activeAnswerOrder").val(type)
+        // }
+
+       
+
+        </script>
+      </body>
+      </html>

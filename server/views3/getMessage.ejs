@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../views/elements/head %>
+</head>
+<%
+  let fileType=0,heading,message,dispText="display:none",dispImage="display:none",image,messageTypeInfo;
+  if(edit == 1)
+  {
+    fileType=messageData[0].type;
+    heading=messageData[0].heading;
+    message=messageData[0].message;
+    image =messageData[0].file;
+    messageTypeInfo =messageData[0].messageType;
+    if(fileType == 1)
+    {
+      dispText="";
+      dispImage="display:none";
+    }else{
+      dispText="display:none";
+      dispImage="";
+    }
+  }
+%>
+<%=messageTypeInfo%>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/getMessage/0" style="font-weight:bold;">Message</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;">
+            <% let messages = getMessages()%>
+            <label class="col-sm-12 col-form-label" style="text-align:center">
+              <%= messages.notify %>
+            </label>
+            <form method="post" action="/addMessage" id="messageValidateData" enctype="multipart/form-data">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Add Message</b>
+                </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="image" class="col-form-label">
+                                  File Type:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <select class="form-control form-control-sm" id="fileType" name="fileType"
+                                  onchange="fileTypeF()">
+                                  <% if(edit == 0){ %>
+                                    <option value="">Select File Type</option>
+                                    <option value="1">Text Message</option>
+                                    <option value="2">Image</option>
+                                  <% }else{%>
+                                    <% if(fileType == 1){ %>
+                                      <option value="">Select File Type</option>
+                                      <option value="1" selected>Text Message</option>
+                                      <option value="2">Image</option>
+                                    <% }else{ %>
+                                      <option value="">Select File Type</option>
+                                      <option value="1">Text Message</option>
+                                      <option value="2" selected>Image</option>
+                                    <% } %>
+                                  <% } %>
+                                </select>
+                              </div>
+                            </div>
+
+                              <div class="col-md-6 col-sm-12 col-xs-12" style="<%=dispText%>" id="textVal">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                  <input type="text" class="form-control" id="heading" name="heading" placeholder="Heading" value="<%=heading%>"/>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12" >
+                                  <textarea class="form-control" id="message" name="message" placeholder="Description"><%=message%></textarea>
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12 col-xs-12" style="<%=dispImage%>" id="fileVal">
+                                <input type="file" class="form-control" name="image" id="image"/>
+                                <%if(image){%>
+                                  <a href="<%=imageURL+image%>" target="_blank"> To See Image Click Here</a>
+                                  <input type="hidden" value="<%=image%>" name="imageValue"/>
+                                <% } %>
+                              </div>
+                            <div style="clear:both"></div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                          <div class="col-md-4 col-sm-12 col-xs-12">
+                            <label for="image" class="col-form-label">
+                              Message Type:
+                            </label>
+                          </div>
+                          <div class="col-md-8 col-sm-12 col-xs-12">
+
+
+
+                            <select class="form-control" name="messageType">
+                              <% if(edit == 0){ %>
+                                <option value="0">One Time Active</option>
+                                <option value="1">Always Active</option>
+                              <% }else{%>
+                                <% if(messageTypeInfo == 0){ %>
+                                  <option value="0" selected>One Time Active</option>
+                                  <option value="1">Always Active</option>
+                                <% }else{ %>
+                                  <option value="0">One Time Active</option>
+                                  <option value="1" selected>Always Active</option>
+                                <% } %>
+                              <% } %>
+                            </select>
+                          </div>
+
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 paddingSt" style="text-align:center">
+                          <input type="submit" class="btn btn-success" value="Save" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </form>
+            <div class="col-md-12 table-responsive">
+              <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Heading</th>
+                    <th>Message</th>
+                    <th>Image</th>
+                    <th>Message Type</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="questionArray">
+                  <% if(messageData.length > 0){ %>
+                    <%  messageData.forEach(function(messageData){%>
+                      <tr>
+                        <td><%=messageData.heading %></td>
+                        <td><%=messageData.message %></td>
+                        <td>
+                          <% if(messageData.type == 2){%>
+                            <a href="<%=imageURL+messageData.file%>" target="_blank" >Image</a>
+                          <% } %>
+                        </td>
+			<td>
+				<% if(messageData.messageType == 0){ %>
+					One Time Active
+				<%}else{%>
+					Always Active	
+				<% }%>
+					
+
+			</td>
+                        <td><%=messageData.created %></td>
+                        <td>
+                          <a href="/getMessage/<%=messageData.id%>" class="paddingSt">
+                          <i class="fas fa-pencil-alt"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    <% }) %>
+                    <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Sticky Footer -->
+          <footer class="sticky-footer">
+            <% include ../views/elements/footer %>
+          </footer>
+        </div>
+        <!-- /.content-wrapper -->
+      </div>
+      <!-- /#wrapper -->
+      <!-- Scroll to Top Button-->
+      <% include ../views/elements/bootom %>
+
+      <script>
+        function fileTypeF() {
+          let file = $("#fileType").val();
+          if(file == 1)
+          {
+            $("#fileVal").hide()
+            $("#textVal").show();
+          }
+          else if(file == 2)
+          {
+            $("#textVal").hide()
+            $("#fileVal").show()
+          }
+          else if(file == "")
+          {
+            $("#fileVal").hide()
+            $("#textVal").hide()
+          }
+          //alert(file);
+        }
+      </script>
+</body>
+
+</html>

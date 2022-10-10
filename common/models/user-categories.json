@@ -1,0 +1,50 @@
+{
+  "name": "user_categories",
+  "plural": "user_categories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_id": {
+      "type": "number",
+      "required": true
+    },
+    "category_id": {
+      "type": "number",
+      "required": true
+    },
+    "questionAsked": {
+      "type": "string",
+      "required": true,
+      "default": "0"
+    },
+    "categoryRepeat": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "status": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "categories": {
+      "type": "belongsTo",
+      "model": "categories",
+      "foreignKey": "category_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

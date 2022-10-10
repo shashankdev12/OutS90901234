@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",code="",category_id=0;
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewQuestions/0" style="font-weight:bold;">Questions</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+            <div class="form-group">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                <b>Question</b>
+              </div>
+              <div class="col-md-10 col-sm-12 col-xs-12" style="float:none;margin:0px auto;border:1px solid #dedede;padding:15px">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="float:none;padding:10px;font-size:16px;border-bottom:3px solid #dedede">
+                  <b>Quest: <i ><%=questionsData.question%></i></b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding:20px;float:none;">
+                  <div class="col-md-6" style="padding:20px;">
+                    <b>Option A: <%=questionsData.answer1%></b>
+                  </div>
+                  <div class="col-md-6" style="padding:20px;">
+                    <b>Option B: <%=questionsData.answer2%></b>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding:20px;float:none;">
+                  <div class="col-md-6" style="padding:20px;">
+                    <b>Option C: <%=questionsData.answer3%></b>
+                  </div>
+                  <div class="col-md-6" style="padding:20px;">
+                    <b>Option D: <%=questionsData.answer4%></b>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="float:none;padding:20px;">
+                  <b>Answer: <%=questionsData.correct_Answer%></b>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                <b>Questions Details</b>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th width="30%">Category :</th>
+                        <th><%=questionsData.toJSON().categories.category%></th>
+                      </tr>
+                      <tr>
+                        <th width="30%">Sub Category :</th>
+                        <th>
+                          <%=questionsData.toJSON().sub_categories.subCategory%>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th width="30%">Age :</th>
+                        <th>
+                          <%=questionsData.toJSON().age_categories.age%>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th width="30%">Country :</th>
+                        <th>
+                          <%if(questionsData.toJSON().countries){%>
+                              <%=questionsData.toJSON().countries.name%>
+                          <% } %>
+                        </th>
+                      </tr>
+                      <tr>
+                        <% if(questionsData.time_Allowed != ''){ %>
+                        <th>Time Allowed :</th>
+                        <th><%=questionsData.time_Allowed%> sec</th>
+                        <% } %>
+
+                      </tr>
+                      <tr>
+                        <th>image :</th>
+                        <th>
+                          <% if(questionsData.image_URL != ''){ %>
+                            <a href="<%=imageURL+questionsData.image_URL%>" target="_blank"> To See Image Click Here</a>
+                          <% }else{ %>
+                            No Image
+                          <% } %>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Videos :</th>
+                        <th>
+                          <% if(questionsData.video_URL != ''){ %>
+                            <a href="<%=imageURL+questionsData.video_URL%>" target="_blank"> To See video Click Here</a>
+                          <% }else{ %>
+                            No Video
+                          <% } %>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Sound :</th>
+                        <th>
+                          <% if(questionsData.sound_URL != ''){ %>
+                            <a href="<%=imageURL+questionsData.sound_URL%>" target="_blank"> To See Sound Click Here</a>
+                          <% }else{ %>
+                            No Sound
+                          <% } %>
+                        </th>
+                      </tr>
+                      <!-- <tr>
+                        <% if(questionsData.has(question_packages){ %>
+                        <th>Pacakge :</th>
+                        <th><%=questionsData.toJSON().question_packages.packageName%></th>
+                        <% } %>
+                      </tr> -->
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

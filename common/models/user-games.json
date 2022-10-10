@@ -1,0 +1,66 @@
+{
+  "name": "user_games",
+  "plural": "user_games",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "game": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "gameType": {
+      "type": "number",
+      "required": true
+    },
+    "gameMode": {
+      "type": "number",
+      "required": true
+    },
+    "roomId": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "questionAsked": {
+      "type": "string"
+    },
+    "pack_Id": {
+      "type": "string",
+      "index": true
+    },
+    "replacedCategory": {
+      "type": "string"
+    },
+    "game_start": {
+      "type": "number"
+    },
+    "game_end": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

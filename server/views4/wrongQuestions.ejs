@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let tempArray = [];let first =""
+    let second =""
+    if(tempQuestionInfo.length>0)
+    {
+      for(let i=0;i<tempQuestionInfo.length;i++)
+      {
+        if(tempQuestionInfo[i].createdBy == "NL")
+        {
+          let obj = {id:0,category_id:0,question:'',region:0,created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].id
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.created = tempQuestionInfo[i].created
+          obj.question_id = tempQuestionInfo[i].question_id
+          obj.createdBy = tempQuestionInfo[i].createdBy
+          tempArray.push(obj);
+        }
+        else if(tempQuestionInfo[i].createdBy == "EN")
+        {
+          let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].id
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.created = tempQuestionInfo[i].created
+          obj.question_id = tempQuestionInfo[i].question_id
+          obj.createdBy = tempQuestionInfo[i].createdBy
+          tempArray.push(obj);
+
+        }
+        else if(tempQuestionInfo[i].createdBy == "DE")
+        {
+          let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].id
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.created = tempQuestionInfo[i].created
+          obj.question_id = tempQuestionInfo[i].question_id
+          obj.createdBy = tempQuestionInfo[i].createdBy
+          tempArray.push(obj);
+
+        }
+        else if(tempQuestionInfo[i].createdBy == "FR")
+        {
+          let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].id
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.created = tempQuestionInfo[i].created
+          obj.createdBy = tempQuestionInfo[i].createdBy
+          obj.question_id = tempQuestionInfo[i].question_id
+          tempArray.push(obj);
+
+        }
+        else if(tempQuestionInfo[i].createdBy == "BE")
+        {
+          let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].id
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.created = tempQuestionInfo[i].created
+          obj.createdBy = tempQuestionInfo[i].createdBy
+          obj.question_id = tempQuestionInfo[i].question_id
+          tempArray.push(obj);
+
+        }
+        else
+        {
+          let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+          obj.id = tempQuestionInfo[i].qq
+          obj.category_id = tempQuestionInfo[i].category_id
+          obj.question = tempQuestionInfo[i].question
+          obj.region = tempQuestionInfo[i].region
+          obj.answer1 = tempQuestionInfo[i].answer1
+          obj.answer2 = tempQuestionInfo[i].answer2
+          obj.answer3 = tempQuestionInfo[i].answer3
+          obj.answer4 = tempQuestionInfo[i].answer4
+          obj.correctAnswer = tempQuestionInfo[i].correct_Answer
+          obj.fileType = tempQuestionInfo[i].fileType
+          obj.age = tempQuestionInfo[i].age_id
+          if(tempQuestionInfo[i].fileType == 1 || tempQuestionInfo[i].fileType == 4)
+          {
+            obj.file = tempQuestionInfo[i].image_URL
+          }
+          else if(tempQuestionInfo[i].fileType == 2)
+          {
+            obj.file = tempQuestionInfo[i].sound_URL
+          }
+          else if(tempQuestionInfo[i].fileType == 3)
+          {
+            obj.file = tempQuestionInfo[i].video_URl
+          }
+          obj.question_id = tempQuestionInfo[i].MI
+          tempArray.push(obj);
+        }
+        
+      }
+      
+      if(type == 1)
+      {
+        first ="active"
+        second =""
+      }
+      else
+      {
+        first =""
+        second ="active"
+      }
+    }
+  
+  console.log("---",tempArray)
+  
+  %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/wrongQuestions/0" style="font-weight:bold;">Wrong Questions</a>
+          </li>
+        </ol>
+        <div class="row">
+          
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Wrong Questions</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">File</th>
+                      <th scope="col">Age</th>
+                      <th scope="col">Question</th>
+                      <th scope="col">Option A</th>
+                      <th scope="col">Option B</th>
+                      <th scope="col">Option C</th>
+                      <th scope="col">Option D </th>
+                      <th scope="col">Correct Answer </th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <% if(tempArray.length > 0){ %>
+                      <% let i=0; %>
+                      <%  tempArray.forEach(function(tempArray){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td>
+                            <% if(tempArray.fileType ==1 || tempArray.fileType ==4){%>
+                              <img src="<%=imageURL+tempArray.file%>" width="100%;" style="width:200px"/>
+                            <% }else if(tempArray.fileType ==2){%>  
+                              <a href="<%=imageURL+tempArray.file%>">Sound</a>
+                            <% }else if(tempArray.fileType ==3){%>
+                              <a href="<%=imageURL+tempArray.file%>">Video</a>
+                            <% } %>    
+                          </td>
+                          <td>
+                            <% let age =  tempArray.age.split(",")%>       
+                          <% if(age.length >0){%>
+                            <%  age.forEach(function(age1){%>
+                              <div >
+                                <%let arr2 = ageInfo.filter(a => a.id === parseInt(age1) )%>
+                                  <%=arr2[0].age%> 
+                              </div>  
+                            <% } )%>
+                          <% }else{
+
+                          }%>
+                            
+                          </td>    
+                          <td><%=tempArray.question%></td>
+                          <td><%=tempArray.answer1%></td>
+                          <td><%=tempArray.answer2%></td>
+                          <td><%=tempArray.answer3%></td>
+                          <td><%=tempArray.answer4%></td>
+                          <td><%=tempArray.correctAnswer%></td>
+                          <td>
+                            <% categoryArr = category.filter(a => a.id === parseInt(tempArray.category_id))  %>
+                            <%=categoryArr[0].category%>
+                          </td>
+
+                          <td>
+                              <a href="/editQuestions/<%=tempArray.question_id%>%>/2/0/<%=tempArray.region%>/<%=tempArray.id%>" class="btn btn-secondary btn-sm" >Edit</a>
+                              
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="12">
+                            <h3><b> No Question</b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tr>
+                  </tbody>
+                </table>
+                <% if(paginator > 10) { %>
+                <div style="float:right">
+                  <% let pages = Math.ceil(paginator/10)%>
+                  <ul class="pagination">
+                    <% for(let i=0;i<pages;i++){%>
+                      <li class="page-item">
+                        <a class="page-link" href="/wrongQuestions/<%=i+10 %>?filter[skip]=<%=i*10 %>"><%=i+1%></a>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

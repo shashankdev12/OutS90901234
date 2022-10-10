@@ -1,0 +1,23 @@
+{
+  "name": "check_questions",
+  "plural": "check_questions",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "questionMasterId": {
+      "type": "number",
+      "required": true
+    },
+    "region": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

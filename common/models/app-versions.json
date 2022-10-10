@@ -1,0 +1,34 @@
+{
+  "name": "app_versions",
+  "plural": "app_versions",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "device": {
+      "type": "string"
+    },
+    "gameVersion": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

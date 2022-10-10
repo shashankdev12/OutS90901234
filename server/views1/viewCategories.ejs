@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <% let id =0,categoryName ="",cost=0,finalRegionData = [],desp="",
+    iconImage=0,buttonImage=0,region = [],country2=[],iconEImage='iconImage',buttonEsImage='buttonImage',images=1,isPackageD=0;
+	select1="",select2="",select3="",select4="",select5="",select6="",select7="",select8="",select9="",select10="",
+	select11="",select12="",select13="",select14=""
+    
+    if(speficData)
+    {
+      iconEImage='';
+      buttonEsImage='';
+      id=speficData.id;
+      categoryName=speficData.category;
+      desp = speficData.description;
+      region=speficData.categoryRegion.split(',');
+
+
+      if(speficData.isPackage == 1)
+      {
+        isPackageD=1
+      }
+      
+      if(speficData.iconImage != '')
+      {
+        iconImage=1
+      }
+
+      if(speficData.type == 1)
+      {
+        images=0
+      }
+
+
+      if(speficData.buttonImage != '')
+      {
+        buttonImage=1
+      }
+
+      let category_id=0
+      cost=speficData.amount;
+      if(speficData != null)
+      {
+        
+        if(cost == 0)
+        {
+          select1="selected";
+        }
+        else if(cost == 0.99)
+        {
+          select2="selected";
+        }else if(cost == 1.99)
+        {
+          select3="selected";
+        }else if(cost == 2.99)
+        {
+          select4="selected";
+        }else if(cost == 3.99)
+        {
+          select5="selected";
+        }else if(cost == 4.99)
+        {
+          select6="selected";
+        }else if(cost == 5.99)
+        {
+          select7="selected";
+        }else if(cost == 6.99)
+        {
+          select8="selected";
+        }else if(cost == 7.99)
+        {
+          select9="selected";
+        }else if(cost == 8.99)
+        {
+          select10="selected";
+        }else if(cost == 9.99)
+        {
+          select11="selected";
+        }else if(cost == 10.99)
+        {
+          select12="selected";
+        }else if(cost == 11.99)
+        {
+          select13="selected";
+        }else if(cost == 12.99)
+        {
+          select14="selected";
+        }
+
+
+        for(let i=0;i<countries.length;i++)
+        {
+          objRegion = {id:countries[i].id,name:countries[i].name,checked:"unchecked"}
+          for(let j=0;j<countries.length;j++)
+          {
+            if(countries[i].id == region[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+
+          finalRegionData.push(objRegion);
+        }
+      }
+    }%>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Category</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label algnCenter">
+                <%= messages.notify %>
+              </label>
+            <form action="/editCategory" method="post" enctype="multipart/form-data" id="categoryData">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Edit Category</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Category:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="hidden" name="id" value="<%=id%>"/>
+                      <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="<%=categoryName%>" required/>
+                    </div>
+                  </div>
+                  
+
+
+                  <% if(images == 1){%>
+                    <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Icon Image:</label>
+                      </div>
+                      <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="file" name="iconImage" id="<%=iconEImage%>" class="form-control"/>
+                          <% if(iconImage == 1){ %>
+                            <a href="<%=imageURL+speficData.iconImage%>" target="_blank">Icon Image</a>
+                          <% }%>  
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Button Image:</label>
+                      </div>
+                      <div class="col-md-9 col-xs-12 col-sm-12">
+                          <input type="file" name="buttonImage" id="<%=buttonEsImage%>" class="form-control" />
+                          <% if(buttonImage == 1){ %>
+                            <a href="<%=imageURL+speficData.buttonImage%>" target="_blank">Icon Image</a>
+                          <% }%>  
+                      </div>
+                    </div> 
+                   <% } %>
+                   
+                   <% if(images == 0){%>
+                      <input type="file" name="iconImage"  style="display:none" />
+                      <input type="file" name="buttonImage" style="display:none" />
+                      <input type="hidden" name="type" value='1' />
+                    <% }else{%>
+                      <input type="hidden" name="type"  value='2s' />
+                    <% } %>  
+                
+
+
+
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Description: </label>
+                    </div>
+                    <div class="col-md-11 col-xs-12 col-sm-12">
+                      <textarea class="form-control" id="description"  name="description" rows="4" cols="150"><%=desp%></textarea>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Region:
+                        </label>
+                      </div>
+                      <div class="col-md-11 col-sm-12 col-xs-12">
+                        <% if(!speficData){%>
+                          <% countries.forEach(function(countries){ %>
+                          <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <label >
+                              <b style="padding:10px;"><%=countries.name%></b>
+                              <input type="checkbox" id="country" name="countryVal[]" class="floatLeft" value="<%=countries.id%>"
+                              onclick="addCountryArray('<%=countries.id%>',this)" >
+                            </label>
+                          </div>
+                          <% }) %>
+                         <% }else{ %> 
+
+                        <% finalRegionData.forEach(function(country){ %>
+                          
+                          <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <label for="countryVal[]">
+                              <b style="padding:10px;"><%=country.name%></b>
+                              <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
+                                name="countryVal[]" <%=country.checked%>
+                                onclick="addCountryArray('<%=country.id%>',this)">
+                            </label>
+                          </div>
+                          <% }) %>
+                        <% } %>
+                        <div class="col-md-12" style="text-align:center">
+                          <b id="validateRegionError" style="color:red">
+                          </b>
+                        </div>
+                        <input type="hidden" value="<%=country2%>"  id="country_arr" name="region" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Cost:</label>
+                    </div>
+                    <div class="col-md-2 col-xs-12 col-sm-12">
+                      <select class="form-control" name="cost" id="cost">
+                        <option value="" <%=select1%> >Please Select Cost</option>
+                        <option value="0,0" <%=select1%> >Free</option>
+                            <option value="1,0.99" <%=select2%> >0.99</option>
+                            <option value="2,1.99" <%=select3%> >1.99</option>
+                            <option value="3,2.99" <%=select4%> >2.99</option>
+                            <option value="4,3.99" <%=select5%> >3.99</option>
+                            <option value="5,4.99" <%=select6%>>4.99</option>
+                            <option value="6,5.99" <%=select7%>>5.99</option>
+                            <option value="7,6.99" <%=select8%>>6.99</option>
+                            <option value="8,7.99" <%=select9%>>7.99</option>
+                            <option value="9,8.99" <%=select10%>>8.99</option>
+                            <option value="10,9.99" <%=select11%>>9.99</option>
+                            <option value="11,10.99" <%=select12%>>10.99</option>
+                            <option value="12,11.99" <%=select13%>>11.99</option>
+                            <option value="13,12.99" <%=select14%>>12.99</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Is package:</label>
+                    </div>
+                    <div>
+                      <% if(isPackageD == 1){%>
+                        <input type="checkbox" id="isPackage" name ="isPackage" class="floatLeft" checked/>
+                      <% }else{ %>  
+                        <input type="checkbox" id="isPackage" name ="isPackage" class="floatLeft" />
+                      <% } %>  
+                    </div>
+                  </div>  
+                  <div class="col-md-12 col-sm-12 col-xs-12 paddingSt algnCenter">
+                    <input type="submit" class="btn btn-success" id="buttonSubmit" value="Save" />
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Category List</b>
+              <a href="/newCategory" class="btn btn-success">All Category</a>
+            </div>
+
+            
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+		                  <th>ID</th>
+                      <th>Icon Image</th>
+                      <th>Button Image</th>
+                      <th>Category</th>
+                      <th>Description</th>
+                      <th>Cost</th>
+                      <th>Tag</th>
+                      <th>Tag-index</th>
+                      <th>Created</th>
+                      <th>Modified</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(categoryData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  categoryData.forEach(function(categoryData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+			  <td><%=categoryData.id%></td>
+                          <td>
+                            <% if(categoryData.iconImage != ''){%>
+                              <img src="<%=imageURL%><%=categoryData.iconImage%>"  width='30'>
+                            <% }else{ %>  
+                              No Image
+                            <% }%>  
+                          </td>
+                          <td>
+                            <% if(categoryData.buttonImage != ''){ %>
+                              <img src="<%=imageURL%><%=categoryData.buttonImage%>"  width='30'>
+                            <% }else{ %>  
+                              No Image
+                            <% } %>                                
+                          </td>
+
+                          <td><%=categoryData.category%></td>
+                          <td>
+                            <%=categoryData.description%>
+                          </td>
+                          <td>
+                            <%=categoryData.amount%>
+                          </td>
+                          <td>
+                            <%=categoryData.tag%>
+                          </td>
+                          <td>
+                            <%=categoryData.tag_index%>
+                          </td>
+                          <td>
+                            <%=categoryData.created.toLocaleString('en-us')%>
+                          </td>
+                          <td>
+                            <%=categoryData.modified.toLocaleString('en-us')%>
+                          </td>
+                          <td>
+                            <a href="/viewCategories/<%=categoryData.id%>" onclick="changeButtonAble()">
+                              <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <% if(categoryData.status == 1){%>
+                              <a href="javascript:void(0)" class='btn btn-success' data-toggle="modal" data-target="#myModal" onClick="categoryState('<%=webURL%>',0,'<%=categoryData.id%>')">Active</a>
+                            <% }else{%>  
+                              <a href="javascript:void(0)" class='btn btn-danger' data-toggle="modal" data-target="#myModal" onClick="categoryState('<%=webURL%>',1,'<%=categoryData.id%>')">InActive</a>
+                            <% } %>  
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="4">
+                            <h3><b> No Categories Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Active/Deactive Package</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Are you Sure
+              </div>
+              <div class="col-md-12" style="padding: 10px;text-align:center">
+                <div class="col-md-6" id="optionPack">
+                </div>
+              </div>  
+              <!-- Modal footer -->
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+            let countryArr = document.getElementById('country_arr').value.split(",");
+           // alert(countryArr);
+            function addCountryArray(country, e) 
+            {
+              //console.log(country)
+              if (e.checked) {
+                countryArr.push(country);
+              }
+              else {
+                removeA(countryArr, country);
+              }
+              document.getElementById('country_arr').value = countryArr;
+            }
+
+
+            function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+              what = a[--L];
+              while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+              }
+            }
+            return arr;
+          }
+
+
+          
+        function categoryState(url,type,userid)
+        {
+        
+         $("#optionPack").html("")
+         $("#optionPack").append('<tr><td><a  href='+url+'updateCategoryState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+        }
+        </script>
+
+    </body>
+  </html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    
+    <style>
+      .buttonload {
+        background-color: #4CAF50; /* Green background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 24px; /* Some padding */
+        font-size: 16px; /* Set a font-size */
+      }
+
+      /* Add a right margin to each icon */
+      .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+      }
+    </style>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb" style="margin-bottom: 0px;">
+          <li class="breadcrumb-item">
+            <a href="/getGamesCounts" style="font-weight:bold;">App Performance</a>
+          </li>
+        </ol>
+        <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <form method="post" action="/filterQuestions" id="package">
+          <div class="form-group">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Filter</b>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+              <div class="col-md-12 col-sm-12 col-xs-12" >
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >From:</label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                      <input type="text" class="form-control" id="startTime"/>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                  <div class="col-md-4 col-sm-12 col-xs-12">
+                    <label for="city" class="col-form-label" >
+                      To:
+                    </label>
+                  </div>
+                  <div class="col-md-8 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control" id="endTime" />
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12 col-xs-12 paddingSt" style="text-align:center;">
+                  <a href="#" class="btn btn-success" id="search" onclick="getCountFromDate('<%=webURL%>')">Search</a>
+                </div>
+              </div>
+              <div id="errorMessage" style="display:none">
+                <h5 style="color:red;text-align: center;"><b>Enter Start Date / End Date</b></h5>
+              </div>
+            </div>
+          </div>
+        </form>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Date From  -  To</th>
+                    <th>Game played</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr id="getCount">
+                      
+                    </tr>
+                </tbody>
+                
+              </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+                <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <% include ../views/elements/footer %>
+      </footer>
+    </div>
+    <!-- /.content-wrapper -->
+  </div>
+
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+          <% include ../views/elements/bootom %>
+        </footer>
+        <script>
+           $('#startTime').datetimepicker();
+            $('#endTime').datetimepicker();
+
+            $("#startTime").on("dp.change", function (e) {
+                //$('#endTime').data("DateTimePicker").minDate(e.date);
+                });
+            $("#endTime").on("dp.change", function (e) {
+                //$('#startTime').data("DateTimePicker").maxDate(e.date);
+            });
+
+            function getCountFromDate(url)
+            {
+              
+              let startDate= $("#startTime").val()
+              let endDate= $("#endTime").val();  
+              if(startDate !='' && endDate !='')
+              {
+                $("#errorMessage").hide();
+                $("#getCount").html("");
+                
+                $.ajax({
+                  type: "POST",
+                  url: url+'getGameCountData',
+                  data: 'startDate='+startDate+'&endDate='+endDate,
+                  success: function(data)
+                  {
+console.log(data);
+                    let html;
+                    html +='<td><b>'+startDate+' - '+startDate+'</b></td>';
+                    html +='<td><b>'+data+'</b></td>';
+                    $("#getCount").append(html);
+                  }
+                })
+              }
+              else
+              {
+                $("#errorMessage").show();
+              }
+            }
+
+        </script>
+      </body>
+      </html>

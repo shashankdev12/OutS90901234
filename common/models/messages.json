@@ -1,0 +1,47 @@
+{
+  "name": "messages",
+  "plural": "messages",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "heading": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "type": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "messageType": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "status": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

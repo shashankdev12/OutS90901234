@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",cost="",image="",disable = "";
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/bulklicences/0/0/0" style="font-weight:bold;">Licence</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:10px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-1 col-form-label">
+                <%= messages.notify %>
+              </label>
+            <form method="post" action="/addBulkLicence" id="licence">
+              <div class="form-group">
+                  <div class="col-md-12 col-xs-12 col-sm-12" >
+                    <div class="card-header">
+                      <i class="fas fa-table"></i>
+                      <b>Bulk Licence</b>
+                    </div>
+                  </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="col-md-3 col-sm-12 col-xs-12  paddingSt" >
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label" >
+                          No of Licence :
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        <input type="number" class="form-control" min="0" max="50000" name="count" id="count"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-12 col-xs-12  paddingSt" >
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label" >
+                          Country :
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        <select class="form-control form-control-sm" id="country_id" name="country" onchange="getDistributor('<%=webURL%>')">
+                          <option value="">Select</option>
+                          <% countryData.forEach(function(countryData){ %>
+                            <option value="<%=countryData.code+","+countryData.id %>">
+                              <%= countryData.name %> (<%= countryData.code %>)
+                            </option>
+                          <% }); %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-12 col-xs-12  paddingSt" >
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label" >
+                          Distributor :
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        <select class="form-control form-control-sm" id="distributor" name="distributor">
+                          <option value="">Please select</option>
+                        </select>
+                        <!-- <input type="text" class="form-control" name="distributor" id="distributor"/> -->
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden"/ id="country_id" value="<%=country_id%>">
+                  <div class="col-md-2 col-sm-12 col-xs-12 paddingSt" style="text-align:center">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-xs-12 col-sm-12 card-header" style="float-right">
+              <div class="col-md-4 col-xs-12 col-sm-12">
+                <i class="fas fa-table"></i>
+                <b>All Licences</b>
+              </div>
+
+              <div class="col-md-2 col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-4 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Count :
+                  </label>
+                </div>
+                <div class="col-md-3 col-xs-12 col-sm-12" style="padding-top:7px;font-size:15px">
+                  <b ><%=paginator%></b>
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                  <a href="/bulkLicences/0/0/0" class="btn btn-info">
+                    <i class="fas fa-sync"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-3 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Distributors
+                  </label>
+                </div>
+                <div class="col-md-9 col-xs-12 col-sm-12">
+                  <select class="form-control form-control-sm" id="distributorFilter" onchange="filterByDistributor('<%=webURL%>')">
+                    <% if(distributor != null){ %>
+                    <option value="">Select Distributor</option>
+                    <option value="0">Select All</option>
+                      <% distributor.forEach(function(distributor){ %>
+                        <% if(distributor.id == distributor_id ){ %>
+                          <option value="<%=distributor.id %>">
+                            <%= distributor.distributor %>
+                          </option>
+                        <% }else{ %>
+                          <option value="<%=distributor.id %>" >
+                            <%= distributor.distributor %>
+                          </option>
+                        <% } %>
+                      <% }); %>
+
+                    <% }else{ %>
+                        <option value="">Select Country</option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3  col-sm-12 col-xs-12" style="float:right">
+                <div class="col-md-3 col-xs-12 col-sm-12" style="margin-top:7px;">
+                  <label>
+                    Country
+                  </label>
+                </div>
+                <div class="col-md-9 col-xs-12 col-sm-12">
+                  <select class="form-control form-control-sm" id="country" onchange="filterByCountry('<%=webURL%>')" >
+                    <option value="">Select</option>
+                    <option value="0">Select All</option>
+                    <% countryData.forEach(function(countryData){ %>
+                      <% if(countryData.id ==  country_id){%>
+                      <option value="<%=countryData.id %>" selected>
+                        <%= countryData.name %> (<%= countryData.code %>)
+                      </option>
+                      <% }else{ %>
+                        <option value="<%=countryData.id %>">
+                          <%= countryData.name %> (<%= countryData.code %>)
+                        </option>
+                      <% } %>
+                    <% }); %>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>Licence</th>
+                      <th>Country</th>
+                      <th>Distributor</th>
+                      <th>Created</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(licenceData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  licenceData.forEach(function(licenceData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=licenceData.licence%></td>
+                          <td><%=licenceData.toJSON().countries.name%></td>
+                          <td><%=licenceData.distributorName%></td>
+                          <td>
+                            <%
+
+                              var dd = licenceData.created.getDate();
+                              var mm = licenceData.created.getMonth()+1;
+                              var yyyy = licenceData.created.getFullYear();
+                              if(dd<10)
+                              {
+                                  dd='0'+dd;
+                              }
+
+                              if(mm<10)
+                              {
+                                  mm='0'+mm;
+                              }
+                              %>
+                            <%=today = dd+'/'+mm+'/'+yyyy;%>
+
+                          </td>
+                          <td>
+                            <% if(licenceData.status ==  1 ){%>
+                              <a href="javascript:void(0)" class="btn btn-danger"   onclick="updateLicenceStatus(<%= licenceData.id %>,0,'<%=webURL%>')" style="padding: 2px 3px;">
+                                Disable
+                              </a>
+                            <% }else{ %>
+                              <a href="javascript:void(0)" class="btn btn-success"  onclick="updateLicenceStatus(<%= licenceData.id %>,1,'<%=webURL%>')" style="padding: 2px 3px;">
+                                Enable
+                              </a>
+                            <% } %>
+                          </td
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="6">
+                            <h3><b> No Licence Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+                <% if(licenceData.length > 0){ %>
+                  <a href="/exportlicence/<%=country_id%>/<%=distributor_id%>/0" class="btn btn-success" style="float:right"> Export </a>
+                <% } %>
+                <!-- <% if(paginator > 15) { %>
+                <div style="float:right">
+                  <% let pages = Math.ceil(paginator/15)%>
+                  <ul class="pagination">
+                    <% for(let i=0;i<pages;i++){%>
+                      <li class="page-item">
+                        <a class="page-link" href="/bulklicences/<%=country_id%>/<%=i+15 %>?filter[skip]=<%=i*15 %>"><%=i+1%></a>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <% } %> -->
+                <%
+                let j=1;
+
+                if (paginator > 0) {   %>
+                <ul class="pagination text-center">
+                    <% var k = (Number(page) > 5 ? Number(page) - 4 : 1) %>
+                  <% if (page == 0) { %>
+                      <li class="disabled"><a>First</a></li>
+                  <% } else { %>
+                      <li><a href="/bulklicences/<%=country_id%>/<%=distributor_id%>/0">First</a></li>
+                  <% } %>
+
+                  <% if (k !== 1) { %>
+                      <li class="disabled"><a>...</a></li>
+                  <% } %>
+                  <% for (; k < (Number(page)+20) && k < Math.round(paginator/15); k++) {
+                      %>
+                        <% if (k == page) { %>
+                            <li class="active"><a><%= k %></a></li>
+                        <% } else { %>
+
+                            <li><a href="/bulklicences/<%=country_id%>/<%=distributor_id%>/<%=parseInt(k)%>/?filter[skip]=<%=k*15 %>"><%= k %></a></li>
+                        <% } %>
+
+                        <% if (k == Number(page) + 20 && k < paginator) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+
+                  <% } %>
+                  <% if (j == paginator) { %>
+                    <li class="disabled"><a>Last</a></li>
+                  <% } else { %>
+                    <li>
+                      <a href="/bulklicences/<%=country_id%>/<%=distributor_id%>/<%=Math.round((paginator)/15)%>/?filter[skip]=<%=k*(15) %>">
+                        Last
+                      </a>
+                    </li>
+                  <% } %>
+                </ul>
+                <% } %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+  </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+    <script>
+      function filterByCountry(web)
+      {
+        let webURL =  web;
+        let country = $("#country").val();
+        //alert(sub_category_id);
+        window.location.href=webURL+'bulklicences/'+country+'/0/0'
+      }
+
+      function filterByDistributor(web)
+      {
+        let webURL =  web;
+        let country = $("#country").val();
+        let distributor = $("#distributorFilter").val();
+        //alert(sub_category_id);
+        window.location.href=webURL+'bulklicences/'+country+'/'+distributor+'/0'
+      }
+
+      /* ======================= Get Distributors ===================== */
+
+      function getDistributor(web)
+      {
+        let webURL =  web;
+        let country_id = $("#country_id").val();
+          $.ajax({
+            type: "POST",
+            url: webURL+'country/distributor',
+            data: 'country='+country_id,
+            success: function(data)
+            {
+              $("#distributor option").remove();
+              $('#distributor').append($('<option>Select Distributor</option>'))
+              $.each(JSON.parse(data), function(key,value)
+              {
+                $('#distributor').append($('<option value="'+value.id+','+value.distributor+'" >'+value.distributor+'</option>'))
+              });
+              if(window.location.href != webURL+'questions')
+              document.getElementById("search").href = "/viewQuestions/"+category_id+'/0/0/0';
+            }
+          });
+        }
+    </script>
+  </html>

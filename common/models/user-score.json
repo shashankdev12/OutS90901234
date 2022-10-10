@@ -1,0 +1,77 @@
+{
+  "name": "user_score",
+  "plural": "user_score",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_game_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "user_child_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "questionAskedCount": {
+      "type": "number"
+    },
+    "questionCorrect": {
+      "type": "number"
+    },
+    "TotalTimeConsumed": {
+      "type": "number"
+    },
+    "individualTimeConsumed": {
+      "type": "string"
+    },
+    "totalRings": {
+      "type": "number"
+    },
+    "packagesRatio": {
+      "type": "string"
+    },
+    "packagesCount": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "gameType": {
+      "type": "number"
+    },
+    "points": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user_childs": {
+      "type": "belongsTo",
+      "model": "user_childs",
+      "foreignKey": "user_child_id"
+    },
+    "user_teams": {
+      "type": "belongsTo",
+      "model": "user_teams",
+      "foreignKey": "user_child_id"
+    },
+    "user_rings": {
+      "type": "hasMany",
+      "model": "user_rings",
+      "foreignKey": "user_score_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

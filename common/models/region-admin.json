@@ -1,0 +1,56 @@
+{
+  "name": "region_admin",
+  "plural": "region_admin",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "passwordEncript": {
+      "type": "string",
+      "required": true
+    },
+    "countryCode": {
+      "type": "string",
+      "required": true
+    },
+    "countryName": {
+      "type": "string",
+      "required": true
+    },
+    "languageCode": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

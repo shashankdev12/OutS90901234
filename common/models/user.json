@@ -1,0 +1,275 @@
+{
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "username": {
+      "type": "string",
+      "required": false
+    },
+    "email": {
+      "type": "string",
+      "required": false
+    },
+    "licence_id": {
+      "type": "number",
+      "required": false,
+      "index": true
+    },
+    "licenceName": {
+      "type": "string",
+      "required": false
+    },
+    "deviceToken": {
+      "type": "string",
+      "required": false
+    },
+    "firstName": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": false
+    },
+    "password": {
+      "type": "string",
+      "required": false
+    },
+    "passwordDebug": {
+      "type": "string",
+      "required": false
+    },
+    "age": {
+      "type": "number",
+      "required": false
+    },
+    "profilePic": {
+      "type": "string",
+      "required": false
+    },
+    "status": {
+      "type": "number",
+      "required": false
+    },
+    "userType": {
+      "type": "number",
+      "required": false
+    },
+    "country_id": {
+      "type": "number"
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "packages": {
+      "type": "string"
+    },
+    "purchaseStatus": {
+      "type": "number",
+      "default": 1
+    },
+    "PubQuizQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "purchaseCategory": {
+      "type": "string",
+      "default": 0
+    },
+    "PubQuizRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "BKSQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "BKSRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "QTQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "QTRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "SNMQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "SNMRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "TVBQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "TVBRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "BKNQuestionAsked": {
+      "type": "string",
+      "default": 0
+    },
+    "BKNRepeat": {
+      "type": "number",
+      "default": 0
+    },
+    "FinalRound": {
+      "type": "string",
+      "default": 0
+    },
+    "postcode": {
+      "type": "string"
+    },
+    "Telephone": {
+      "type": "string"
+    },
+    "placeOfPurchase": {
+      "type": "string"
+    },
+    "hearFrom": {
+      "type": "string"
+    },
+    "marketing": {
+      "type": "number",
+      "default": 0
+    },
+    "created": {
+      "type": "date",
+      "required": false
+    },
+    "modified": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "licences": {
+      "type": "belongsTo",
+      "model": "licences",
+      "foreignKey": "licence_id"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "checkLogin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "register"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "addUser"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getChildList"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "deleteChildUser"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "editChildUser"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "checkLogin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "generalUserData"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "sendEmail"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "deleteAllDevice"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "approveAuthUser"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "updateCountry"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "iosRegister"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "checkIosLogin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "iosLogin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "registerPurcahaseShop"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "checkTestUser"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getChildListTest"
+    }
+  ],
+  "methods": {}
+}

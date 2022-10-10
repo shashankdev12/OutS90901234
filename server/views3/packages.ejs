@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html%>
+
+    <%
+       let id =0,packageName ="",cost=0,description="",logo="",
+      region=[],country2=[],category2=[],finalRegionData = [],age=[],age2 =[];
+      let finalAgeData = [],objAge = {},categories=[],cate2 =[],finalCate=[],select1="",select2="",select3="",select4="",select5="",select6="",select7="",select8="",select9="",select10="",
+	select11="",select12="",select13="",select14="",corepack=0;
+      if(packagesInfo)
+      {
+        region=packagesInfo.countries.split(',');
+        id = packagesInfo.id;
+        packageName = packagesInfo.packageName;
+        cost=packagesInfo.cost;
+        description=packagesInfo.packageDescription;
+        logo=packagesInfo.packageLogo;
+        age = packagesInfo.age.split(",");
+        categories = packagesInfo.categories.split(",");
+        corepack = packagesInfo.corePack;
+        if(cost == 0)
+        {
+          select1="selected";
+        }
+        else if(cost == 0.99)
+        {
+          select2="selected";
+        }else if(cost == 1.99)
+        {
+          select3="selected";
+        }else if(cost == 2.99)
+        {
+          select4="selected";
+        }else if(cost == 3.99)
+        {
+          select5="selected";
+        }else if(cost == 4.99)
+        {
+          select6="selected";
+        }else if(cost == 5.99)
+        {
+          select7="selected";
+        }else if(cost == 6.99)
+        {
+          select8="selected";
+        }else if(cost == 7.99)
+        {
+          select9="selected";
+        }else if(cost == 8.99)
+        {
+          select10="selected";
+        }else if(cost == 9.99)
+        {
+          select11="selected";
+        }else if(cost == 10.99)
+        {
+          select12="selected";
+        }else if(cost == 11.99)
+        {
+          select13="selected";
+        }else if(cost == 12.99)
+        {
+          select14="selected";
+        }
+        for(let i=0;i<countryInfo.length;i++)
+        {
+          objRegion = {id:countryInfo[i].id,name:countryInfo[i].name,checked:"unchecked"}
+          for(let j=0;j<region.length;j++)
+          {
+            if(countryInfo[i].id == region[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+
+          finalRegionData.push(objRegion);
+        }
+
+
+    for(let i=0;i<ageData.length;i++)
+    {
+      objAge = {id:ageData[i].id,age:ageData[i].age,checked:"unchecked"}
+      for(let j=0;j<age.length;j++)
+      {
+        if(ageData[i].id == age[j])
+        {
+          objAge.checked="checked";
+          if(!age2.includes(objAge.id))
+          {
+            age2.push(objAge.id);
+          }
+
+        }
+      }
+
+      finalAgeData.push(objAge);
+    }
+
+
+
+        for(let i=0;i<categoryInfo.length;i++)
+        {
+          objCategory = {id:categoryInfo[i].id,category:categoryInfo[i].category,checked:"unchecked"}
+          for(let j=0;j<categories.length;j++)
+          {
+            if(categoryInfo[i].id == categories[j])
+            {
+              objCategory.checked="checked";
+              if(!cate2.includes(objCategory.id))
+              {
+                cate2.push(objCategory.id);
+              }
+
+            }
+          }
+
+          finalCate.push(objCategory);
+        }
+
+        
+
+      }
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/packages/0" style="font-weight:bold;">Packages</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label" style="text-align:center">
+                <%= messages.notify %>
+              </label>
+            <form method="post" action="/addPackage" id="package"  enctype="multipart/form-data">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Add Package</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="col-md-4 col-sm-12 col-xs-12" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label" >Name:</label>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                      <input type="hidden" name='id' value="<%=id%>">
+                      <input type="text" class="form-control" id="packageName" placeholder="Package Name" name="package" autocomplete="off" value="<%=packageName%>" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12 col-xs-12" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Cost:</label>
+                    </div>
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                      <!-- <input type="text" class="form-control" id="cost" placeholder="Package Cost" name="cost" value="<%=cost%>" autocomplete="off"
+                      required> -->
+                      <select class="form-control" name="cost" id="cost">
+                        <option value="" <%=select1%> >Please Select Cost</option>
+                        <option value="0,0" <%=select1%> >Free</option>
+<option value="1,0.99" <%=select2%> >0.99</option>
+<option value="2,1.99" <%=select3%> >1.99</option>
+<option value="3,2.99" <%=select4%> >2.99</option>
+<option value="4,3.99" <%=select5%> >3.99</option>
+<option value="5,4.99" <%=select6%>>4.99</option>
+<option value="6,5.99" <%=select7%>>5.99</option>
+<option value="7,6.99" <%=select8%>>6.99</option>
+<option value="8,7.99" <%=select9%>>7.99</option>
+<option value="9,8.99" <%=select10%>>8.99</option>
+<option value="10,9.99" <%=select11%>>9.99</option>
+<option value="11,10.99" <%=select12%>>10.99</option>
+<option value="12,11.99" <%=select13%>>11.99</option>
+<option value="13,12.99" <%=select14%>>12.99</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12 col-xs-12" >
+                    <% if(logo ==  ""){ %>
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Logo:</label>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <input type="file" class="form-control" id="logo" name="logo" required>
+                        
+                        <b id="response" style="color:red"></b>
+                      </div>
+                    <% }else{ %>
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Logo:</label>
+                      </div>
+                      <img src="<%=imageURL%><%=logo%>" width="200px"  />
+                      <input type="hidden" class="form-control" name="logo" value="<%=logo%>">
+                     <input type="file" class="form-control"
+                      name="logo" value="<%=logo%>" autocomplete="off" id="editImage">
+                    <% } %>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 paddingSt" >
+
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Description :</label>
+                      </div>
+                      <div class="col-md-11 col-sm-12 col-xs-12">
+                        <textarea class="form-control" id="description" name="packageDescription"  required><%=description%></textarea>
+                      </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Region:
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        <% if(!packagesInfo){%>
+                          <% countryInfo.forEach(function(countryInfo){ %>
+                          <div class="col-md-3"  id="regionCa">
+                          
+                            <label for="countryVal[]">
+                              <b style="padding:10px;"><%=countryInfo.name%></b>
+                              <input type="checkbox" id="country" class="floatLeft" value="<%=countryInfo.id%>"
+                              onclick="addCountryArray('<%=countryInfo.id%>',this)" >
+
+                            </label>
+                          </div>
+                          <% }) %>
+                         <% }else{ %> 
+
+                        <% finalRegionData.forEach(function(country){ %>
+                          <div class="col-md-3"  id="regionCa">
+                            <label for="countryVal[]">
+                              <b style="padding:10px;"><%=country.name%></b>
+                              <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
+                                name="countryVal[]" <%=country.checked%>
+                                onclick="addCountryArray('<%=country.id%>',this)">
+                            </label>
+                          </div>
+                          <% }) %>
+                        <% } %>  
+                        <div class="col-md-12" style="text-align:center">
+                          <input type="hidden" value="<%=country2%>"  id="country_arr" name="region" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Categories:
+                        </label>
+                      </div>
+                      <div class="col-md-10 col-sm-12 col-xs-12">
+                        <% if(!packagesInfo){%>
+                          <% categoryInfo.forEach(function(categoryInfo){ %>
+                            <div class="col-md-3"  id="regionCa">
+                              <label for="countryVal[]">
+                                <b style="padding:10px;"><%=categoryInfo.category%></b>
+                                <input type="checkbox" id="categories" name="categoryVal[]" class="floatLeft" value="<%=categoryInfo.id%>"
+                                onclick="addCategoryArray('<%=categoryInfo.id%>',this)" >
+                              </label>
+                            </div>
+                            <% }) %>
+                         <% }else{%>
+                          <% finalCate.forEach(function(categoryInfo){ %>
+                            <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                              <label for="countryVal[]">
+                                <b style="padding:10px;"><%=categoryInfo.category%></b>
+                                <input type="checkbox" id="categories" name="categoryVal[]" class="floatLeft" value="<%=categoryInfo.id%>"
+                                onclick="addCategoryArray('<%=categoryInfo.id%>',this)" <%=categoryInfo.checked%>/ >
+                              </label>
+                            </div>
+                            <% }) %>   
+                          <% }%>    
+                        <div class="col-md-12" style="text-align:center">
+                          <input type="hidden" value="<%=cate2%>"  id="category_arr" name="category" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Age:
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                      <% if(!packagesInfo){%>
+                        <% ageData.forEach(function(ageData){ %>
+                        <div class="col-md-3 inline_collection" style="padding-left:40px" id="ageC">
+                          <label for="ageVal[]">
+                            <b style="padding:10px;">
+                              <%=ageData.age%>
+                            </b>
+                            <input type="checkbox" id="ageCategory" class="floatLeft" value="<%=ageData.id%>"
+                              name="ageVal[]" onclick="addAgeArray('<%=ageData.id%>',this)"/>
+                          </label>
+                        </div>
+                        <% }) %>
+                       <% }else{%> 
+                        <% finalAgeData.forEach(function(ageData){ %>
+                          <div class="col-md-3 inline_collection" style="padding-left:40px" id="ageC">
+                            <label for="ageVal[]">
+                              <b style="padding:10px;">
+                                <%=ageData.age%>
+                              </b>
+                              <input type="checkbox" id="ageCategory"  class="floatLeft" value="<%=ageData.id%>"
+                                name="ageVal[]" onclick="addAgeArray('<%=ageData.id%>',this)" <%=ageData.checked%> />
+                            </label>
+                          </div>
+                        <% }) %>
+                          
+                        <% }%> 
+                        <input type="hidden" value="<%=age%>" id="resultant_arr" name="age" />
+                      </div>
+                      <div class="col-md-12" style="text-align:center">
+                        <b id="validateAgeError" style="color:red">
+                        </b>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          CorePack:
+                        </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                      
+                        <div class="col-md-3 inline_collection" style="padding-left:40px" id="ageC">
+                          <label >
+                            <%if(corepack == 0)
+                            {%>
+                              <input type="checkbox" id="corePack" class="floatLeft" name="corepack"/>
+                              <%}
+                            else
+                            {%>
+                              <input type="checkbox" id="corePack" class="floatLeft" name="corepack" checked/>
+                            <%}%>
+                              
+                          </label>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 paddingSt" style="text-align:center;">
+                    <input type="submit" class="btn btn-success" id="btnSubmit" value="Save" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Package List</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>ID</th>
+                      <th>Logo</th>
+                      <th>Name</th>
+                      <th style="width:40%">Description</th>
+                      <th>Cost</th>
+                      <th>N.O.Q</th>
+                      <th>Created</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(packagesData.length > 0){ %>
+                      <% let i=0; %>
+                      <%  packagesData.forEach(function(packagesData){i++%>
+                        <tr>
+                          <td><%=i%></td>
+			  <td><%=packagesData.packVal.id%></td>
+                          <td>
+                            <img src="<%=imageURL%><%=packagesData.packVal.packageLogo%>" width='30'  />
+                          </td>
+                          <td><%=packagesData.packVal.packageName%></td>
+                          <td><%=packagesData.packVal.packageDescription%></td>
+                          <td><%=packagesData.packVal.cost%></td>
+                          <td><%=packagesData.count%></td>
+                          <td>
+                            <%=packagesData.packVal.created.toLocaleString('en-us')%>
+                          </td>
+                          <td>
+                            <a href="/packages/<%=packagesData.packVal.id%>">
+                              <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <% if(packagesData.packVal.status == 1){%>
+                              <a href="javascript:void(0)" class='btn btn-success' data-toggle="modal" data-target="#myModal" onClick="packageState('<%=webURL%>',0,'<%=packagesData.packVal.id%>')">Active</a>
+                            <% }else{%>  
+                              <a href="javascript:void(0)" class='btn btn-danger' data-toggle="modal" data-target="#myModal" onClick="packageState('<%=webURL%>',1,'<%=packagesData.packVal.id%>')">InActive</a>
+                            <% } %>  
+                          </td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="4">
+                            <h3><b> No Age Created </b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+                <% if(paginator > 10) { %>
+                <div style="float:right">
+                  <% let pages = Math.ceil(paginator/10)%>
+                  <ul class="pagination">
+                    <% for(let i=0;i<pages;i++){%>
+                      <li class="page-item">
+                        <a class="page-link" href="/packages/<%=i+10 %>?filter[skip]=<%=i*10 %>"><%=i+1%></a>
+                      </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Active/Deactive Package</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+              Are you Sure
+            </div>
+            <div class="col-md-12" style="padding: 10px;text-align:center">
+              <div class="col-md-6" id="optionPack">
+               
+              </div>
+             
+            </div>  
+            <!-- Modal footer -->
+            
+            
+          </div>
+        </div>
+      </div>
+  
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+         // let ageArr = [];
+          //let countryArr = [];
+        $(document).ready(function(){
+          
+          var _URL = window.URL || window.webkitURL
+          $('#logo').change(function () {
+           var file = $(this)[0].files[0];
+           var fuData = document.getElementById('logo');
+           var FileUploadPath = fuData.value;
+           var Extension = FileUploadPath.substring(
+                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+            console.log(Extension);
+           img = new Image();
+           var imgwidth = 0;
+           var imgheight = 0;
+           var maxwidth = 600;
+           var maxheight = 600;
+
+           img.src = _URL.createObjectURL(file);
+           img.onload = function() {
+            imgwidth = this.width;
+            imgheight = this.height;
+
+            $("#width").text(imgwidth);
+            $("#height").text(imgheight);
+            if(Extension == 'png' || Extension == 'jpeg' || Extension == 'jpg')
+            {
+              if(imgwidth <= maxwidth && imgheight <= maxheight)
+              {
+                $("#response").text(" ");
+                $("#btnSubmit").attr("disabled", false);
+               var formData = new FormData();
+               formData.append('fileToUpload', $('#file')[0].files[0]);
+
+              }else{
+                //alert(2);
+                $('#btnSubmit').attr("disabled", true);
+                $("#response").text("please upload png or jpeg/jpg file "+maxwidth+"X"+maxheight+" pixel");
+              }
+            }
+            else
+            {
+              $('#btnSubmit').attr("disabled", true);
+              $("#response").text("please upload png or jpeg/jpg file");
+            }
+          };
+          img.onerror = function() {
+
+           $("#response").text("not a valid file: " + file.type);
+          }
+
+          });
+          
+        });
+
+          let countryArr = document.getElementById('country_arr').value.split(",");
+        console.log("country",countryArr)
+        if(countryArr[0] != '')
+        {
+          //alert(1)
+          countryArr = document.getElementById('country_arr').value.split(",");
+        }
+        else
+        {
+          //alert(2)
+          countryArr = [];
+        }
+
+
+        let categoryArr = document.getElementById('category_arr').value.split(",");
+        console.log("country",categoryArr)
+        if(categoryArr[0] != '')
+        {
+          //alert(1)
+          categoryArr = document.getElementById('category_arr').value.split(",");
+        }
+        else
+        {
+          //alert(2)
+          categoryArr = [];
+        }
+
+
+        let ageArr = document.getElementById('resultant_arr').value.split(",");
+        console.log("ageArr",ageArr)
+        if(ageArr[0] != '')
+        {
+          //alert(1)
+          ageArr = document.getElementById('resultant_arr').value.split(",");
+        }
+        else
+        {
+          //alert(2)
+          ageArr = [];
+        }          
+	      function addCountryArray(country, e) {
+            console.log(country)
+          if (e.checked) {
+            countryArr.push(country);
+          }
+          else {
+            removeA(countryArr, country);
+          }
+          
+
+          
+          console.log(countryArr);
+          document.getElementById('country_arr').value = countryArr;
+        }
+
+        /* set category */ 
+
+        
+        function addCategoryArray(category,e)
+        {
+          if (e.checked) {
+            //if()
+            categoryArr.push(category);
+          }
+          else {
+            removeA(categoryArr, category);
+          }
+
+          console.log(categoryArr);
+          document.getElementById('category_arr').value = categoryArr;
+        }
+
+
+        function addAgeArray(age, e) 
+        {
+          console.log(ageArr);
+          console.log(age);
+          if (e.checked) {
+            ageArr.push(age);
+          }
+          else {
+            removeA(ageArr, age);
+          }
+          console.log(ageArr);
+          document.getElementById('resultant_arr').value = ageArr;
+        }
+
+        function removeA(arr) {
+          var what, a = arguments, L = a.length, ax;
+          while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+              arr.splice(ax, 1);
+            }
+          }
+          return arr;
+        }
+
+
+        function packageState(url,type,userid)
+      {
+        
+        $("#optionPack").html("")
+        $("#optionPack").append('<tr><td><a  href='+url+'updatePackageState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+      }
+
+
+        
+        </script>
+    </body>
+  </html>

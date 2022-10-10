@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html%>
+    <%
+    let id ="";
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/setting/0" style="font-weight:bold;">App Update</a>
+          </li>
+        </ol>
+        <% let messages = getMessages()%>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" >
+              <div class="col-md-12 col-xs-12 col-sm-12" style="float:none;">
+                <div class="col-md-12 col-xs-12 col-sm-12 form-group" style="text-align:center">
+                  <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first-name" style="color:green">
+                    <%= messages.notify %>
+                  </label>
+                </div>
+                <div class="col-md-12" style="margin-top:30px;border-top:2px solid #ddd">
+                  <div class="col-md-12">
+                  <form method="post" action="/appVersion" id="changePassword">
+                  <div class="x_panel">
+                    <div class="x_content">
+                      <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1">
+                          <div class="container">
+                            <div class="table-responsive" style=" margin-bottom:5px">
+                            </div></div>
+                            <table class="table" style="margin-bottom:0px;">
+                              <thead>
+                                <tr style="text-align:center">
+                                  <th>App Version</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th>Android Version :</th>
+                                  <td>
+
+                                    <input type="text" class="form-control" placeholder="App Version" name="androidVersion" value="<%=appversion[0].gameVersion%>"/>
+                                  </td>
+                                  <th>IOS Version :</th>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="App Version" name="iosVersion" value="<%=appversion[1].gameVersion%>" />
+                                  </td>
+                                  <th>Windows Version :</th>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="App Version" name="windowVersion" value="<%=appversion[2].gameVersion%>" />
+                                  </td>
+
+                                </tr>
+                                <tr>
+                                  <th>Heading :</th>
+                                  <td>
+                                    <input type="hidden" class="form-control"  name="ios" value="ios"/>
+                                    <input type="text" class="form-control" placeholder="App Version" name="message" value="<%=appversion[0].message%>" />
+                                  </td>
+                                  <th>Message :</th>
+                                  <td>
+                                    <textarea class="form-control" name="heading">
+                                      <%=appversion[0].heading%>
+                                    </textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td colspan="6" style="text-align:center">
+                                    <input type="submit" class="btn btn-success" />
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Sticky Footer -->
+          <footer class="sticky-footer">
+            <% include ../views/elements/footer %>
+          </footer>
+        </div>
+        <!-- /.content-wrapper -->
+      </div>
+      <!-- /#wrapper -->
+      <!-- Scroll to Top Button-->
+      <% include ../views/elements/bootom %>
+    </body>
+    </html>

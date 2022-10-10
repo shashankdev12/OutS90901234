@@ -1,0 +1,99 @@
+{
+  "name": "categories",
+  "plural": "categories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "categoryMasterId": {
+      "type": "number"
+    },
+    "iconImage": {
+      "type": "string"
+    },
+    "buttonImage": {
+      "type": "string"
+    },
+    "image1": {
+      "type": "string"
+    },
+    "image2": {
+      "type": "string"
+    },
+    "image3": {
+      "type": "string"
+    },
+    "image4": {
+      "type": "string"
+    },
+    "image5": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "amountIndex": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "categoryRegion": {
+      "type": "string"
+    },
+    "type": {
+      "type": "number"
+    },
+    "isPackage": {
+      "type": "number",
+      "required": true
+    },
+    "tag": {
+      "type": "string"
+    },
+    "tag_index": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    },
+    "regionId": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "questions": {
+      "type": "hasMany",
+      "model": "questions",
+      "foreignKey": "id"
+    },
+    "sub_categories": {
+      "type": "hasMany",
+      "model": "sub_categories",
+      "foreignKey": "id"
+    },
+    "region_categories": {
+      "type": "hasMany",
+      "model": "region_categories",
+      "foreignKey": "category_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

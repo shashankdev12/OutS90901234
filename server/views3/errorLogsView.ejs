@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",code="";
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/errorLogsView" style="font-weight:bold;">Error List</a>
+          </li>
+        </ol>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/removeErrorLogs" class="btn btn-danger" style="font-weight:bold;">Remove Errors</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Error List</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered align" id="datTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>S. No.</th>
+                      <th>Error</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userArray">
+                    <% if(data.length > 0){ %>
+                      <% let i=0; %>
+                      <%  data.forEach(function(data){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=data.error%></td>
+                          <td><%=data.created.toLocaleString('en-us')%></td>
+                        </tr>
+                      <% }) %>
+                      <% }else{ %>
+                        <tr>
+                          <td colspan="8">
+                            <h3><b> No Error</b></h3>
+                          </td>
+                        </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

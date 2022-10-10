@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/uploadQuestions" style="font-weight:bold;">Upload Questions via csv</a>
+            </li>
+          </ol>
+          <% let messages = getMessages()%>
+          <div class="row">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center">
+              <label class="control-label col-md-6 col-sm-3 col-xs-12" for="first-name" style="color:green">
+                  <%= messages.notify %>
+              </label>
+            </div>
+            <div class="col-md-12">
+              <a href="/tempQuestions/0/0/0/0"  class="btn btn-success">Ques Added in Temp Table</a>
+              <a href="/errorLogsView"  class="btn btn-danger"> Check Errors</a>
+            </div>
+            <div class="col-md-12">
+              <a href="/assests/images/BN 21.03B.csv" style="float:right" class="btn btn-info" download>Latest CSV Structure</a>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <form  action="/addUploadQuestion" method="post" enctype="multipart/form-data" id="csvForm">
+                <div class="form-group row" style="margin-top:50px;padding:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">File</label>
+                      <div class="col-md-10 col-xs-12 col-sm-12">
+                        <input type="file" class="form-control" id="xls"
+                         name="xls" onchange="validateCSV()" autocomplete="off"  required>
+                         <p id="errorCSV" style="color:red"></p>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">Package</label>
+                      <div class="col-md-10 col-xs-12 col-sm-12">
+                        <select class="form-control form-control-sm" id="packages" name="package" >
+                          <option value="">Select Package</option>
+                          <option value="0">Free</option>
+                          <% packages.forEach(function(packages){ %>
+                            <option value="<%= packages.id %>"><%= packages.packageName %></option>
+                          <% }); %>
+                        </select>
+                      </div>
+
+                    </div> -->
+
+                    <input type="hidden" value="1"  name="package"/>
+                    <div class="col-md-12 col-xs-12 col-sm-12" >
+                      <ul id="uploadedCSV">
+                      </ul>
+                    </div>
+                    <div clas="col-md-4 col-xs-12 col-sm-12">
+                      <input type="submit"  id="submitCSV" class="btn  btn-success">
+                      <!-- <input type="submit" class="btn btn-success" id="submitBB"/> -->
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+            <!-- Upload Multiple file -->
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <form  action="/uploadMultipleImage" method="post" enctype="multipart/form-data" id="uploadImage">
+                <div class="form-group row" style="margin-top:50px;padding:10px;">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                      <div class="col-md-3 col-xs-12 col-sm-12">
+                        <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">Image</label>
+                        <div class="col-md-10 col-xs-12 col-sm-12">
+                          <input type="file" name="mulipleImages" id="multipleImages" required="" class="form-control-file border" onchange="validateImage()" multiple />
+                           <p id="errorImage" style="color:red"></p>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xs-12 col-sm-12" >
+                        <ul id="uploadedImage">
+                        </ul>
+                      </div>
+
+                      <div clas="col-md-4 col-xs-12 col-sm-12">
+                        <input type="submit" id="submitImage" class="btn btn-success">
+                      </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- upload sounds -->
+
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <form  action="/uploadMultipleSound" method="post" enctype="multipart/form-data" id="uploadSound">
+                <div class="form-group row" style="margin-top:50px;padding:10px;">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                      <div class="col-md-3 col-xs-12 col-sm-12">
+                        <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">Sound</label>
+                        <div class="col-md-10 col-xs-12 col-sm-12">
+                          <input type="file" name="mulipleSound"  multipleid="input-Sound" id="multipleSound" onchange="validateSound()" class="form-control-file border" multiple />
+                           <p id="errorSound" style="color:red"></p>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xs-12 col-sm-12" >
+                        <ul id="uploadedSound">
+                        </ul>
+                      </div>
+                      <div clas="col-md-4 col-xs-12 col-sm-12">
+                        <input type="submit" id="submitSound" class="btn  btn-success">
+                      </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Upload Videos -->
+
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <form  action="/uploadMultipleVideos" method="post" enctype="multipart/form-data" id="uploadVedio">
+                <div class="form-group row" style="margin-top:50px;padding:10px;">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                      <div class="col-md-3 col-xs-12 col-sm-12">
+                        <label for="inputPassword" class="col-md-2 col-form-label" style="font-weight:bold;text-align:left;">Videos</label>
+                        <div class="col-md-10 col-xs-12 col-sm-12">
+                          <input type="file" name="muliplevideos" id="multipleVideo" onchange="validateVideo()" multipleid="input-videos" class="form-control-file border" multiple />
+                           <p id="errorVideo" style="color:red"></p>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xs-12 col-sm-12" >
+                        <ul id="uploadedVideo">
+                        </ul>
+                      </div>
+                      <div clas="col-md-4 col-xs-12 col-sm-12">
+                        <input type="submit" id="submitVideo" class="btn  btn-success">
+                      </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+
+
+          </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer.ejs %>
+        </footer>
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <% include ../views/elements/bootom %>
+    <script>
+    function validateCSV() {
+     var uploadCSV = document.getElementById('xls');
+     let wrongeFile = 0;
+     $("#uploadedCSV").html("");
+     for (var i = 0; i < uploadCSV.files.length; i++) {
+        var f = uploadCSV.files[i];
+
+        if (!endsWith(f.name, 'csv')) {
+            wrongeFile++;
+            $("#errorCSV").html("Only CSV File is Allowed");
+            $("#submitCSV").attr("disabled", true);
+            $("#uploadedCSV").append("<li>"+f.name+" <i style='color:red' class='fa fa-times'></i></li>");
+        }
+        else
+        {
+          $("#uploadedCSV").append("<li>"+f.name+" <i style='color:green' class='fa fa-check'></i></li>");
+        }
+     }
+     if(wrongeFile == 0 )
+     {
+       $("#errorCSV").html("");
+       $("#submitCSV").attr("disabled", false);
+     }
+ }
+    /* upload image*/
+
+    function validateImage() {
+     var uploadImg = document.getElementById('multipleImages');
+     let wrongeFile = 0;
+     $("#uploadedImage").html("");
+     for (var i = 0; i < uploadImg.files.length; i++) {
+        var f = uploadImg.files[i];
+
+
+        if (!endsWith(f.name, 'jpg') && !endsWith(f.name,'png')) {
+            wrongeFile++;
+            $("#errorImage").html("Only Png File is Allowed");
+            $("#submitImage").attr("disabled", true);
+            $("#uploadedImage").append("<li>"+f.name+" <i style='color:red' class='fa fa-times'></i></li>");
+        }
+        else
+        {
+          $("#uploadedImage").append("<li>"+f.name+" <i style='color:green' class='fa fa-check'></i></li>");
+        }
+     }
+     if(wrongeFile == 0 )
+     {
+
+       $("#errorImage").html("");
+       $("#submitImage").attr("disabled", false);
+     }
+ }
+
+
+
+ function validateSound() {
+  var uploadImg = document.getElementById('multipleSound');
+  let wrongeFile = 0;
+  $("#uploadedSound").html("");
+  for (var i = 0; i < uploadImg.files.length; i++) {
+     var f = uploadImg.files[i];
+
+
+     if (!endsWith(f.name, 'mp3')) {
+         wrongeFile++;
+         $("#errorSound").html("Only MP4 File is Allowed");
+         $("#submitSound").attr("disabled", true);
+         $("#uploadedSound").append("<li>"+f.name+" <i style='color:red' class='fa fa-times'></i></li>");
+     }
+     else
+     {
+       $("#uploadedSound").append("<li>"+f.name+" <i style='color:green' class='fa fa-check'></i></li>");
+     }
+  }
+  if(wrongeFile == 0 )
+  {
+
+    $("#errorSound").html("");
+    $("#submitSound").attr("disabled", false);
+  }
+}
+
+
+function validateVideo() {
+ var uploadVideo = document.getElementById('multipleVideo');
+ let wrongeFile = 0;
+ $("#uploadedVideo").html("");
+ for (var i = 0; i < uploadVideo.files.length; i++) {
+    var f = uploadVideo.files[i];
+
+
+    if (!endsWith(f.name, 'mp4')) {
+        wrongeFile++;
+        $("#errorVideo").html("Only MP4 File is Allowed");
+        $("#submitVideo").attr("disabled", true);
+        $("#uploadedVideo").append("<li>"+f.name+" <i style='color:red' class='fa fa-times'></i></li>");
+    }
+    else
+    {
+      $("#uploadedVideo").append("<li>"+f.name+" <i style='color:green' class='fa fa-check'></i></li>");
+    }
+ }
+ if(wrongeFile == 0 )
+ {
+
+   $("#errorVideo").html("");
+   $("#submitVideo").attr("disabled", false);
+ }
+}
+
+ function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+ }
+
+
+
+    </script>
+  </body>
+</html>

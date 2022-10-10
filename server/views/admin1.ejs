@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/assests/images/Icon-36.png">
+  <title>OutSmarted (Admin)</title>
+  <!-- Bootstrap core CSS-->
+  <link href="/assests/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assests/admin/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="/assests/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="/assests/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="/assests/css/sb-admin.css" rel="stylesheet">
+  <link href="/assests/admin/datepicker/bootstrap-datetimepicker.css" rel="stylesheet">
+
+  <style media="screen">
+    @import "bourbon";
+
+body {
+background: url('/assests/images/splash_bg.jpg');
+background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+
+.wrapper {
+  margin: 320px auto;
+}
+
+
+
+.form-signin {
+max-width: 380px;
+padding: 15px 35px 45px;
+margin: 0 auto;
+background-color: #7f5a83;
+background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+border: 1px solid rgba(0,0,0,0.1);
+}
+
+.form-signin-heading,
+.checkbox {
+  margin-bottom: 30px;
+  color:#fff
+}
+
+.checkbox {
+  font-weight: normal;
+}
+
+.form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  @include box-sizing(border-box);
+
+  &:focus {
+    z-index: 2;
+  }
+}
+
+input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+}
+
+  </style>
+</head>
+<body>
+    <% let messages = getMessages()%>
+  <div class="wrapper">
+    <form class="form-signin" method="post" action="/adminlogin" id="loginFrm">
+      <h5 class="form-signin-heading" style="text-align:center;color:red"><%= messages.notify%></h5>
+
+      <h3 class="form-signin-heading" style="text-align:center;color:#fff"><b>Admin Login</b></h3>
+      <input type="text" class="form-control" name="username" placeholder="UserName" required="" autofocus="" style="margin-top:30px" id="username" autocomplete="off" />
+      <input type="password" class="form-control" name="password" placeholder="Password" required="" id="pass" style="margin-top:30px" autocomplete="off"/>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top:30px">Login</button>
+	  <a href="/admin_region" style="float: right;margin-top: 10px;color: #fff;font-size: bold;text-decoration: underline;">Region Login</a>
+    </form>
+  </div>
+  <script src="/assests/admin/jquery/dist/jquery.min.js"></script>
+  <script src="/assests/js/jquery-ui.js"></script>
+  <script src="/assests/admin/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/assests/admin/flot_admin/date.js"></script>
+  <script src="/assests/admin/moment/moment.min.js"></script>
+  <script src="/assests/admin/datepicker/daterangepicker.js"></script>
+  <script src="/assests/admin/datepicker/moment-with-locales.js"></script>
+  <script src="/assests/admin/datepicker/bootstrap-datetimepicker.js"></script>
+  <script src="/assests/js/jquery.validate.js"></script>
+  <script src="/assests/js/admin-custom.js"></script>
+  </body>
+</html>
+
+
+

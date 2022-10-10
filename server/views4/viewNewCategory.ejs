@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+  <style type="text/css">
+ 
+  h1{color: #fff;font-weight: normal;}
+  .draggable-main{width: 800px;margin: 0 auto;}
+  .box {
+    float: left;
+    width: 30%;
+    margin-right: 2%;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+}
+  .box:last-child{margin: 0px;}
+  .connected-sortable {list-style: none;padding: 20px;margin: 0px;}
+  .draggable-main ul li{
+  width: inherit; 
+  padding: 12px 8px;
+  background-color: #fff;
+  border-bottom: 1px solid #d3d3d3;
+  text-transform: capitalize;
+  color: #000;
+
+  margin-bottom: 4px;
+  /* border-radius: 5px; */
+  -webkit-transition: transform 0.25s ease-in-out;
+  -moz-transition: transform 0.25s ease-in-out;
+  -o-transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out;
+  -webkit-transition: box-shadow 0.25s ease-in-out;
+  -moz-transition: box-shadow 0.25s ease-in-out;
+  -o-transition: box-shadow 0.25s ease-in-out;
+  transition: box-shadow 0.25s ease-in-out;
+  }
+  /* ul li:hover {cursor: pointer;background-color: #fff;color: #000;} */
+  ul li.ui-sortable-helper {background-color: #e5e5e5;-webkit-box-shadow: 0 0 8px rgba(53, 41, 41, 0.8);-moz-box-shadow: 0 0 8px rgba(53, 41, 41, 0.8);box-shadow: 0 0 8px rgba(53, 41, 41, 0.8);transform: scale(1.015);z-index: 100;}
+  ul li.ui-sortable-placeholder {background-color: #ddd;-moz-box-shadow: inset 0 0 10px #000000;-webkit-box-shadow: inset 0 0 10px #000000;box-shadow: inset 0 0 10px #000000;}
+</style>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <% let id =0,categoryName ="",cost=0,finalRegionData = [],desp="",
+    iconImage=0,buttonImage=0,region = [],country2=[],iconEImage='iconImage',buttonEsImage='buttonImage',images=1,isPackageD=0;
+  select1="",select2="",select3="",select4="",select5="",select6="",select7="",select8="",select9="",select10="",
+  select11="",select12="",select13="",select14=""
+    
+    if(speficData)
+    {
+      iconEImage='';
+      buttonEsImage='';
+      id=speficData.id;
+      categoryName=speficData.category;
+      desp = speficData.description;
+      //region=speficData.categoryRegion.split(',');
+
+
+      if(speficData.isPackage == 1)
+      {
+        isPackageD=1
+      }
+      
+      if(speficData.iconImage != '')
+      {
+        iconImage=1
+      }
+
+      if(speficData.type == 1)
+      {
+        images=0
+      }
+
+
+      if(speficData.buttonImage != '')
+      {
+        buttonImage=1
+      }
+
+      let category_id=0
+      cost=speficData.amount;
+      if(speficData != null)
+      {
+        
+        if(cost == 0)
+        {
+          select1="selected";
+        }
+        else if(cost == 0.99)
+        {
+          select2="selected";
+        }else if(cost == 1.99)
+        {
+          select3="selected";
+        }else if(cost == 2.99)
+        {
+          select4="selected";
+        }else if(cost == 3.99)
+        {
+          select5="selected";
+        }else if(cost == 4.99)
+        {
+          select6="selected";
+        }else if(cost == 5.99)
+        {
+          select7="selected";
+        }else if(cost == 6.99)
+        {
+          select8="selected";
+        }else if(cost == 7.99)
+        {
+          select9="selected";
+        }else if(cost == 8.99)
+        {
+          select10="selected";
+        }else if(cost == 9.99)
+        {
+          select11="selected";
+        }else if(cost == 10.99)
+        {
+          select12="selected";
+        }else if(cost == 11.99)
+        {
+          select13="selected";
+        }else if(cost == 12.99)
+        {
+          select14="selected";
+        }
+
+
+        for(let i=0;i<countries.length;i++)
+        {
+          objRegion = {id:countries[i].id,name:countries[i].name,checked:"unchecked"}
+          for(let j=0;j<countries.length;j++)
+          {
+            if(countries[i].id == countries[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+
+            }
+          }
+
+          finalRegionData.push(objRegion);
+        }
+      }
+    }%>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Category</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12" style="margin-bottom:20px">
+            <div class="col-md-1 col-sm-12 col-xs-12">
+              <label for="city" class="col-form-label" >Region : </label>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              
+                <select class="form-control form-control-sm" id="regionCountry" name="category" 
+                  onchange="changeRegion('<%=webURL%>')">
+                  <option value="0">Select Region</option>
+                  <% countries.forEach(function(countryInfo){ %>
+
+                    <% if(countryInfo.id == countryId ){%>
+                      <option value="<%= countryInfo.id %>" selected>
+                        <%= countryInfo.name %>
+                      </option>
+                    <% }else{ %>
+                      <option value="<%= countryInfo.id %>">
+                        <%= countryInfo.name %>
+                      </option>
+                    <% } %>
+                    <% }); %>
+                </select>
+            </div>
+            <input type="text" value="<%=countryId%>" id="countryName">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              <a href="#" class="btn btn-success" id="search">Search</a>
+            </div>
+
+          </div>
+          <div class="draggable-main">
+            
+            <div class="box">
+              
+              <ul class="connected-sortable draggable-left" style="height: 600px; overflow: auto">
+                <%  categoryData.forEach(function(categoryData){%>
+                  <li value="<%=categoryData.id%>"><%=categoryData.category%></li>
+                <% }) %>
+              </ul>
+            </div>
+            
+            <div class="box" data-tags='tags'>
+              <div class="m-3">
+                <input type="hidden" name="id" value="<%=id%>"/>
+                <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="" required/>
+              </div>
+              <ul class="connected-sortable draggable-right" style="min-height: 500px; overflow: auto">
+               
+              </ul>
+            </div>
+            <div class="box">
+              <div class="m-3">
+                <select id="orderType" class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4" >4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+
+            
+              <a href="javascript::void(0)" class="btn btn-success save-info mt-3">Save</a>
+              <input type="hidden" value="<%=webURL%>" id="webUrl"/>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+            <div class="col-md-12 col-sm-12 col-xs-12">
+          
+              
+            </div>
+          </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Active/Deactive Package</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Are you Sure
+              </div>
+              <div class="col-md-12" style="padding: 10px;text-align:center">
+                <div class="col-md-6" id="optionPack">
+                </div>
+              </div>  
+              <!-- Modal footer -->
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+          $(".draggable-left, .draggable-right").sortable({
+            connectWith: ".connected-sortable",
+            stack: ".connected-sortable ul"
+          }).disableSelection();
+          $(".save-info").on("click", function(){
+            var categoryVal = $('#category').val();
+            var getMoveVal = $('.draggable-right .ui-sortable-handle').text();
+            var countryName  =$("#countryName").val()
+            var orderType = $("#orderType").val()
+            //alert("----List Name-----"+categoryVal+"----List----"+getMoveVal);
+            var getFilterData = [];
+            
+            $('.draggable-right .ui-sortable-handle').each(function() {
+              //alert($(this).attr("value"))
+              getFilterData.push({name: $(this).attr("value")});
+            });
+            
+            var url = $("#webUrl").val();
+            console.log(getFilterData)
+            console.log(categoryVal)
+            $.ajax({
+              type: "POST",
+              url: url+'addTagIndex',
+              data: 'id='+categoryVal+"&listVal="+JSON.stringify(getFilterData)+"&country="+countryName+"&orderType="+orderType,
+              success: function(data)
+              {
+                
+                location.reload()
+              }
+
+              });
+              // alert($(this).closest('li').data('tags'));
+          });
+            let countryArr = document.getElementById('country_arr').value.split(",");
+           // alert(countryArr);
+            function addCountryArray(country, e) 
+            {
+              //console.log(country)
+              if (e.checked) {
+                countryArr.push(country);
+              }
+              else {
+                removeA(countryArr, country);
+              }
+              document.getElementById('country_arr').value = countryArr;
+            }
+
+
+            function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+              what = a[--L];
+              while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+              }
+            }
+            return arr;
+          }
+
+
+          
+        function categoryState(url,type,userid)
+        {
+        
+         $("#optionPack").html("")
+         $("#optionPack").append('<tr><td><a  href='+url+'updateCategoryState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+        }
+        
+
+        function changeRegion()
+        {
+          let region = $("#regionCountry").val();
+          document.getElementById("search").href = "/newCategory/"+region
+        }
+        </script>
+
+    </body>
+  </html>

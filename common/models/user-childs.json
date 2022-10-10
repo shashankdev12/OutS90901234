@@ -1,0 +1,80 @@
+{
+  "name": "user_childs",
+  "plural": "user_childs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": false
+    },
+    "profilePic": {
+      "type": "string"
+    },
+    "country_id": {
+      "type": "number",
+      "index": true
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "age_id": {
+      "type": "number",
+      "index": true
+    },
+    "age": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "games_played": {
+      "type": "number",
+      "required": true
+    },
+    "games_won": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user_team_childs": {
+      "type": "belongsTo",
+      "model": "user_team_childs",
+      "foreignKey": "id"
+    },
+    "user_score": {
+      "type": "hasMany",
+      "model": "user_score",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

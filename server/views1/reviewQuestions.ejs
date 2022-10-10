@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../views/elements/head %>
+</head>
+<body id="page-top" >
+    <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+      let tempArray = [];let first =""
+      let second =""
+      if(tempQuestionInfo.length>0)
+      {
+        for(let i=0;i<tempQuestionInfo.length;i++)
+        {
+          if(tempQuestionInfo[i].createdBy == "NL")
+          {
+            let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+            obj.id = tempQuestionInfo[i].id
+            obj.category_id = tempQuestionInfo[i].category_id
+            obj.question = tempQuestionInfo[i].question
+            obj.created = tempQuestionInfo[i].created
+            obj.question_id = tempQuestionInfo[i].question_id
+            obj.createdBy = tempQuestionInfo[i].createdBy
+            tempArray.push(obj);
+          }
+          else if(tempQuestionInfo[i].createdBy == "EN")
+          {
+            let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+            obj.id = tempQuestionInfo[i].id
+            obj.category_id = tempQuestionInfo[i].category_id
+            obj.question = tempQuestionInfo[i].question
+            obj.created = tempQuestionInfo[i].created
+            obj.question_id = tempQuestionInfo[i].question_id
+            obj.createdBy = tempQuestionInfo[i].createdBy
+            tempArray.push(obj);
+
+          }
+          else if(tempQuestionInfo[i].createdBy == "DE")
+          {
+            let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+            obj.id = tempQuestionInfo[i].id
+            obj.category_id = tempQuestionInfo[i].category_id
+            obj.question = tempQuestionInfo[i].question
+            obj.created = tempQuestionInfo[i].created
+            obj.question_id = tempQuestionInfo[i].question_id
+            obj.createdBy = tempQuestionInfo[i].createdBy
+            tempArray.push(obj);
+
+          }
+          else if(tempQuestionInfo[i].createdBy == "FR")
+          {
+            let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+            obj.id = tempQuestionInfo[i].id
+            obj.category_id = tempQuestionInfo[i].category_id
+            obj.question = tempQuestionInfo[i].question
+            obj.created = tempQuestionInfo[i].created
+            obj.createdBy = tempQuestionInfo[i].createdBy
+            obj.question_id = tempQuestionInfo[i].question_id
+            tempArray.push(obj);
+
+          }
+          else if(tempQuestionInfo[i].createdBy == "BE")
+          {
+            let obj = {id:0,category_id:0,question:'',created:'',question_id:0}
+            obj.id = tempQuestionInfo[i].id
+            obj.category_id = tempQuestionInfo[i].category_id
+            obj.question = tempQuestionInfo[i].question
+            obj.created = tempQuestionInfo[i].created
+            obj.createdBy = tempQuestionInfo[i].createdBy
+            obj.question_id = tempQuestionInfo[i].question_id
+            tempArray.push(obj);
+
+          }
+          
+        }
+        
+        if(type == 1)
+        {
+          first ="active"
+          second =""
+        }
+        else
+        {
+          first =""
+          second ="active"
+        }
+      }
+    
+    
+    
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/reviewQuestions/1/0">Review Questions</a>
+            </li>
+          </ol>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- Tabs navs -->
+                <div class="container">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="tabs">
+                                <li class="nav-item">
+                                    <a class="<%=first%> nav-link <%=first%>" href="/reviewQuestions/1/0" >Translate Questions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class=" <%=second%> nav-link <%=second%> " href="/reviewQuestions/0/0" >Update Questions</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="trans<%=type%>">
+                                    <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Question</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Created</th>
+                                            <th scope="col">Country Created</th>
+                                            <th scope="col">Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+                                          <% if(tempArray.length > 0){ %>
+                                            <% let i=0; %>
+                                            <%  tempArray.forEach(function(tempArray){i++%>
+                                              <tr>
+                                                <td><%=i%></td>
+                                                
+                                                <td><%=tempArray.question%></td>
+
+                                                <td>
+                                                  <% categoryArr = category.filter(a => a.id === parseInt(tempArray.category_id))  %>
+                                                  <%=categoryArr[0].category%>
+                                                </td>
+
+                                                <td>
+                                                  <%=tempArray.created.toLocaleString('en-us')%>
+                                                </td>
+                                                <td>
+                                                  <%=tempArray.createdBy%>
+                                                </td>
+                                                <td>
+                                                  <% if(userStatus == 1){%>
+                                                    <a href="javascript:void(0)" onclick="ignoreQuestion('<%=tempArray.id%>',1)" class="btn btn-primary btn-sm" > Ignore</a>
+                                                  <%}else{%>
+                                                    <% if(type == 0){%>
+                                                      <a href="javascript:void(0)" onclick="ignoreQuestion('<%=tempArray.id%>',2)" class="btn btn-primary btn-sm" > Ignore</a>
+                                                    <% } %>  
+                                                  <% } %>    
+                                                  <a href="/editQuestions/<%=tempArray.question_id%>%>/2/0/<%=sessionRegion%>" class="btn btn-secondary btn-sm" > Edit</a>
+                                                  
+                                                </td>
+                                              </tr>
+                                            <% }) %>
+                                            <% }else{ %>
+                                              <tr>
+                                                <td colspan="6">
+                                                  <h3><b> No Question created</b></h3>
+                                                </td>
+                                              </tr>
+                                            <% } %>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      <nav aria-label="...">
+                                        <div class="row" id="paginator">
+                                          <div class='col-sm-12'>
+                                            <div class="col-sm-1" style="float:left;text-align: right;">
+                                              <a href="/reviewQuestions/<%=type%>/0">First</a>
+                                            </div>
+                                            <div class="col-sm-3" style="float:left;text-align: center;">
+                                              <div  class="col-md-6" style="float:left;text-align: center;">
+                                                <input type="number"  min="0" class='col-md-12 col-xs-3 col-sm-3 form-control' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=type%>','<%=Math.round(paginator/40)%>')" />
+                                              </div>
+                                              <input type='hidden' value="<%=page%>" id='hiddenPage'/>
+                                              <div  class="col-md-6" style="float:left;text-align: left;">
+                                                <label style='margin-left:10px;font-size:25px'> /<%=Math.round(paginator/40)%></label>  
+                                              </div>  
+                                            </div>
+                                            <div class="col-sm-1" style="float:left;text-align: left;">
+                                              <a href="/reviewQuestions/<%=type%>/<%=Math.round(paginator/40)%>/?filter[skip]=<%=(Math.round(paginator/40)-1)*10%>">Last</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                      </nav>
+                                </div>
+                                <div class="tab-pane" id="updt<%=type%>">
+                                    <table class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Question</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <th scope="row">1</th>
+                                            <td>Q1</td>
+                                            <td>Cat 1</td>
+                                            <td
+                                                ><button type="button" class="btn btn-primary btn-sm">Ignore</button>
+                                                <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">2</th>
+                                            <td>Q2</td>
+                                            <td>Cat 2</td>
+                                            <td
+                                                ><button type="button" class="btn btn-primary btn-sm">Ignore</button>
+                                                <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+                                            </td>
+                                          </tr>
+                                          
+                                        </tbody>
+                                      </table>
+                                      <nav aria-label="...">
+                                        <ul class="pagination">
+                                          <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                          </li>
+                                          <li class="page-item active">
+                                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                          </li>
+                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                          
+                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                          <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                          </li>
+                                        </ul>
+                                      </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tabs content -->
+            </div>
+        </div>
+       </div>
+    </div>
+  </div> 
+  <% include ../views/elements/bootom %>
+  <script>
+    function ignoreQuestion(id,type)
+    {
+      
+      location.href = "/updateIgnore/"+id+'/'+type;
+    }
+
+
+
+    function paginator(url,type,page)
+          {
+            //alert(page)
+            //alert($('#pageNumber').val());
+            let pagenUmer =$('#pageNumber').val();
+            let hiddenPage =$('#hiddenPage').val();
+            //alert(pagenUmer);
+            if(parseInt(page) > parseInt(pagenUmer))
+            {
+              window.open(url+'reviewQuestions/'+type+'/'+pagenUmer+'?filter[skip]='+pagenUmer*40,"_self");
+            }
+            else
+            {
+              window.open(url+'reviewQuestions/'+type+'/'+hiddenPage+'?filter[skip]='+hiddenPage*40,"_self");
+            }
+          }
+          // function myFunction()
+          // {
+          //     alert($("#QuestionData").val())
+          // }
+
+
+          function paginator2(url,type,imageUrl,length)
+          {
+            //alert(page)
+            //alert($('#pageNumber').val());
+            let pagenUmer = parseInt($('#pageSearchNumber').val());
+            //let hiddenPage =$('#hiddenPage').val();
+            //alert(pagenUmer);
+            //alert(length);
+            if(length > pagenUmer)
+            {
+              searchQuestion(url,type,imageUrl,pagenUmer)
+              //window.open(url+'users/'+type+'/'+headerType+'/'+sortType+'/'+pagenUmer+'?filter[skip]='+pagenUmer*10,"_self");
+            }
+            else
+            {
+searchQuestion(url,type,imageUrl,pagenUmer)
+              //window.open(url+'users/'+type+'/'+headerType+'/'+sortType+'/'+hiddenPage+'?filter[skip]='+hiddenPage*10,"_self");
+            }
+          }
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "name": "user_teams",
+  "plural": "user_teams",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "user_id": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "teamName": {
+      "type": "string",
+      "required": true
+    },
+    "logoId": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "games_played": {
+      "type": "number",
+      "required": false
+    },
+    "games_won": {
+      "type": "number",
+      "required": false
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user_team_childs": {
+      "type": "hasMany",
+      "model": "user_team_childs",
+      "foreignKey": "user_team_id"
+    },
+    "user_score": {
+      "type": "hasMany",
+      "model": "user_score",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

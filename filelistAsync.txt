@@ -1,0 +1,203 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "Email": {
+    "dataSource": "email"
+  },
+  "User": {
+    "dataSource": "db",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "user": {
+    "dataSource": "db",
+    "public": true
+  },
+  "licences": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_childs": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_games": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_score": {
+    "dataSource": "db",
+    "public": true
+  },
+  "categories": {
+    "dataSource": "db",
+    "public": true
+  },
+  "sub_categories": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_info": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_teams": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_team_childs": {
+    "dataSource": "db",
+    "public": true
+  },
+  "countries": {
+    "dataSource": "db",
+    "public": true
+  },
+  "age_categories": {
+    "dataSource": "db",
+    "public": true
+  },
+  "question_packages": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_rings": {
+    "dataSource": "db",
+    "public": true
+  },
+  "app_versions": {
+    "dataSource": "db",
+    "public": true
+  },
+  "distributors": {
+    "dataSource": "db",
+    "public": true
+  },
+  "saved_games": {
+    "dataSource": "db",
+    "public": true
+  },
+  "free_play_user_questions": {
+    "dataSource": "db",
+    "public": true
+  },
+  "messages": {
+    "dataSource": "db",
+    "public": true
+  },
+  "test_users": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Container": {
+    "dataSource": "amazons3",
+    "public": true
+  },
+  "errorlogs": {
+    "dataSource": "db",
+    "public": true
+  },
+  "tempquestions": {
+    "dataSource": "db",
+    "public": true
+  },
+  "category_age_stats": {
+    "dataSource": "db",
+    "public": true
+  },
+  "user_categories": {
+    "dataSource": "db",
+    "public": true
+  },
+  "region_admin": {
+    "dataSource": "db",
+    "public": true
+  },
+  "redeem_codes": {
+    "dataSource": "db",
+    "public": true
+  },
+  "general_data": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_EN": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_NL": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_FR": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_DE": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_BE": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_EN1": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_EN2": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_EN3": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_multilang_status_temp": {
+    "dataSource": "db",
+    "public": true
+  },
+  "questions_setting": {
+    "dataSource": "db",
+    "public": true
+  },
+  "check_questions": {
+    "dataSource": "db",
+    "public": true
+  }
+
+}

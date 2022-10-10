@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<style>
+.modal-ku {
+  width: 750px;
+  margin: auto;
+}
+</style>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+      <div id="content-wrapper">
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/users/0">users</a>
+            </li>
+            <li class="breadcrumb-item active" >User Details</li>
+          </ol>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12" >
+                 <label for="city" class="col-sm-12 col-form-label userDetailFonts" style="text-decoration:underline;">
+                   User Details
+                 </label>
+              </div>
+              <div class="col-md-12 col-sm-12 col-xs-12" >
+                <div class="col-md-3 col-xs-12 col-sm-12" style="border:2px solid #000;padding:10px;margin-top:10px">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts">
+                     First Name :
+                   </label>
+                   <b>
+                     <%=userData.firstName%>
+                   </b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts" >
+                     Last Name :
+                   </label>
+                   <b>
+                     <%=userData.lastName%>
+                   </b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts" >
+                     Email :
+                   </label>
+                   <b>
+                     <%=userData.email%>
+                   </b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts" >
+                     Licence :
+                   </label>
+                   <b>
+                     <% if(userData.toJSON().licences){ %>
+                       <%=userData.toJSON().licences.licence%>
+                     <% } %>
+                   </b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts" >
+                     Country Code :
+                   </label>
+                   <b>
+                     <%=userData.countryCode%>
+                   </b>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                   <label for="city" class="form-label userDetailFonts" >
+                     Games Played :
+                   </label>
+                   <b>
+                     <%=gameCount%>
+                   </b>
+                 </div>
+                 
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12" style="margin-top:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12" style="border:2px solid #000">
+                    <table class="table align">
+                      <tr>
+                        <th colspan="3" class="alignCenter">Packages</th>
+                      </tr>
+                      <tr>
+                        <th>S.no</th>
+                        <th>Packages</th>
+                        <th>Status</th>
+                      </tr>
+                      <% let n=0; packagesData.forEach(function(packagesData){n++%>
+                        <tr>
+                          <td><%=n%></td>
+                          <td><%=packagesData.packageName%></td>
+                          <th>
+                            <% if(packagesData.purchased == 1){%>
+                              Purchased
+                            <% }else{ %>
+                              <input type="button" class="btn btn-success" value="Buy" onclick="purchasePack(<%=userData.id%>,<%=packagesData.id %>,'<%=webURL%>')"/>
+                            <% } %>
+                          </th>
+                        </tr>
+                      <% }) %>
+                    </table>
+                  </div>
+                  
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12" style="margin-top:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12" style="border:2px solid #000">
+                    <table class="table align" >
+                      <tr>
+                        <th colspan="3" class="alignCenter">Device Attached</th>
+                      </tr>
+                      <tr>
+                        <th class="alignCenter">S.no</th>
+                        <th class="alignCenter">Device Type</th>
+                        <th class="alignCenter">Device Token</th>
+                      </tr>
+                      <% let i=0;%>
+                      <% devicesAttached.forEach(function(devicesAttached){i++%>
+                        <tr>
+                          <td><%=i%></td>
+                          <td><%=devicesAttached.deviceType%> 
+				 <b><%=devicesAttached.version%></b>
+			  </td>
+                          <td><%=devicesAttached.deviceToken%></td>
+                        </tr>
+                      <% }) %>
+                    </table>
+                   </div> 
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12" style="margin-top:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12" style="border:2px solid #000">
+                    <table class="table align">
+			<tbody style="display: block;height: 200px;overflow: auto">
+                      <tr>
+                        <th colspan="3" class="alignCenter">Categories</th>
+                      </tr>
+                      <tr>
+                        <th>S.no</th>
+                        <th>category</th>
+                        <th>Status</th>
+                      </tr>
+                      <% let m=0; categoryData.forEach(function(categoryData){m++%>
+                        <tr>
+                          <td><%=m%></td>
+                          <td><%=categoryData.categoryName%></td>
+                          <th>
+                            <% if(categoryData.purchased == 1){%>
+                              Purchased
+                            <% }else{ %>
+                              <%if(m<7){%>
+                                Purchased
+                              <%}else{%>
+                                <input type="button" class="btn btn-success" value="Buy" onclick="purchaseCategory(<%=userData.id%>,<%=categoryData.id %>,'<%=webURL%>')"/>
+                              <%}%>
+                            <% } %>
+                          </th>
+                        </tr>
+                      <% }) %>
+						</tbody>
+                    </table>
+                  </div>
+                  
+                </div>
+                <div class="col-md-12 col-xs-12 col-sm-12" style="height:auto;margin-top:10px;">
+                  <div class="col-md-12 col-xs-12 col-sm-12">
+                    <table class="table align">
+                      <tr>
+                        <th colspan="2">Questions Asked</th>
+                        <th style="min-width:350px;">
+                          <input type="text" class="form-control col-md-6" id="gquestionGpId" placeholder="Enter Quest Grp ID"/>
+                          <button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="getDataFromGQID('<%=webURL%>','<%=imageURL%>')">Search</button></button>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">Category</th>
+                        <th style="min-width:100px;">Questions</th>
+                        <th style="min-width:100px;">Count</th>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">PUB QUIZ</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.PubQuizQuestionAsked%>
+                        </td>
+                        <td>
+                            <%let pub = userData.PubQuizQuestionAsked.split(',');%>
+                            <%=pub.length-1%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">BACK TO SCHOOL</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.BKSQuestionAsked%>
+                        </td>
+                        <td >
+                          <% let bks =userData.BKSQuestionAsked.split(',')%>
+                          <%=bks.length-1%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">QUICK THINKING</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.QTQuestionAsked%>
+                        </td>
+                        <td>
+                          <% let qt = userData.QTQuestionAsked.split(',') %>
+                          <%=qt.length-1 %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">SOUND AND MUSIC</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.SNMQuestionAsked%>
+                        </td>
+                        <td >
+                          <% let snm =userData.SNMQuestionAsked.split(',')%>
+                          <%=snm.length-1%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">TV, FILM AND BOOKS</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.TVBQuestionAsked%>
+                        </td>
+                        <td >
+                          <% let tv =userData.TVBQuestionAsked.split(',')%>
+                          <%=tv.length-1%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="min-width:100px;">BREAKING NEWS</th>
+                        <td style="width: 100%;word-break: break-all;">
+                          <%=userData.BKNQuestionAsked%>
+                        </td>
+                        <td >
+                          <% let bkn =userData.BKNQuestionAsked.split(',')%>
+                          <%=bkn.length-1%>
+                        </td>
+                      </tr>
+                      <% newCategory.forEach(function(newCategory){%>
+                        <tr>
+                          <td>
+                            <b>
+                              <% if(newCategory.toJSON())%>
+                              <%=newCategory.toJSON().categories.category%>
+                            </b>
+                          </td>
+                          <td style="width: 100%;word-break: break-all;"><%=newCategory.questionAsked%></td>
+                          <td>
+                            <% let countC =newCategory.questionAsked.split(',')%>
+                            <%=countC.length-1%>
+                          </td>
+                        </tr>
+                      <% }) %>
+                    </table>
+                  </div>
+                  <div class="col-md-12 col-xs-12 col-sm-12">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card-header">
+                <i class="fas fa-table"></i>
+                 <a href="javascript:void(0)" onclick="getInfo(1,0)">Users Childs</a> / <a href="javascript:void(0)" onclick="getInfo(0,1)">User Team</a>
+                </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered align" id="dataTable1" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>S. No.</th>
+                        <th>Profile Image</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% let j=0;%>
+                      <% childs.forEach(function(childs){j++%>
+                        <tr>
+                          <td><%=j%></td>
+                          <td>
+                            <% if(childs.profilePic != null){%>
+                              <img src="<%=imageURL%><%=childs.profilePic%>" class="responsive" height="100" width="100"/>
+                            <% }else{ %>
+                              <img src="/assests/images/defaultImage.png" class="responsive" height="100" width="100"/>
+                            <% } %>
+                          </td>
+
+                          <td><%=childs.firstName%></td>
+                          <td><%=childs.lastName%></td>
+                          <td><%=childs.age%></td>
+                          <td><%=childs.created.toLocaleString('en-us')%></td>
+                          <td><%=childs.modified.toLocaleString('en-us')%></td>
+                          <td>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal2" onClick="removeChild1('<%=webURL%>',<%=childs.id%>,<%=userData.id%>)">
+                              Delete Player</a>
+                          </td>
+                        </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+
+                  <table class="table table-bordered align" id="dataTable2" width="100%" cellspacing="0" style="display:none">
+                    <thead>
+                      <tr>
+                        <th>S. No.</th>
+                        <th>Team Name</th>
+                        <th>Game Played</th>
+                        <th>Game Won</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <% let s=0;%>
+                      <% teamInfo.forEach(function(teamInfo){s++%>
+                        <tr>
+                          <td><%=s%></td>
+                          <td><%=teamInfo.teamName%></td>
+                          <td><%=teamInfo.games_played%></td>
+                          <td><%=teamInfo.games_won%></td>
+                          <td><%=teamInfo.created.toLocaleString('en-us')%></td>
+                          <td><%=teamInfo.modified.toLocaleString('en-us')%></td>
+                          <td>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal2" onClick="removeTeam('<%=webURL%>',<%=teamInfo.id%>,<%=userData.id%>)">
+                              Delete Team</a>
+                          </td>
+                        </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                  <div style="float:right">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="myModal">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Question Details</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body algnCenter"  >
+                   <table class="table" id="questionsVal">
+
+                   </table> 
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal" id="myModal2">
+            <div class="modal-dialog">
+              <div class="modal-content">
+  
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Alert</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+  
+                <!-- Modal body -->
+                <div class="modal-body algnCenter" >
+                  <b style="font-size:16px;">Are you Sure, you want to clean this users from this licence.</b>
+                  <br>
+                  <br>
+                  <div>
+                    <table class="table" id="optionRemove">
+  
+                    </table>
+                  </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <% include ../views/elements/bootom %>
+    <script>
+    $('#startTime').datetimepicker();
+    $('#endTime').datetimepicker();
+
+     // $('#endTime').datetimepicker({
+     //   useCurrent: false //Important! See issue #1075
+     // });
+     //
+     // $("#startTime").on("dp.change", function (e) {
+     //   $('#endTime').data("DateTimePicker").minDate(e.date);
+     // });
+     //
+     // $("#startTime").on("dp.change", function (e) {
+     //     $('#endTime').data("DateTimePicker").maxDate(e.date);
+     // });
+
+     function purchasePack(userid,packid,url)
+     {
+       // alert(userid);
+       // alert(packid);
+       // alert(url);
+
+       $.ajax({
+         type: "POST",
+         url: url+'buyPack',
+         data: 'packId='+packid+'&userId='+userid,
+         success: function(data)
+         {
+           location.reload();
+         }
+       })
+     }
+
+
+     function purchaseCategory(userid,categoryid,url)
+     {
+       // alert(userid);
+       // alert(packid);
+       // alert(url);
+
+       $.ajax({
+         type: "POST",
+         url: url+'buyCategory',
+         data: 'categoryId='+categoryid+'&userId='+userid,
+         success: function(data)
+         {
+           location.reload();
+         }
+       })
+     }
+
+     function getDataFromGQID(url,imageUrl)
+     {
+      
+       let gquestionGpId = $("#gquestionGpId").val();
+       $("#questionsVal").html("");
+       //alert(gquestionGpId);
+       //alert(url);
+       if(gquestionGpId != "")
+       {
+        $.ajax({
+          type: "POST",
+          url: url+'getQuestionGroupId',
+          data: 'id='+gquestionGpId,
+          success: function(data)
+          {
+            let questions = JSON.parse(data);          
+            let questionsData = questions.question;
+            let ageData = questions.ageData;
+            let country = questions.country;
+            let category = questions.category;
+            let packages = questions.packages;
+            let region=questionsData.region;
+            let age=''
+            let age2 =[];
+            let country2=[]
+            let objAge = {};
+            let objRegion = {};
+            let pack ='';
+            let pack_id;
+            age = questionsData.age_id;
+            pack_id = questionsData.pack_ID;
+            console.log(questionsData);
+            let finalRegionData = []
+            let finalAgeData = []
+            for(let i=0;i<ageData.length;i++)
+              {
+                objAge = {id:ageData[i].id,age:ageData[i].age,checked:"unchecked"}
+                for(let j=0;j<age.length;j++)
+                {
+                  if(ageData[i].id == age[j])
+                  {
+                    objAge.checked="checked";
+                    if(!age2.includes(objAge.age))
+                    {
+                      age2.push(objAge.age);
+                    }
+
+                  }
+                }
+
+                finalAgeData.push(objAge);
+              }
+
+              for(let i=0;i<country.length;i++)
+              {
+                objRegion = {id:country[i].id,name:country[i].name,checked:"unchecked"}
+                for(let j=0;j<region.length;j++)
+                {
+                  if(country[i].id == region[j])
+                  {
+                    objRegion.checked="checked";
+                    if(!country2.includes(objRegion.name))
+                    {
+                      country2.push(objRegion.name)
+                    }
+
+                  }
+                }
+
+                finalRegionData.push(objRegion);
+              }
+              // console.log(packages)
+              // packages.forEach(function(packages){ 
+              // if(packages.id == pack_id){
+              //   alert("1111",packages.packageName);
+              //    pack = packages.name
+              //   }
+              //   else
+              //   {
+              //     //alert(packages.id);
+              //   }
+              // });
+
+             console.log("1111",pack_id);
+              for(let n=0;n<packages.length;n++)
+              {
+                console.log(packages[n]);
+                if(packages[n].id == pack_id){
+                //alert("1111",packages[n].id);
+                 pack = packages[n].packageName
+                }
+                
+              }
+              console.log("================",pack);
+
+              //console.log(finalAgeData)
+              //console.log("ssssssssssss",questionsData)
+            //alert(1);
+            if(questionsData != '')
+            {
+              let html;
+              html += '<tr>';
+              html += '<td colspan="2">';
+              html +=  '<b>Quest:</b> <i>'+questionsData.question+'</i>'
+              html += '</td>';
+              html += '</tr>';
+              html += '<tr>'; 
+              html += '<td>';
+              html +=  '<b>Option1: </b><i>'+questionsData.answer1+'</i>'
+              html += '</td>';
+              html += '<td>';
+              html +=  '<b>Option2:</b> <i>'+questionsData.answer2+'</i>'
+              html += '</td>';
+              html += '<tr>';
+              html += '<td>';
+              html +=  '<b>Option3:</b> <i>'+questionsData.answer3+'</i>'
+              html += '</td>';
+              html += '<td>';
+              html +=  '<b>Option4:</b> <i>'+questionsData.answer4+'</i>'
+              html += '</td>';
+              html += '</tr>';
+              html += '<tr>';
+              html += '<td colspan="2">';
+              html +=  '<b>Answer: </b><i>'+questionsData.correct_Answer+'</i>'
+              html += '</td>';
+              html += '</tr>';
+              html += '<tr>';
+              html += '<td>';
+              html +=  '<b>Category:</b> <i>'+category[questionsData.category_id-1].category+'</i>'
+              html += '</td>';
+              html += '<td>';
+              if(pack != '')
+              {
+                html +=  '<b>Package:</b> <i>'+pack+'</i>'
+              }
+              else
+              {
+                html +=  '<b>Package:</b> <i>Free</i>'
+              }
+              html += '</td>';
+              html += '</tr>';
+              html += '<tr>';
+              html += '<td >';
+              html +=  '<b>Time Allowed: </b><i>'+questionsData.time_Allowed+'</i>'
+              html += '</td>';
+              
+              
+              if(questionsData.fileType == 1 || questionsData.fileType == 4)
+              {
+              
+              html += '<td >';
+              html +=  '<b>Image:</b> <a href='+imageUrl+questionsData.image_URL+'>Image</a>'
+              html += '</td>';
+              
+              }
+              else if(questionsData.fileType == 2)
+              {
+              
+              html += '<td >';
+              html +=  '<b>Image:</b> <a href='+imageUrl+questionsData.sound_URL+'>Sound</a>'
+              html += '</td>';
+              
+              }
+              else if(questionsData.fileType == 3)
+              {
+              html += '<td >';
+              html +=  '<b>Image:</b> <a href='+imageUrl+questionsData.video_URL+'>Video</a>'
+              html += '</td>';  
+              }
+              html += '</tr>';
+              html += '<tr>';
+              html += '<td>';  
+              html +=  '<b>age:</b>'
+              html += '</td>';  
+              html += '<td>'+age2.toString()+'</td>';  
+              html += '</tr>';  
+              html += '<tr>';
+              html += '<td>';  
+              html +=  '<b>Region:</b>'
+              html += '</td>';  
+              html += '<td>'+country2.toString()+'</td>';  
+              html += '</tr>';  
+              
+              $("#questionsVal").append(html);
+            }
+            else
+            {
+              let html;
+              html += '<tr>';
+              html += '<td colspan="2">';
+              html +=  '<b>No Question found</i>'
+              html += '</td>';
+              html += '</tr>';      
+            }
+          }
+        })
+      }
+      else
+      {
+        let html;
+        html += '<tr>';
+        html += '<td colspan="2">';
+        html +=  '<b>Enter valid value</i>'
+        html += '</td>';
+        html += '</tr>';
+
+
+        $("#questionsVal").append(html);              
+      }
+     }
+
+
+     function getInfo(type1,type2)
+     {
+       if(type1 ==1 && type2 ==0)
+       {
+          $("#dataTable1").show();
+          $("#dataTable2").hide();
+       }
+       else if(type1 ==0 && type2 ==1)
+       {
+          $("#dataTable1").hide();
+          $("#dataTable2").show();
+       }
+     }
+    
+     /* removing child */
+     function removeChild1(url,id,userid)
+     {
+       //alert(url)
+       //alert(id)
+       //$("#optionRemove").html("");
+       $("#optionRemove").html("")
+       $("#optionRemove").append('<tr><td><a  href='+url+'deleteChild/'+id+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+     }
+     
+     /* removing child */
+     function removeTeam(url,id,userid)
+     {
+       //alert(url)
+       //alert(id)
+       //$("#optionRemove").html("");
+       $("#optionRemove").html("")
+       $("#optionRemove").append('<tr><td><a  href='+url+'deleteTeam/'+id+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+     }
+    
+    </script>
+
+
+  </body>
+</html>

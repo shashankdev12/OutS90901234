@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+    let id ="";
+    let name ="",code="";
+
+    %>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/country/0" style="font-weight:bold;">Users</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Users List</b>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <%  data1.forEach(function(data1){ %>
+                    <tr>
+                      <td>
+                        <%=data1.id%>
+                      </td>
+                      <td>
+                        <a src="<%=imageURL+data1.sound_URL%>" style="width:50px;height:50px">
+                          <%=imageURL+data1.sound_URL%>
+                          </a>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+          function searchUserList(url)
+          {
+            let userName = $("#userName").val();
+            let licence = $("#licence").val();
+            $.ajax({
+              type: "POST",
+              url: url+'getUserListSearch',
+              data: 'userName='+userName+'&licence='+licence,
+              success: function(data)
+              {
+                $("#userArray").html("");
+                console.log("ssssssssssss",JSON.parse(data));
+                let html,i=0;
+                $.each(JSON.parse(data), function(key,value)
+                {
+                  let cCode ='<'+value.countryCode.type+' '+value.countryCode.data+'>';
+                  let cccode = cCode.toString('utf8')
+                  //alert(cccode);
+                  i++;
+                  html += '<tr>';
+                  html += '<td>'+i+'</td>';
+                  html += '<td>'+value.firstName+'</td>';
+                  html += '<td>'+value.lastName+'</td>';
+                  html += '<td>'+value.email+'</td>';
+                  html += '<td>'+value.licenceName+'</td>';
+                  html += '<td>'+value.countryCode.toString()+'</td>';
+                  html += '<td>'+value.created.toLocaleString('en-us')+'</td>';
+                  html += '<td><a href="/userDetails/'+value.id+'">';
+                  html += '<i class="fa fa-eye"></i>';
+                  html += '</a></td>';
+
+                  html += '</tr>';
+                })
+                $("#userArray").append(html);
+              }
+            })
+          }
+
+        </script>
+    </body>
+  </html>

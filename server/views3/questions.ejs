@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../views/elements/head %>
+
+  <style>
+    #questionValidateData {
+      background-color: rgb(241, 241, 241);
+    }
+    .adQues{
+      background-color: rgb(241, 241, 241);
+    }
+    .qtopdiv{
+      background-color: rgb(255, 255, 255);
+      padding-top: 20px;
+    }
+    .qbottomDiv{
+      background-color: rgb(255, 255, 255);
+    }
+    .qbHead{
+      background-color: rgb(241, 241, 241);
+      padding: 10px;
+    }
+    .fnlRnd{
+      padding-left: 0px;
+    }
+    .agespace{
+      margin-top:6px;
+    }
+    .cnt{
+      margin: 16px;
+      width: 300px;
+    }
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ 
+body{
+  font-family: sans-serif;
+  background: #fefefe;
+}
+
+main{
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#sortable{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    
+    margin: 0 10%;
+    
+    
+}
+.one{background:#412234}
+    .two{background:#6D466B}
+    .three{background: #E7CEE3}
+    .four{background:#D53467}
+
+.draggable{
+        width: 50px;
+        height: 50px;
+        cursor: grab;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        color: #fff;
+    }
+
+.text{
+  padding: 20px 0;
+  font-size: 24px;
+  color: #000;
+}
+  </style>
+</head>
+
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <%
+      let id =0;
+      let category_id=0,pack_id= 0,age='',region='',questionText="",answer1=""
+      ,answer2="",answer3="",answer4="",time=0,correct=0,fileType=0,subCategory_id=0,imageUrl='',soundUrl='',videoUrl='';
+      if(question != null)
+      {
+          category_id =  question.category_id;
+          pack_id = question.pack_ID
+          age = question.age;
+          region=question.region;
+          questionText=question.question;
+          answer1=question.answer1;
+          answer2=question.answer2;
+          answer3=question.answer3;
+          answer4=question.answer4;
+          correct=question.correct_Answer;
+          time = question.time_Allowed;
+          fileType = question.fileType;
+          subCategory_id = question.sub_category_id;
+          imageUrl =question.image_URL;
+          soundUrl =question.sound_URL;
+          videoUrl =question.video_URL;
+          id=question.id;
+      }
+    %>
+
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/questions/0" style="font-weight:bold;">Questions </a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;">
+            <% let messages = getMessages()%>
+            <label class="col-sm-12 col-form-label" style="text-align:center">
+              <%= messages.notify %>
+            </label>
+            <form method="post" action="/addQuestions" id="questionValidateData" enctype="multipart/form-data">
+              <div class="form-group adQues">
+                <div class="card-header ">
+                  <i class="fas fa-table"></i>
+                  <b>Add Questions</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:10px; background-color: rgb(240, 240, 240);">
+
+                  <div class="col-md-12 col-sm-12 col-xs-12 qtopdiv">
+                    <input type="hidden" name="id" value="<%=id%>" />
+                    <!--  ================ Category ============== -->
+                    <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label">Category:</label>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <select class="form-control form-control-sm" id="category" name="category"
+                            onchange="getCategory('<%=webURL%>')" required>
+                            <option value="">Select Category</option>
+                            <% category.forEach(function(category){ %>
+                            <% if(category.id == category_id ){%>
+                            <option value="<%= category.id %>" selected>
+                              <%= category.category %>
+                            </option>
+                            <% }else{%>
+                            <option value="<%= category.id %>">
+                              <%= category.category %>
+                            </option>
+                            <% }%>
+                            <% }); %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!--  ================ SubCategory ============== -->
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label">
+                            Sub Category:
+                          </label>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                          <select class="form-control form-control-sm" id="subCategory" name="subCategory" required>
+                            <%if(subCategory_id){ %>
+                            <% subCategory.forEach(function(subCategory){ %>
+                            <% if(subCategory.id == subCategory_id ){%>
+                            <option value="<%= subCategory.id %>" selected><%= subCategory.subCategory %></option>
+                            <% }else{%>
+                            <option value="<%= subCategory.id %>">
+                              <%= subCategory.subCategory %>
+                            </option>
+                            <% }%>
+                            <% }); %>
+                            <% }else{ %>
+                            <option value="">Select SubCategory</option>
+                            <% } %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="row">
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                       <label for="city" class="col-form-label" >
+                         Package:
+                       </label>
+                     </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                       <select class="form-control form-control-sm"
+                        id="sltPackage" name="package" required >
+                         <option value="">Select Package</option>
+                         <option value="0" selected>Free Play</option>
+                         <% packages.forEach(function(packages){ %>
+                           <% if(packages.id == pack_id){%>
+                             <option value="<%= packages.id %>" selected><%= packages.packageName %></option>
+                           <% }else{ %>
+                             <option value="<%= packages.id %>">
+                               <%= packages.packageName %>
+                             </option>
+                           <% } %>
+                         <% }); %>
+                       </select>
+                     </div>
+                    </div>
+                   </div>
+                  <div class="col-sm-12 mt-2" id="hideFree">
+                    <div class="col-md 6 mt-3 mx-0 row fnlRnd">
+
+                      <!-- ================ Packages ============== -->
+                      <div class="d-inline-block mr-2">
+                        <input type="checkbox" onclick="freePlaySelected(checked)">
+                        <input class="form-control" type="hidden" id="freePlay" name="finalRound" value="0" >
+                        <label for="city" class="col-form-label">
+                          Final Round Question
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                    <!--  ============== Ages ============== -->
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+                      <div class="row">
+                        <div class="col-md-1 col-sm-12 col-xs-12">
+                          <label for="city" class="col-form-label">
+                            Age:
+                          </label>
+                        </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                          <% ageData.forEach(function(ageData){ %>
+                          <div class="col-md-3 inline_collection agespace" style="padding-left:40px" id="ageC">
+                            <% if(ageData.id == age){ %>
+                            <input type="checkbox" id="age" value="<%=ageData.id%>"
+                              onclick="addAgeArray('<%=ageData.id%>',this)" checked>
+                            <b style="padding:10px;"><%=ageData.age%></b>
+                            <% }else{ %>
+                            <label for="ageVal[]">
+                              <b style="padding:10px;">
+                                <%=ageData.age%>
+                              </b>
+                              <input type="checkbox" id="ageCategory" class="floatLeft" value="<%=ageData.id%>"
+                                name="ageVal[]" onclick="addAgeArray('<%=ageData.id%>',this)">
+                              <label>
+                                <% } %>
+                          </div>
+                          <% }) %>
+                          <input type="hidden" value="<%=age%>" id="resultant_arr" name="age" />
+                        </div>
+                        <div class="col-md-12" style="text-align:center">
+                          <b id="validateAgeError" style="color:red">
+                          </b>
+                        </div>
+                      </div>
+                    </div>
+                    <% if(userStatus == 1){%>
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                        <div class="row">
+                          <div class="col-md-1 col-sm-12 col-xs-12">
+                            <label for="city" class="col-form-label">
+                              Region:
+                            </label>
+                          </div>
+                          <div class="col-md-8 col-sm-12 col-xs-12">
+                            <% country.forEach(function(country){ %>
+                            <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                              <% if(country.id ==  region){ %>
+                              <input type="checkbox" id="country" value="[<%=country.id%>]"
+                                onclick="addCountryArray('<%=country.id%>','<%=country.language%>',this)" checked>
+                              <b style="padding:10px;"><%=country.name%></b>
+                              <% }else{ %>
+                              <label for="countryVal[]">
+                                <b style="padding:10px;"><%=country.name%></b>
+                                <input type="checkbox" id="country" class="floatLeft" value="[<%=country.id%>]"
+                                  name="countryVal[]" onclick="addCountryArray('<%=country.id%>','<%=country.language%>',this)">
+
+                              </label>
+                              <% } %>
+                            </div>
+                            <% }) %>
+                            <div class="col-md-12" style="text-align:center">
+                              <b id="validateRegionError" style="color:red">
+                              </b>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                     <%}else{%>
+                      <input type="hidden" id="country" class="floatLeft cnt"  value="<%=regionsession%>"
+                      >
+
+                    <%}%>  
+
+                          <input type="hidden" value="<%=imageUrl%>" name="imageUrl" />
+                          <input type="hidden" value="<%=soundUrl%>" name="soundUrl" />
+                          <input type="hidden" value="<%=videoUrl%>" name="videoUrl" />
+                          <input type="hidden" value="<%=region%>" id="country_arr" name="region" />
+                          <input type="hidden" value="<%=countryCode2%>"  id="country_arr_region" name="regionCode" />
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label">
+                                Time Allowed:
+                              </label>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <!-- <input type="text" name="timeAllowed" id="timeAllowed" class="form-control"/> -->
+                              <select class="form-control" name="timeAllowed" id="timeAllowed">
+                                <% if(time == 15){%>
+                                <option selected>15</option>
+                                <% }else{%>
+                                <option>15</option>
+                                <% }%>
+                                <% if(time == 20){%>
+
+                                <option selected>20</option>
+                                <% }else{%>
+                                <option>20</option>
+                                <% }%>
+                                <% if(time == 25){%>
+                                <option selected>25</option>
+                                <% }else{%>
+                                <option>25</option>
+                                <% }%>
+                                <% if(time == "30"){%>
+                                <option selected>30</option>
+                                <% }else{%>
+                                <option>30</option>
+                                <% }%>
+                                <% if(time == "35"){%>
+                                <option selected>35</option>
+                                <% }else{%>
+                                <option>35</option>
+                                <% }%>
+                                <% if(time == "40"){%>
+                                <option selected>40</option>
+                                <% }else{%>
+                                <option>40</option>
+                                <% }%>
+                                <% if(time == "45"){%>
+                                <option selected>45</option>
+                                <% }else{%>
+                                <option>45</option>
+                                <% }%>
+                                <% if(time == "50"){%>
+                                <option selected>50</option>
+                                <% }else{%>
+                                <option>50</option>
+                                <% }%>
+                                <% if(time == "55"){%>
+                                <option selected>55</option>
+                                <% }else{%>
+                                <option>55</option>
+                                <% }%>
+                                <% if(time == "60"){%>
+                                <option selected>60</option>
+                                <% }else{%>
+                                <option>60</option>
+                                <% }%>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <label for="image" class="col-form-label">
+                                File Type:
+                              </label>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <select class="form-control form-control-sm" id="fileType" name="fileType"
+                                onchange="changeFileTypeadd()">
+                                <% if(fileType == 0){ %>
+                                <option value="0">Select File Type</option>
+                                <option value="0">No File</option>
+                                <option value="1">Image</option>
+                                <option value="2">Sound</option>
+                                <option value="3">Video</option>
+                                <% }else if(fileType == 1 || fileType == 4){ %>
+                                <option value="0">Select File Type</option>
+                                <option value="0">No File</option>
+                                <option value="1" selected>Image</option>
+                                <option value="2">Sound</option>
+                                <option value="3">Video</option>
+                                <% }else if(fileType == 2){ %>
+                                <option value="0">Select File Type</option>
+                                <option value="0">No File</option>
+                                <option value="1">Image</option>
+                                <option value="2" selected>Sound</option>
+                                <option value="3">Video</option>
+                                <% }else if(fileType == 3){ %>
+                                <option value="0">Select File Type</option>
+                                <option value="0">No File</option>
+                                <option value="1">Image</option>
+                                <option value="2">Sound</option>
+                                <option value="3" selected>Video</option>
+                                <% } %>
+                              </select>
+                            </div>
+                            <% if(fileType == 4){ %>
+                            <div class="col-md-4 col-sm-12 col-xs-12" id="zoomEffect">
+                              <input type="checkbox" id="zoom" name="zoom" checked>
+                              <b class="paddingSt">
+                                Zoom
+                              </b>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-md-4 col-sm-12 col-xs-12" style="display:none" id="zoomEffect">
+                              <input type="checkbox" id="zoom" name="zoom">
+                              <b class="paddingSt">
+                                Zoom
+                              </b>
+                            </div>
+                            <% } %>
+
+
+                            <div style="clear:both"></div>
+                            <% if(fileType == 1 || fileType == 4)
+                        { %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="imageContainer">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="image" class="col-form-label">
+                                  Image:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <a href="/<%=imageUrl%>" target="_blank">
+                                  To See image Click Here
+                                </a>
+                                <a href="javascript:void(0)" onclick="openImage()">
+                                  <i class="fas fa-pencil-alt"></i>
+
+                                </a>
+                                <input type="file" class="form-control" id="changeImage" name="image"
+                                  style="display:none" />
+                              </div>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="imageContainer" style="display:none">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="image" class="col-form-label">
+                                  Image:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="file" class="form-control" name="image" />
+                              </div>
+                            </div>
+                            <% } %>
+                            <% if(fileType == 2){ %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="soundContainer">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="city" class="col-form-label">
+                                  Sound:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <a href="/<%=soundUrl%>" target="_blank">
+                                  To See Sound Click Here
+                                </a>
+                                <a href="javascript:void(0)" onclick="openSound()">
+                                  <i class="fas fa-pencil-alt"></i>
+
+                                </a>
+                                <input type="file" class="form-control" name="Sound" id="changeSound"
+                                  style="display:none" />
+                              </div>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="soundContainer" style="display:none">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="city" class="col-form-label">
+                                  Sound:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="file" class="form-control" name="Sound" />
+                              </div>
+                            </div>
+                            <% } %>
+
+                            <% if(fileType == 3){ %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="videoContainer">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="city" class="col-form-label">
+                                  Main Video:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <a href="/<%=videoUrl%>" target="_blank">
+                                  To See Video Click Here
+                                </a>
+                                <a href="javascript:void(0)" onclick="openVideo()">
+                                  <i class="fas fa-pencil-alt"></i>
+
+                                </a>
+                                <input type="file" class="form-control" name="Video" id="changeVideo"
+                                  style="display:none" />
+                              </div>
+                            </div>
+                            <% }else{ %>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mrgTp" id="videoContainer" style="display:none">
+                              <div class="col-md-4 col-sm-12 col-xs-12">
+                                <label for="city" class="col-form-label">
+                                  Main Video:
+                                </label>
+                              </div>
+                              <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="file" class="form-control" name="Video" />
+                              </div>
+                              <div id="supportV" style="display:none">
+                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                  <label for="city" class="col-form-label">
+                                    Explanation Video:
+                                  </label>
+                                </div>
+                                <div class="col-md-8 col-sm-12 col-xs-12">
+                                  <input type="file" class="form-control" name="supportVideoFile" />
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12" id="supportVideoEffect" style="display:none">
+                              <input type="checkbox" id="supportVideo" name="supportVideo" onclick="openSupportVideo(this)">
+                              <b class="paddingSt">
+                                Explanation Video
+                              </b>
+                            </div>
+
+                            <% } %>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:10px;">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label for="image" class="col-form-label" >
+                                Credit By:
+                              </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <input type="text" name="creditBy" id="" class="form-control">
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <label for="image" class="col-form-label" >
+                              Explanation:
+                            </label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <input type="text" name="hint" id="" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:10px;">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label">
+                                Priority:
+                              </label>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <!-- <input type="text" name="timeAllowed" id="timeAllowed" class="form-control"/> -->
+                              <select class="form-control" name="priority" id="timeAllowed">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                     
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 qbottomDiv">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="float:left;padding:10px;font-size:16px;">
+                        <div class="qbHead">
+                          <b>Question : </b>
+                        </div>
+                        <div style="margin-top:10px;">
+                          <textarea class="form-control" rows="4" cols="50" name="question" id="questionText" required>
+                           <%=questionText%>
+                         </textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0px;float:left;">
+                        <div class="col-md-6" style="padding:10px;">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <b>Option A: </b>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <input type="text" class="form-control" value="<%=answer1%>" name="option1"
+                                id="option1" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6" style="padding:10px;">
+                          <div class="row">
+                          <div class="col-md-12">
+                            <b>Option B: </b>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <input type="text" class="form-control " value="<%=answer2%>" name="option2"
+                              id="option2" />
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-md-6" style="padding:10px;">
+                          <div class="row">
+                          <div class="col-md-12">
+                            <b>Option C: </b>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-12">
+                            <input type="text" class="form-control " value="<%=answer3%>" name="option3"
+                              id="option3" />
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-md-6" style="padding:10px; ">
+                          <div claas="row">
+                          <div class="col-md-12" style="padding-left:0px">
+                            <b>Option D: </b>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12" >
+                            <input type="text" class="form-control " value="<%=answer4%>" name="option4"
+                              id="option4" />
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-md-6" style="padding:10px;">
+                          <div class="col-md-12" style="padding: 0px;">
+                            <b>Answer : </b>
+                          </div>
+                          <div class="col-md-12" style="padding: 0px;">
+                            <select class="form-control" name="answer" id="answer">
+                              <option value="">Please Select</option>
+                              <% if(correct == "A"){%>
+                              <option selected>A</option>
+                              <% }else{%>
+                              <option>A</option>
+                              <% }%>
+                              <% if(correct == "B"){%>
+                              asasd
+                              <option selected>B</option>
+                              <% }else{%>
+                              <option>B</option>
+                              <% }%>
+                              <% if(correct == "C"){%>
+                              <option selected>C</option>
+                              <% }else{%>
+                              <option>C</option>
+                              <% }%>
+                              <% if(correct == "D"){%>
+                              <option selected>D</option>
+                              <% }else{%>
+                              <option>D</option>
+                              <% }%>
+                            </select>
+                            <!-- <input type="text" class="form-control col-md-6" name="answer" id="answer"/> -->
+                          </div>
+                          
+                        </div>
+                        <div class="col-md-6" style="padding:10px;">
+                          <div class="col-md-12" style="padding: 0px;">
+                            <b>Answer Order : </b>
+                            <input type="checkbox" onclick="answerSort(checked)">
+                            <input type="hidden" class="form-control col-md-6" name="order" id="answerOrderBy">
+                            <div id="sortable" style="display:none">
+                              <!--items go here-->
+                            </div>
+                            <div id="array" class="text">
+                            </div>
+                          </div>
+                        </div>
+                        
+                          
+                        <div class="col-md-12 col-xs-12 col-sm-12 mrgTp algnCenter" style="margin-bottom:20px">
+                          <div class="col-md-12 col-xs-12 col-sm-12">
+                            <input type="submit" class="btn btn-success" value="save" style="width: 120px;" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Sticky Footer -->
+          <footer class="sticky-footer">
+            <% include ../views/elements/footer %>
+          </footer>
+        </div>
+        <!-- /.content-wrapper -->
+      </div>
+      <!-- /#wrapper -->
+      <!-- Scroll to Top Button-->
+      <% include ../views/elements/bootom %>
+
+      <script>
+        let ageArr = [];
+        let countryArr = [];
+        let countryRegionArr = [];
+        function removeA(arr) {
+          var what, a = arguments, L = a.length, ax;
+          while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+              arr.splice(ax, 1);
+              break
+            }
+          }
+          return arr;
+        }
+
+        /* free play */
+        function freePlaySelected(checked) {
+          //alert("free play check box clicked ", checked);
+          if (checked) {
+            //alert(1);
+            document.getElementById("freePlay").value = 1;
+            document.getElementById("sltPackage").disabled = true;
+            document.getElementById("freePlay").disable = false;
+
+            // var x = document.createElement("INPUT");
+            // x.setAttribute("type", "text");
+            // x.name = "package";
+            // x.className += "form-control";
+            // // x.id = 'sltPackage';
+            // x.value = "<%=0%>";
+            //document.getElementById("sltPackage").value = {name:'abc', id:'0'};
+            // $('#sltPackage').append(`<option value="${0}">
+            //                          ${'freePlay'}
+            //                     </option>`);
+            // $("#sltPackage").val("0");
+            // setPackage('<%=webURL%>');
+            // $("#sltPackage").trigger('change');
+          }
+          else {
+            document.getElementById("freePlay").value = 0;
+            document.getElementById("sltPackage").disabled = false;
+            document.getElementById("freePlay").disable = true;
+          }
+        }
+
+
+        function answerSort(checked)
+        {
+
+          if (checked) 
+          {
+            $("#sortable").show()
+            $('#answerOrderBy').val(updateArray.join(', '));
+          }
+          else
+          {
+            $("#sortable").hide()
+            $('#answerOrderBy').val("")
+          }
+        }
+
+        /* Age check */
+
+        function addAgeArray(age, e) {
+          if (e.checked) {
+            ageArr.push(age);
+          }
+          else {
+            removeA(ageArr, age);
+          }
+          document.getElementById('resultant_arr').value = [ageArr];
+        }
+
+        /* country check */
+
+        function addCountryArray(country,language, e) {
+          if (e.checked) {
+            
+            countryArr.push(country);
+            countryRegionArr.push(language)
+          }
+          else {
+            removeA(countryArr, country);
+            removeA(countryRegionArr, language);
+          }
+          document.getElementById('country_arr').value = countryArr;
+          document.getElementById('country_arr_region').value = countryRegionArr;
+        }
+
+        function openImage() {
+          $("#changeImage").show();
+        }
+
+        function openSound() {
+          $("#changeSound").show();
+        }
+
+        function openVideo() {
+          $("#changeVideo").show();
+          $("#supportVideoEffect").show()
+        }
+
+        function setPackage1(web)
+        {
+          //alert($("#sltPackage").val());
+          if($("#sltPackage").val() > 0)
+          {
+            $("#hideFree").hide()
+
+          }
+          else
+          {
+            $("#hideFree").show()
+          }
+        }
+
+
+
+        startArray = ["A","B","C","D"];
+        updateArray = [];
+        colors = ['one', 'two', 'three', 'four'];
+        myList = $('#sortable');
+
+        $(document).ready(function(){
+
+            myList = $('#sortable');
+
+
+        //initialise array order
+        for(let i = 0; i < startArray.length; i++){
+            myList.append('<div id="box-'+startArray[i]+'" class="draggable '+colors[i]+'" draggable="true" photoID="'+startArray[i]+'">'+startArray[i]+'</div>');
+        }
+
+    //allow sorting
+    $(() => {
+        myList.sortable(
+            {
+                axis: 'x',
+                stop: function(event, ui){
+                    updateArray = $("#sortable").sortable("toArray", {attribute: 'photoID'});
+                    //$('#array').html(updateArray.join(', '));
+                    //console.log(updateArray);
+                    $('#answerOrderBy').val(updateArray.join(', '));
+                }
+            }
+        );
+      
+        updateArray = $("#sortable").sortable("toArray", {attribute: 'photoID'});
+       // $('#array').html(updateArray.join(', '));
+        myList.disableSelection();
+        //$('#answerOrderBy').val(updateArray.join(', '));
+    } );
+
+})
+      </script>
+</body>
+
+</html>

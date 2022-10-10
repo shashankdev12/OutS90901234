@@ -1,0 +1,122 @@
+{
+  "name": "questions_multilang_status_temp",
+  "plural": "questions_multilang_status_temp",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "question_id": {
+      "type": "number",
+      "required": true
+    },
+    "UK": {
+      "type": "number",
+      "default": 0
+    },
+    "UKStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "AUS": {
+      "type": "number",
+      "default": 0
+    },
+    "AUSStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "CAN": {
+      "type": "number",
+      "default": 0
+    },
+    "CANStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "USA": {
+      "type": "number",
+      "default": 0
+    },
+    "USAStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "IT": {
+      "type": "number",
+      "default": 0
+    },
+    "ITStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "NZ": {
+      "type": "number",
+      "default": 0
+    },
+    "NZStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "NL": {
+      "type": "number",
+      "default": 0
+    },
+    "NLStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "DE": {
+      "type": "number",
+      "default": 0
+    },
+    "DEStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "BE": {
+      "type": "number",
+      "default": 0
+    },
+    "BEStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "FR": {
+      "type": "number",
+      "default": 0
+    },
+    "FRStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "questionStatus": {
+      "type": "number",
+      "default": 1
+    },
+    "createdBy": {
+      "type": "string",
+      "required": true,
+      "default": "EN"
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "questions_new_structure": {
+      "type": "belongsTo",
+      "model": "questions_new_structure",
+      "foreignKey": "question_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

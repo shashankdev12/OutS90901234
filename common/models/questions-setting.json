@@ -1,0 +1,28 @@
+{
+  "name": "questions_setting",
+  "plural": "questions_setting",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "question_number": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "modified": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewExportQuestion" style="font-weight:bold;">Export Questions</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label" style="text-align:center">
+                <%= messages.notify %>
+              </label>
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              <b>Export Questions</b>
+              
+            </div>
+            <div class="card-body">
+              <form method="post" action="/exportAllData" id="exportData">
+              <div class="table-responsive">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <div class="row" >
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label" >Category:</label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        <select class="form-control form-control-sm" id="category" name="category" required>
+                          <option value="">Select Category</option>
+                          <% categories.forEach(function(category)
+                          { %>
+                              <option value="<%= category.id %>"  >
+                                <%= category.category %>
+                              </option>
+                          <% }); %>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <input type="hidden" name="packages" value="1"/>
+                    <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                      <div class="col-md-4 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label" >Region : </label>
+                      </div>
+                      <div class="col-md-8 col-sm-12 col-xs-12">
+                        
+                          <select class="form-control form-control-sm" id="regionCountry" name="region" required>
+                            <option value="">Select Region</option>
+                            <% country.forEach(function(countryInfo){ %>
+                                <option value="<%= countryInfo.id %>">
+                                  <%= countryInfo.name %>
+                                </option>
+                              <% }); %>
+                          </select>
+                        
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                      <input type="submit" class="btn btn-save" value="Export">
+                      <% if(type == 1){%>
+                        <a href="./data.zip" class="btn btn-success">download</a>
+                      <% }%> 
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+    </body>
+  </html>

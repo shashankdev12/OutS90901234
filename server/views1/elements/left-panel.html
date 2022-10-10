@@ -1,0 +1,278 @@
+<% if(userStatus == 1){%>
+  <ul class="sidebar navbar-nav">
+    <li class="nav-item active paddingSt">
+      <a class="nav-link" href="/adminDashboard">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span style="font-size:14px">DASHBOARD</span>
+      </a>
+    </li>
+    
+    <li class="nav-item paddingSt">
+      <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+        <i class="fa fa-question-circle"></i>
+        <span style="font-size:14px">QUESTIONS</span>
+        <i class="fas fa-fw fa-caret-down"></i>
+      </a>
+        <ul class="collapse" id="submenu1" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+          
+          <li class="nav-item  active paddingSt" >
+            <a class="nav-link"  href="/reviewQuestions/1/0" >
+              <i class="fas fa-fw fa-user"></i>
+              <span style="font-size:14px">Review Questions</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a  class="nav-link" href="/viewQuestions/0/0/0/0/0/0/0/0/0/0">
+              <i class="fas fa-fw fa-question"></i>
+              <span style="font-size:14px">View Questions</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a  class="nav-link" href="/questions/0">
+              <i class="fas fa-fw fa-question"></i>
+              <span style="font-size:14px">Add Question(s)</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="/uploadQuestions">
+              <i class="fas fa-fw fa-upload"></i>
+              <span style="font-size:14px">Upload Questions</span>
+            </a>
+          </li>
+
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="/viewExportQuestion/0">
+              <i class="fa fa-list-alt"></i>
+              <span style="font-size:14px">Export Questions</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="<%=webURL%>viewQuestions/0/0/0/0/0/0/1/0/0/0">
+              <i class="fa fa-list-alt"></i>
+              <span style="font-size:14px">Final Round</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="/viewCategories/0">
+              <i class="fa fa-list-alt"></i>
+              <span style="font-size:14px">Category</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="/viewSubCategory/0/0/0">
+              <i class="fa fa-flag"></i>
+              <span style="font-size:14px">Sub Category</span>
+            </a>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="/packages/0">
+              <i class="fa fa-flag"></i>
+              <span style="font-size:14px">Packages</span>
+            </a>
+          </li>
+          
+          
+          
+          <!-- <li class="nav-item paddingSt">
+            <a  class="nav-link" href="/viewFreeplayQuestions/0/0/0/0">
+              <i class="fas fa-fw fa-question"></i>
+              <span style="font-size:14px">View Freeplay Questions</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item paddingSt">
+            <a  class="nav-link" href="/viewFinalQuestions/0/0/0/0">
+              <i class="fas fa-fw fa-question"></i>
+              <span style="font-size:14px">View Final Questions</span>
+            </a>
+          </li> -->
+        </ul>
+      </li>
+     
+
+      <li class="nav-item paddingSt">
+        <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu16" aria-expanded="false">
+          <i class="fa fa-question-circle"></i>
+          <span style="font-size:14px">CUSTOMERS</span>
+          <i class="fas fa-fw fa-caret-down"></i>
+        </a>
+          <ul class="collapse" id="submenu16" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+            <li class="nav-item paddingSt">
+              <a class="nav-link" href="/users/0/1/0">
+                <i class="fas fa-fw fa-user"></i>
+                <span style="font-size:14px">Users (Game Owners)</span>
+              </a>
+            </li>
+            <li class="nav-item paddingSt">
+              <a class="nav-link" href="/bulklicences/0/0/0">
+                <i class="fas fa-id-badge"></i>
+                <span style="font-size:14px">Create Licences</span>
+              </a>
+            </li>
+            <li class="nav-item paddingSt">
+              <a  class="nav-link" href="/exportedLicences/0/0/0">
+                <i class="fas fa-fw fa-question"></i>
+                <span style="font-size:14px">Licence</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item paddingSt">
+          <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu13" aria-expanded="false">
+            <i class="fa fa-question-circle"></i>
+            <span style="font-size:14px">ANALYTICS</span>
+            <i class="fas fa-fw fa-caret-down"></i>
+          </a>
+            <ul class="collapse" id="submenu13" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+              <li class="nav-item paddingSt">
+                <a class="nav-link" href="/getGamesCounts">
+                  <i class="fa fa-lock"></i>
+                  <span style="font-size:14px">App Performance</span></a>
+              </li>
+              <li class="nav-item paddingSt">
+                <a class="nav-link" href="/ageCategoryStats">
+                  <i class="fa fa-flag"></i>
+                  <span style="font-size:14px">Age Category Stats</span>
+                </a>
+              </li>
+              
+              
+            </ul>
+          </li>
+          <li class="nav-item paddingSt">
+            <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu3" aria-expanded="false">
+              <i class="fa fa-question-circle"></i>
+              <span style="font-size:14px">REDEEM CODES</span>
+              <i class="fas fa-fw fa-caret-down"></i>
+            </a>
+              <ul class="collapse" id="submenu3" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+                <li class="nav-item paddingSt">
+                  <a class="nav-link" href="/redeemCode">
+                 <i class="fa fa-wrench"></i>
+                <span style="font-size:14px">Import Redeem Code</span>
+            </a>
+                </li>
+                <li class="nav-item paddingSt">
+                  <a  class="nav-link" href="/redeemCodeView/0">
+                    <i class="fas fa-fw fa-question"></i>
+                    <span style="font-size:14px">View Redeem Code</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+   
+      
+    
+              <li class="nav-item paddingSt">
+                <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu15" aria-expanded="false">
+                  <i class="fa fa-question-circle"></i>
+                  <span style="font-size:14px">SETTINGS</span>
+                  <i class="fas fa-fw fa-caret-down"></i>
+                </a>
+                  <ul class="collapse" id="submenu15" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/regionAdmins/0">
+                        <i class="fa fa-wrench"></i>
+                        <span style="font-size:14px">Region Admin</span></a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/country/0">
+                        <i class="fa fa-flag"></i>
+                        <span style="font-size:14px">Country</span>
+                      </a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/getMessage/0">
+                        <i class="fa fa-lock"></i>
+                        <span style="font-size:14px">Set Message</span></a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/setting/0">
+                        <i class="fa fa-wrench"></i>
+                        <span style="font-size:14px">App Update</span></a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/userAge/0">
+                        <i class="fa fa-child"></i>
+                        <span style="font-size:14px">Age</span>
+                      </a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/distributors/0">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span style="font-size:14px">Distributors</span>
+                      </a>
+                    </li>
+                    <li class="nav-item paddingSt">
+                      <a class="nav-link" href="/changePassword">
+                        <i class="fa fa-lock"></i>
+                        <span style="font-size:14px">Change Password</span></a>
+                    </li>
+                  </ul>
+                </li>
+    
+    
+    
+    
+	
+    
+    <li class="nav-item paddingSt">
+      <a class="nav-link"  href="/adminlogout" >
+        <i class="fas fa-fw fa-sign-out-alt"></i>
+        <span style="font-size:14px">LOGOUT</span></a>
+    </li>
+  </ul>
+<% }else{ %>
+<ul class="sidebar navbar-nav">
+  <li class="nav-item active paddingSt">
+    <a class="nav-link" href="/adminDashboard">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span style="font-size:14px">DASHBOARD</span>
+    </a>
+  </li>
+  <li class="nav-item paddingSt">
+    <a class="nav-link" href="#"  data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+      <i class="fa fa-question-circle"></i>
+      <span style="font-size:14px">QUESTIONS</span>
+      <i class="fas fa-fw fa-caret-down"></i>
+    </a>
+      <ul class="collapse" id="submenu1" role="menu" aria-labelledby="btn-1" style="padding: 0px;background:#343a40">
+        <li class="nav-item paddingSt">
+          <a  class="nav-link" href="/questions/0">
+            <i class="fas fa-fw fa-question"></i>
+            <span style="font-size:14px">Add Question(s)</span>
+          </a>
+        </li>
+        <li class="nav-item paddingSt">
+          <a  class="nav-link" href="/viewQuestions/0/0/0/0/0/0/0/0/0/0">
+            <i class="fas fa-fw fa-question"></i>
+            <span style="font-size:14px">View Questions</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item paddingSt">
+          <a  class="nav-link" href="/viewFreeplayQuestions/0/0/0/0">
+            <i class="fas fa-fw fa-question"></i>
+            <span style="font-size:14px">View Freeplay Questions</span>
+          </a>
+        </li> -->
+        
+        <!-- <li class="nav-item paddingSt">
+          <a  class="nav-link" href="/viewFinalQuestions/0/0/0/0">
+            <i class="fas fa-fw fa-question"></i>
+            <span style="font-size:14px">View Final Questions</span>
+          </a>
+        </li> -->
+      </ul>
+      <li class="nav-item paddingSt">
+        <a class="nav-link"  href="/reviewQuestions/1/0" >
+          <i class="fas fa-fw fa-user-alt"></i>
+          <span style="font-size:14px">Review Questions</span></a>
+      </li>
+    </li>
+    
+  <li class="nav-item paddingSt">
+    <a class="nav-link"  href="/adminlogout" >
+      <i class="fas fa-fw fa-sign-out-alt"></i>
+      <span style="font-size:14px">LOGOUT</span></a>
+  </li>
+</ul>
+<% }  %>

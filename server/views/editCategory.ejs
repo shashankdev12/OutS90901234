@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../views/elements/head %>
+</head>
+<body id="page-top">
+  <% include ../views/elements/header.html %>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <% include ../views/elements/left-panel.html %>
+    <% let id =0,categoryName ="",cost=0,finalRegionData = [],desp="",
+    iconImage=0,buttonImage=0,region = [],country2=[],iconEImage='iconImage',buttonEsImage='buttonImage',images=1,isPackageD=0;
+	  select1="",select2="",select3="",select4="",select5="",select6="",select7="",select8="",select9="",select10="",
+	  select11="",select12="",select13="",select14="",regionType=""
+
+    let obj  = {masterid:0,amount:0,iconImage:"",iconImageUrl:categoryData.iconImage,images:""
+    ,buttonImage:"",buttonImageUrl:categoryData.buttonImage,mulitpleData :[],categoryRegions:"",
+    regionCode:"",image1:categoryData.image1,image2:categoryData.image2,image3:categoryData.image3
+    ,image4:categoryData.image4,image5:categoryData.image5,image1Type:"",image2Type:"",image3Type:"",
+    image4Type:"",image5Type:""
+    };
+    
+      obj.masterid = categoryData.id;
+      obj.amount = categoryData.amount;
+      
+      if(categoryData.iconImage != '')
+      {
+        obj.iconImage=1
+      }
+
+      if(categoryData.type != '')
+      {
+        obj.images=1
+      }
+
+      if(categoryData.buttonImage != '')
+      {
+        obj.buttonImage=1
+      }
+
+      if(categoryData.image1 != '' &&  categoryData.image1 != null)
+      {
+        obj.image1Type =1
+      }
+      if(categoryData.image2 != '' &&  categoryData.image2 != null)
+      {
+        obj.image2Type =1
+      }
+      if(categoryData.image3 != '' &&  categoryData.image3 != null)
+      {
+        obj.image3Type =1
+      }
+      if(categoryData.image4 != '' &&   categoryData.image4 != null)
+      {
+        obj.image4Type =1
+      }
+      
+      if(categoryData.image5 != '' &&  categoryData.image5 != null)
+      {
+        obj.image5Type =1
+      }
+
+      
+      obj.categoryRegions=categoryData.categoryRegion;
+      for(let j=0;j<countries.length;j++)
+      {
+        if(countries[j].id == parseInt(categoryData.categoryRegion))
+        {
+          obj.regionCode  =  countries.code
+        }
+      }
+    
+      let otherDetailData = categoryData.toJSON().region_categories;
+      
+      for(let i=0;i<otherDetailData.length;i++)
+      {
+        obj.mulitpleData.push({code:otherDetailData[i].country_code,id:otherDetailData[i].id,
+        category:otherDetailData[i].category,
+        description:otherDetailData[i].description,region:otherDetailData[i].country_id,
+        tag:otherDetailData[i].tag,tag_index:otherDetailData[i].tag_index})
+      }
+      
+      iconEImage='';
+      buttonEsImage='';
+      id=obj.id;
+      categoryName=obj.category;
+      desp = obj.description;
+      //region=categoryData.categoryRegion.split(',');      
+      
+      let category_id=0
+      cost=obj.amount;
+      
+        
+        if(cost == 0)
+        {
+          select1="selected";
+        }
+        else if(cost == 0.99)
+        {
+          select2="selected";
+        }else if(cost == 1.99)
+        {
+          select3="selected";
+        }else if(cost == 2.99)
+        {
+          select4="selected";
+        }else if(cost == 3.99)
+        {
+          select5="selected";
+        }else if(cost == 4.99)
+        {
+          select6="selected";
+        }else if(cost == 5.99)
+        {
+          select7="selected";
+        }else if(cost == 6.99)
+        {
+          select8="selected";
+        }else if(cost == 7.99)
+        {
+          select9="selected";
+        }else if(cost == 8.99)
+        {
+          select10="selected";
+        }else if(cost == 9.99)
+        {
+          select11="selected";
+        }else if(cost == 10.99)
+        {
+          select12="selected";
+        }else if(cost == 11.99)
+        {
+          select13="selected";
+        }else if(cost == 12.99)
+        {
+          select14="selected";
+        }
+        
+        //console.log("obj",obj)
+
+        for(let i=0;i<countries.length;i++)
+        {
+          objRegion = {id:countries[i].id,name:countries[i].name,code:countries[i].code,
+            checked:"unchecked"};
+          console.log(obj.categoryRegions);
+          let cateT =  obj.categoryRegions.split(',');
+          console.log("cateT",cateT)
+          for(let j=0;j<cateT.length;j++)
+          {
+            
+            if(countries[i].id == cateT[j])
+            {
+              objRegion.checked="checked";
+              if(!country2.includes(objRegion.id))
+              {
+                country2.push(objRegion.id)
+              }
+            }
+          }
+          finalRegionData.push(objRegion);
+        }
+    %>
+   
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="/viewCategories/0" style="font-weight:bold;">Category</a>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+              <% let messages = getMessages()%>
+              <label class="col-sm-12 col-form-label algnCenter">
+                <%= messages.notify %>
+              </label>
+            <form action="/editCategory" method="post" enctype="multipart/form-data" id="categoryData">
+              <div class="form-group">
+                <div class="card-header">
+                  <i class="fas fa-table"></i>
+                  <b>Add Category</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
+                  <input type="hidden" name="id" value="<%=obj.masterid%>"/>
+                  <% let i=0; obj.mulitpleData.forEach(function(categoryData){i++%>
+                  <div id="newCategoryDiv_<%=categoryData.region%>">
+                    <div class="col-md-3 col-xs-12 col-sm-12 paddingSt"  >
+                      <div class="col-md-3 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Category:</label>
+                      </div>
+                      <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" id="category" placeholder="Category" name="category_<%=categoryData.code%>" value="<%=categoryData.category%>" required/>
+                        <input type="hidden" name="tag_<%=categoryData.code%>" value="<%=categoryData.tag%>" />
+                        <input type="hidden"  name="tag_index_<%=categoryData.code%>" value="<%=categoryData.tag_index%>" />
+                      </div>
+                    </div>
+                    <div class="col-md-7 col-xs-12 col-sm-12 paddingSt" >
+                      <div class="col-md-2 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">Description: </label>
+                      </div>
+                      <div class="col-md-10 col-xs-12 col-sm-12">
+                        <textarea class="form-control" id="description"  name="description_<%=categoryData.code%>" rows="4" cols="150"><%=categoryData.description%></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                  <label for="city" class="col-form-label">Region : <%=categoryData.code%></label>
+
+                    </div>
+                  </div>
+                  <% }) %>
+                  <input type="hidden" name="id" value="<%=obj.masterid%>"/>
+                  <input type="hidden" name="countriesIn" id="countriesIn" value="<%=obj.categoryRegions%>">
+                  <input type="hidden"   id="countriesIn111" value="<%=obj.categoryRegions%>">
+                  <div id="newRegionCategory">
+
+                  </div>
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Icon Image:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="iconImage" id="<%=iconEImage%>" class="form-control"/>
+                      <input type="hidden" name="iconImageal" value="<%=obj.iconImageUrl%>" class="form-control"/>
+                      <% if(obj.iconImage == 1){ %>
+                        <img src="<%=imageURL%><%=obj.iconImageUrl%>"  width='70'>
+                        <a href="<%=imageURL+obj.iconImageUrl%>" target="_blank">Icon Image</a>
+                      <% }%>  
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Button Image:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="buttonImage" id="<%=buttonEsImage%>"  class="form-control" />
+                      <input type="hidden" name="buttonImageal" value="<%=obj.buttonImageUrl%>" class="form-control"/>
+                      <% if(obj.buttonImage == 1){ %>
+                        <img src="<%=imageURL%><%=obj.buttonImageUrl%>"  width='70'>
+                        <a href="<%=imageURL+obj.buttonImageUrl%>" target="_blank">button Image</a>
+                      <% }%>                        
+                    </div>
+                  </div>  
+
+                  
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 1:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="image1"   class="form-control" />
+                      <input type="hidden" name="image1al" value="<%=obj.image1%>" class="form-control"/>
+                      <% if(obj.image1Type == 1){ %>
+                        
+                        <img src="<%=imageURL%><%=obj.image1%>"  width='70'>
+                        <a href="<%=imageURL+obj.image1%>" target="_blank"> Image 1</a>
+                      <% }%>                        
+                    </div>
+                    
+                  </div> 
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 2:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="image2"   class="form-control" />
+                      <input type="hidden" name="image2al" value="<%=obj.image2%>" class="form-control"/>
+                      <% if(obj.image2Type == 1){ %>
+                        
+                        <img src="<%=imageURL%><%=obj.image2%>"  width='70'>
+                        <a href="<%=imageURL+obj.image2%>" target="_blank"> Image 2</a>
+                      <% }%>                        
+                    </div>
+                    
+                  </div> 
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 3:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="image3"   class="form-control" />
+                      <input type="hidden" name="image3al" value="<%=obj.image3%>" class="form-control"/>
+                      <% if(obj.image3Type == 1){ %>
+                        
+                        <img src="<%=imageURL%><%=obj.image3%>"  width='70'>
+                        <a href="<%=imageURL+obj.image3%>" target="_blank"> Image 3</a>
+                      <% }%>                        
+                    </div>
+                    
+                  </div> 
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 4:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="image4"   class="form-control" />
+                      <input type="hidden" name="image4al" value="<%=obj.image4%>" class="form-control"/>
+                      <% if(obj.image4Type == 1){ %>
+                        
+                        <img src="<%=imageURL%><%=obj.image4%>"  width='70'>
+                        <a href="<%=imageURL+obj.image4%>" target="_blank"> Image 4</a>
+                      <% }%>                        
+                    </div>
+                    
+                  </div> 
+
+
+                  <div class="col-md-4 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Image 5:</label>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                      <input type="file" name="image5"   class="form-control" />
+                      <input type="hidden" name="image5al" value="<%=obj.image5%>" class="form-control"/>
+                      <% if(obj.image5Type == 1){ %>
+                        
+                        <img src="<%=imageURL%><%=obj.image5%>"  width='70'>
+                        <a href="<%=imageURL+obj.image5%>" target="_blank"> Image 5</a>
+                      <% }%>                        
+                    </div>
+                    
+                  </div> 
+                 
+                  
+                  <div class="col-md-12 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="row">
+                      <div class="col-md-1 col-sm-12 col-xs-12">
+                        <label for="city" class="col-form-label">
+                          Region:
+                        </label>
+                      </div>
+                      <div class="col-md-11 col-sm-12 col-xs-12">
+                        
+
+                        <% finalRegionData.forEach(function(country){ %>
+                          
+                          <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <label for="countryVal[]">
+                              <b style="padding:10px;"><%=country.name%></b>
+                              <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
+                                name="countryVal[]" <%=country.checked%>
+                                onclick="addCountryArray(<%=country.id%>,'<%=country.code%>',this)">
+                                
+                            </label>
+                          </div>
+                          <% }) %>
+                        
+                        <div class="col-md-12" style="text-align:center">
+                          <b id="validateRegionError" style="color:red">
+                          </b>
+                        </div>
+                        <input type="hidden" value="<%=country2%>"  id="country_arr" name="region" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 col-sm-12 paddingSt" >
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                      <label for="city" class="col-form-label">Cost:</label>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-12">
+                      <select class="form-control" name="cost" id="cost">
+                        <option value="" <%=select1%> >Please Select Cost</option>
+                        <option value="0,0" <%=select1%> >Free</option>
+                            <option value="1,0.99" <%=select2%> >0.99</option>
+                            <option value="2,1.99" <%=select3%> >1.99</option>
+                            <option value="3,2.99" <%=select4%> >2.99</option>
+                            <option value="4,3.99" <%=select5%> >3.99</option>
+                            <option value="5,4.99" <%=select6%>>4.99</option>
+                            <option value="6,5.99" <%=select7%>>5.99</option>
+                            <option value="7,6.99" <%=select8%>>6.99</option>
+                            <option value="8,7.99" <%=select9%>>7.99</option>
+                            <option value="9,8.99" <%=select10%>>8.99</option>
+                            <option value="10,9.99" <%=select11%>>9.99</option>
+                            <option value="11,10.99" <%=select12%>>10.99</option>
+                            <option value="12,11.99" <%=select13%>>11.99</option>
+                            <option value="13,12.99" <%=select14%>>12.99</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  
+                  <div class="col-md-12 col-sm-12 col-xs-12 paddingSt algnCenter">
+                    <input type="submit" class="btn btn-success" id="buttonSubmit" value="Save" />
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12" style="padding-bottom:30px;" >
+          </div>
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Active/Deactive Package</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                Are you Sure
+              </div>
+              <div class="col-md-12" style="padding: 10px;text-align:center">
+                <div class="col-md-6" id="optionPack">
+                </div>
+              </div>  
+              <!-- Modal footer -->
+            </div>
+          </div>
+        </div>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <% include ../views/elements/footer %>
+        </footer>
+      </div>
+          <!-- /.content-wrapper -->
+    </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <% include ../views/elements/bootom %>
+        <script>
+            let countryArr = document.getElementById('country_arr').value.split(",");
+            let counttt = $("#countriesIn111").val().split(',');
+
+
+            let countryIdD = counttt;
+            function addCountryArray(countryId,country, e) 
+            {
+              
+              if(e.checked)
+              {
+                countryIdD.push(countryId.toString())
+                $("#countriesIn").val(countryIdD)
+                
+                let html ="";
+                html += '<div class="col-md-12 mb-3" id="newCategoryDiv_'+countryId+'">';
+                  html += '<div class="col-md-1 mb-3">';
+                    html += '<label>Category :';
+                    html += '</label>';  
+                  html += '</div>';
+                  html += '<div class="col-md-2 mb-3">';
+                    html += '<input type="text" class="form-control" id="category" placeholder="Category" name="category_'+country+'"/>'
+                  html += '</div>';
+                  html += '<div class="col-md-2 mb-3">';
+                    html += '<label>Description :';
+                    html += '</label>';  
+                  html += '</div>';
+                  html += '<div class="col-md-5 mb-3">';
+                    html += '<textarea class="form-control" id="description"  name="description_'+country+'" rows="4" cols="150"></textarea>'
+                  html += '</div>';    
+		                html += '<div class="col-md-2 mb-3">';
+                      html += '<label>Region : '+country;
+                      html += '</label>';
+         	        html += '</div>';
+
+                html += '</div>';
+                $("#newRegionCategory").append(html)
+              }
+              else
+              {
+                console.log(countryIdD)
+                const index = countryIdD.indexOf(countryId.toString());
+                if (index > -1) { // only splice array when item is found
+                  countryIdD.splice(index, 1); // 2nd parameter means remove one item only
+                }
+                $("#countriesIn").val(countryIdD)
+                 $("#countriesIn111").val(countryIdD)
+                
+                $("#newCategoryDiv_"+countryId).remove()
+              }
+            }
+
+
+            function removeA(arr) {
+            var what, a = arguments, L = a.length, ax;
+            while (L > 1 && arr.length) {
+              what = a[--L];
+              while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+              }
+            }
+            return arr;
+          }
+
+
+          
+        function categoryState(url,type,userid)
+        {
+        
+         $("#optionPack").html("")
+         $("#optionPack").append('<tr><td><a  href='+url+'updateCategoryState/'+type+'/'+userid+' class="btn btn-danger">Yes</a></td><td><a class="btn btn-info" class="close" data-dismiss="modal">No</a></td><tr>');
+        }
+
+
+        function goToTagUpdate(webUrl)
+        {
+          let ut = $("#uT").val()
+
+          document.getElementById("updateTag").href = webUrl+"/updateCategory/"+ut;
+       
+        }
+        </script>
+
+    </body>
+  </html>

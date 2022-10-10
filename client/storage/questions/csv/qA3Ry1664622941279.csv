@@ -1,0 +1,3 @@
+CATEGORY,SUBCATEGORY,AGE,REGION,TIMEALLOWED,QUESTION,ANSWER1,ANSWER2,ANSWER3,ANSWER4,CORRECTANSWER,HINT,IMAGEURL,VIDEOURL,SOUNDURL,FILETYPE,questionMasterId ,status,creditBy,questionActiveStatus,questionState
+SOUND AND MUSIC,NONE,ADULT,Italia,30,Quale città ha dato i natali alla famosa cantante italiana Milva?,Ferrara,Rimini,Passaparola,Bologna,A,,1-Italia-Sound-And-Music.jpg,,,1,,0,Alessandro,1,1
+SOUND AND MUSIC,NONE,JUNIOR,Italia,30,Chi è il personaggio illustrato nell'immagine?,Giuseppe Verdi,Wolfgang Amadeus Mozart,Giacomo Puccini,Ludwig van Beethoven,A,,2-Italia-Sound-And-Music.jpg,,,1,,0,Antonino,1,1

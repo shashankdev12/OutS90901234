@@ -1,0 +1,44 @@
+{
+  "name": "distributors",
+  "plural": "distributors",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "country_id": {
+      "type": "number",
+      "required": true
+    },
+    "distributor": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "licences": {
+      "type": "hasMany",
+      "model": "licences",
+      "foreignKey": "distributor_id"
+    },
+    "countries": {
+      "type": "belongsTo",
+      "model": "countries",
+      "foreignKey": "country_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
