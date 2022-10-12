@@ -183,9 +183,9 @@
                 </select>
             </div>
             <input type="hidden" id="region" value="<%=countryId%>"/>
-            <div class="col-md-4 col-sm-12 col-xs-12">
+            <!-- <div class="col-md-4 col-sm-12 col-xs-12">
               <a href="#" class="btn btn-success" id="search">Search</a>
-            </div>
+            </div> -->
 
           </div>
           <div class="draggable-main">
@@ -203,8 +203,14 @@
               <div class="m-3">
                 <input type="hidden" name="id" value="<%=id%>"/>
                 <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="" required/>
+                <div class="invalid-feedback input-empty">
+                  This field is required.
+                </div>
+                <div class="invalid-feedback select-atleast-one">
+                  Select atleast one from the list.
+                </div>
               </div>
-              <ul class="connected-sortable draggable-right" style="min-height: 500px; overflow: auto">
+              <ul class="connected-sortable draggable-right listing-list" style="min-height: 500px; overflow: auto">
                
               </ul>
             </div>
@@ -264,7 +270,8 @@
           }).disableSelection();
           $(".save-info").on("click", function(){
             var categoryVal = $('#category').val();
-            var getMoveVal = $('.draggable-right .ui-sortable-handle').text();
+            console.log("nnnnnnn", categoryVal)
+            var getMoveVal = $('.draggable-right .ui-sortable-handle').length;
             var region = $('#region').val();
             var order = $('#order').val();
             //alert("----List Name-----"+categoryVal+"----List----"+getMoveVal);
@@ -274,6 +281,14 @@
               //alert($(this).attr("value"))
               getFilterData.push({name: $(this).attr("value")});
             });
+            if(categoryVal) {
+              $('.input-empty').hide();
+            }
+            if(getMoveVal === 0) {
+              $('.select-atleast-one').show();
+            } else {
+              $('.select-atleast-one').hide();
+            }
             if(categoryVal != "")
             {
               var url = $("#webUrl").val();
@@ -293,7 +308,7 @@
               }
               else
               {
-                alert("Please Enter Tag Name")
+                $('.input-empty').show();
               }
               // alert($(this).closest('li').data('tags'));
           });
@@ -336,7 +351,9 @@
         function changeRegion()
         {
           let region = $("#regionCountry").val();
-          document.getElementById("search").href = "/newCategory/"+region
+          // document.getElementById("search").href = "/newCategory/"+region
+          // console.log('l111 oppppppppppp')
+          window.location.href = "/newCategory/"+region;
         }
         </script>
 

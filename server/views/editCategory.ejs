@@ -193,6 +193,7 @@
                         <input type="text" class="form-control" id="category" placeholder="Category" name="category_<%=categoryData.code%>" value="<%=categoryData.category%>" required/>
                         <input type="hidden" name="tag_<%=categoryData.code%>" value="<%=categoryData.tag%>" />
                         <input type="hidden"  name="tag_index_<%=categoryData.code%>" value="<%=categoryData.tag_index%>" />
+                        <div class="invalid-feedback enter-field">Please enter the field</div>
                       </div>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-12 paddingSt" >
@@ -201,6 +202,7 @@
                       </div>
                       <div class="col-md-10 col-xs-12 col-sm-12">
                         <textarea class="form-control" id="description"  name="description_<%=categoryData.code%>" rows="4" cols="150"><%=categoryData.description%></textarea>
+                        <div class="invalid-feedback enter-field">Please enter the field</div>
                       </div>
                     </div>
                     <div class="col-md-2">
@@ -388,7 +390,7 @@
 
                   
                   <div class="col-md-12 col-sm-12 col-xs-12 paddingSt algnCenter">
-                    <input type="submit" class="btn btn-success" id="buttonSubmit" value="Save" />
+                    <input type="button" onclick="checkvalidations()" class="btn btn-success" id="buttonSubmit" value="Save" />
                   </div>
 
                 </div>
@@ -430,6 +432,26 @@
         <!-- Scroll to Top Button-->
         <% include ../views/elements/bootom %>
         <script>
+          function checkvalidations() {
+            let err = false;
+            let catData = document.querySelectorAll("#category");
+            let descData = document.querySelectorAll("#description");
+            catData.forEach(element => {
+              if(element.value === '') {
+                err = true;
+                element.parentElement.childNodes[7].style.display = "block";
+              }
+            });
+            descData.forEach(element => {
+              if(element.value === '') {
+                err = true;
+                element.parentElement.childNodes[3].style.display = "block";
+              }
+            });
+            if(!err) {
+              $('#categoryData').submit();
+            }
+          }
             let countryArr = document.getElementById('country_arr').value.split(",");
             let counttt = $("#countriesIn111").val().split(',');
 
@@ -451,6 +473,8 @@
                   html += '</div>';
                   html += '<div class="col-md-2 mb-3">';
                     html += '<input type="text" class="form-control" id="category" placeholder="Category" name="category_'+country+'"/>'
+                    html += '<div class="invalid-feedback enter-field">Please enter the field';
+                    html += '</div>';
                   html += '</div>';
                   html += '<div class="col-md-2 mb-3">';
                     html += '<label>Description :';
@@ -458,6 +482,8 @@
                   html += '</div>';
                   html += '<div class="col-md-5 mb-3">';
                     html += '<textarea class="form-control" id="description"  name="description_'+country+'" rows="4" cols="150"></textarea>'
+                    html += '<div class="invalid-feedback enter-field">Please enter the field';
+                    html += '</div>';
                   html += '</div>';    
 		                html += '<div class="col-md-2 mb-3">';
                       html += '<label>Region : '+country;

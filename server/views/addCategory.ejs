@@ -188,7 +188,7 @@
 
                   
                   <div class="col-md-12 col-sm-12 col-xs-12 paddingSt algnCenter">
-                    <input type="submit" class="btn btn-success" id="buttonSubmit" value="Save" />
+                    <input type="button" onclick="checkvalidations()" class="btn btn-success" id="buttonSubmit" value="Save" />
                   </div>
 
                 </div>
@@ -230,11 +230,32 @@
         <!-- Scroll to Top Button-->
         <% include ../views/elements/bootom %>
         <script>
+          function checkvalidations() {
+            let err = false;
+            let catData = document.querySelectorAll("#category");
+            let descData = document.querySelectorAll("#description");
+            catData.forEach(element => {
+              if(element.value === '') {
+                err = true;
+                element.parentElement.childNodes[1].style.display = "block";
+              }
+            });
+            descData.forEach(element => {
+              if(element.value === '') {
+                err = true;
+                element.parentElement.childNodes[1].style.display = "block";
+              }
+            });
+            if(!err) {
+              $('#categoryData').submit();
+            }
+          }
             let countryArr = document.getElementById('country_arr').value.split(",");
            
             let countryIdD = [];
             function addCountryArray(countryId,country, e) 
             {
+              console.log("form submit")
               if(e.checked)
               {
                 countryIdD.push(countryId)
@@ -247,6 +268,8 @@
                   html += '</div>';
                   html += '<div class="col-md-2 mb-3">';
                     html += '<input type="text" class="form-control" id="category" placeholder="Category" name="category_'+country+'"/>'
+                    html += '<div class="invalid-feedback enter-field">Please enter the field';
+                    html += '</div>';
                   html += '</div>';
                   html += '<div class="col-md-2 mb-3">';
                     html += '<label>Description :';
@@ -254,6 +277,8 @@
                   html += '</div>';
                   html += '<div class="col-md-5 mb-3">';
                     html += '<textarea class="form-control" id="description"  name="description_'+country+'" rows="4" cols="150"></textarea>'
+                    html += '<div class="invalid-feedback enter-field">Please enter the field';
+                    html += '</div>';
                   html += '</div>';    
 		  html += '<div class="col-md-2 mb-3">';
                     html += '<label>Region : '+country;

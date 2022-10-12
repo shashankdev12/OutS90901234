@@ -78,6 +78,9 @@
             <div class="box" data-tags='tags' style="height: 500px;  overflow: scroll">
               <div class="m-3">
                 <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="<%=name%>" disabled/>
+                <div class="invalid-feedback select-atleast-one">
+                  Select atleast one from the list.
+                </div>
               </div>
               
               <ul class="connected-sortable draggable-right" >
@@ -146,7 +149,7 @@
           $(".save-info").on("click", function(){
             //alert(1)
             var categoryVal = $('#category').val();
-            var getMoveVal = $('.draggable-right .ui-sortable-handle').text();
+            var getMoveVal = $('.draggable-right .ui-sortable-handle').length;
             var region = $('#region').val();
             var order = $('#order').val();
             //alert("----List Name-----"+categoryVal+"----List----"+getMoveVal);
@@ -159,8 +162,12 @@
               //console.log(getFilterData)
             });
             var url = $("#webUrl").val();
-            console.log("===",getFilterData)
-
+            console.log("===123",getFilterData)
+            if(getMoveVal === 0) {
+              $('.select-atleast-one').show();
+            } else {
+              $('.select-atleast-one').hide();
+            }
             $.ajax({
               type: "POST",
               url: url+'updateCatTagIndex',
