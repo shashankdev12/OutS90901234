@@ -72,8 +72,8 @@
       "type": "date",
       "required": true
     },
-    "regionId": {
-      "type": "number"
+    "regionId":{
+      "type":"number"
     }
   },
   "validations": [],
@@ -87,7 +87,8 @@
       "type": "hasMany",
       "model": "sub_categories",
       "foreignKey": "id"
-    },
+    }
+    ,
     "region_categories": {
       "type": "hasMany",
       "model": "region_categories",

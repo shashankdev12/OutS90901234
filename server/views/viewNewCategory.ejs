@@ -274,27 +274,21 @@
               //alert($(this).attr("value"))
               getFilterData.push({name: $(this).attr("value")});
             });
-            if(categoryVal != "")
-            {
-              var url = $("#webUrl").val();
-              console.log(getFilterData)
-              console.log(categoryVal)
-              $.ajax({
-                type: "POST",
-                url: url+'addTagIndex',
-                data: 'id='+categoryVal+"&listVal="+JSON.stringify(getFilterData)+"&region="+region+"&order="+order,
-                success: function(data)
-                {
-                  
-                  location.reload()
-                }
-
-                });
-              }
-              else
+            
+            var url = $("#webUrl").val();
+            console.log(getFilterData)
+            console.log(categoryVal)
+            $.ajax({
+              type: "POST",
+              url: url+'addTagIndex',
+              data: 'id='+categoryVal+"&listVal="+JSON.stringify(getFilterData)+"&region="+region+"&order="+order,
+              success: function(data)
               {
-                alert("Please Enter Tag Name")
+                
+                location.reload()
               }
+
+              });
               // alert($(this).closest('li').data('tags'));
           });
             let countryArr = document.getElementById('country_arr').value.split(",");

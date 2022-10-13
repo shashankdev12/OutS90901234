@@ -9,7 +9,7 @@ const fs = require('fs')
 var AWS = require('aws-sdk');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 //AWS.config.loadFromPath('./server/aws_config.json');
-AWS.config.loadFromPath('./server/aws_config.json');
+    AWS.config.loadFromPath('/home/ubuntu/outsmartedNewUpdate/server/aws_config.json');
 
 
 
@@ -103,10 +103,10 @@ module.exports = function(Questions)
       Questions.finalRound = function (req, cb)
       {
         let reqObject = req.res.req;
-        //let aData = JSON.parse(reqObject.body.data);
-        //let aData = {child_id:"273060",region:"UK",gameId:247884};
-        //{user_game_id:aData.gameId,user_child_id:aData.userId}
-        aData["userId"] = aData.child_id;
+        let aData = JSON.parse(reqObject.body.data);
+	console.log("============",aData);
+        //let aData = {gameId:512,userId:106,region:"EN"};
+       	aData["userId"] = aData.child_id;
 
         // if(reqObject.accessToken)
         // {
@@ -596,7 +596,9 @@ function getUserScoreInfoFinal(aData) {
           }
           else
           {
-        		console.log("========================new",cateData)
+            //console.log(cateData);
+
+		console.log("========================",cateData)
             let xyz = JSON.parse(userGameInfo.replacedCategory);
             let categArray= []
              for(let j=0;j<cateData.length;j++)
@@ -622,7 +624,6 @@ function getUserScoreInfoFinal(aData) {
             {
               if(userGameInfo.gameType == 1)
               {
-                console.log("{user_game_id:aData.gameId,user_child_id:aData.userId}",{user_game_id:aData.gameId,user_child_id:aData.userId});
                 userScoreModel.findOne({include:"user_childs",where:{user_game_id:aData.gameId,user_child_id:aData.userId}},function(err,userScoreData)
                 {
                   if(err)
@@ -631,7 +632,6 @@ function getUserScoreInfoFinal(aData) {
                   }
                   else
                   {
-                    console.log("userScoreData",userScoreData)
                     if(userScoreData)
                     {
                       let gameInfo = {id:userScoreData.id,questionsAsked:null,packageId:null,
