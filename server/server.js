@@ -39,7 +39,7 @@ app.start = function() {
   return app.listen(function() {
     app.emit('started');
     var baseUrl = app.get('url').replace(/\/$/, '');
-    global.webURL="http://localhost:3000/";
+    global.webURL="http://52.56.142.30:3000/";
 
     global.imageURL="https://outsmarted.s3.eu-west-2.amazonaws.com/";	
     global.adminUserType =1;

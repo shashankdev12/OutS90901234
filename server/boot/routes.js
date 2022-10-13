@@ -899,14 +899,14 @@ app.get('/exportQuestions', function (req, res, cb) {
           if(data.status == "fail")
           {
             req.flash('notify', data.message);
-            let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+            let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
             //res.redirect('./viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0');
           }
           else
           {
             req.flash('notify', data.message);
-            let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+            let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
           }
         })
@@ -949,13 +949,13 @@ app.get('/exportQuestions', function (req, res, cb) {
          {
            req.flash('notify', data.message);
            //res.redirect('./viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0');
-           let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+           let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
          }
          else
          {
            req.flash('notify', data.message);
-           let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+           let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
            //res.redirect('./viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0');
          }
@@ -1014,7 +1014,7 @@ app.get('/exportQuestions', function (req, res, cb) {
   });
 
 
-    app.get('/viewQuestions/:category/:subCategory/:package/:age/:region/:fileType/:type/:questionStatus/:questionState/:supportUrl/:answerOrder/:countrytype/:id/', function (req, res, cb) {
+    app.get('/viewQuestions/:category/:subCategory/:package/:age/:region/:fileType/:type/:questionStatus/:questionState/:supportUrl/:answerOrder/:countrytype/:priority/:id/', function (req, res, cb) {
     // if (req.session.token)
     // {
       if(req.session.adminUserType != 1)
@@ -1039,7 +1039,7 @@ app.get('/exportQuestions', function (req, res, cb) {
           supportUrl:req.params.supportUrl,
           answerOrder:req.params.answerOrder,
           countryTType:req.params.countrytype,
-          regionId:req.session.regionId
+          regionId:req.session.regionId,priorty:req.params.priority
         });
       });
     // }
@@ -1130,7 +1130,7 @@ app.get('/exportQuestions', function (req, res, cb) {
      ////console.log(req.params,region)
      adminController.data.deleteQuestions(req, res, function (err, data)
      {
-      let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+      let urll= "/viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
       res.redirect(urll);
        //res.redirect('/viewQuestions/0/0/1/0/0/0/0/0/0/0/0/0/0');
      });
@@ -1706,7 +1706,7 @@ app.post('/getUniqueGames', function (req, res, cb) {
       adminController.data.copyQuestionData(req, res, function (err, data)
      {
         req.flash('notify', "Question is successfully copied");
-        let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+        let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
         //res.redirect('/viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0');
      });
@@ -2859,7 +2859,7 @@ app.post('/setToFinalRound', function (req, res, cb) {
   {
     adminController.data.setFinlQuestions(req, res, function (err, data)
     {
-      let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0"
+      let urll= "./viewQuestions/0/0/1/0/"+req.session.regionId+"/0/0/0/0/0/0/0/0/0"
             res.redirect(urll);
       //res.redirect('/viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0')
     });
@@ -2971,7 +2971,7 @@ app.get('/redeemCodeView/:id', function (req, res, cb) {
       ////////console.log('Review questions'); 
       adminController.data.getNewQuestions(req, res, function (err, data)
       {
-        console.log("req.session========><><><",data.info)
+        console.log("req.session========><><><",data)
         req.session.editType=2;
         res.render('./reviewQuestions',
         { userStatus:req.session.adminUserType,

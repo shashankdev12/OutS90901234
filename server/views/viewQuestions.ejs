@@ -485,6 +485,30 @@ input.largerCheckbox {
                             </div>
                           </div>
 
+                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                              <label for="city" class="col-form-label" >Priorty: </label>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                              <select class="form-control" id="selectPriorty" name="selectPriorty" onchange="setPriorty('<%=webURL%>')">
+                                <option value="0">Please select Priorty</option>
+				<% if(priorty ==  1){%>
+	                                <option value="1" selected>1</option>
+					<option value="2">2</option>
+
+				<% }else if(priorty == '2'){%>
+					<option value="1">1</option>
+                                	<option value="2" selected>2</option>
+				<% }else{ %>
+					<option value="1">1</option>
+                                	<option value="2" >2</option>
+
+				<% } %>
+                              </select>    
+                              <input type="hidden" value="<%=priorty%>" id="priorty">
+                            </div>
+                          </div>
+
 
                         <input type="hidden" id="hdnCategory" value="<%=category_page_id%>"/>
                         <input type="hidden" id="hdnSubCategory" value="<%=sub_page_category_id%>"/>
@@ -494,7 +518,7 @@ input.largerCheckbox {
                             <input type="hidden" value="<%=fileType_id%>" id="radioClicked"/>
                             <input type="hidden" value="<%=questionState%>" id="radioQuestionTypeClicked"/>
                             <a href="#" class="btn btn-success" id="search">Search</a>
-                            <a href="<%=webURL%>viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0" class="btn btn-info" id="search">
+                            <a href="<%=webURL%>viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0/0" class="btn btn-info" id="search">
                               <i class="fas fa-sync"></i>
                             </a>
                           </div>
@@ -874,7 +898,7 @@ input.largerCheckbox {
                       <a href="/editQuestions/<%=questionsData.questionMasterId%>/1/3/<%=region_id%>/0" class="btn btn-success">
                         Edit
                       </a>
-                      <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                      <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=region_id%>')">
                         Delete
                       </a>
                       <a href="#" class="btn btn-info"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
@@ -918,11 +942,11 @@ input.largerCheckbox {
             <div class="row" id="paginator">
               <div class='col-sm-12'>
                 <div class="col-sm-1" style="float:left;text-align: right;">
-                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/0">First</a>
+                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=priorty%>/0">First</a>
                 </div>
                 <div class="col-sm-2" style="float:left;text-align: center;">
                   <div  class="col-md-6" style="float:left;text-align: center;">
-                    <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=category_page_id%>','<%=sub_page_category_id%>','<%= package_id%>','<%=age_id%>','<%=region_id%>','<%=fileType_id%>','<%=type%>','<%=questionStatus%>','<%=questionState%>',<%=supportUrl%>,<%=answerOrder%>,'<%=countryTType%>','<%=Math.round(paginator/40)%>')" />
+                    <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=category_page_id%>','<%=sub_page_category_id%>','<%= package_id%>','<%=age_id%>','<%=region_id%>','<%=fileType_id%>','<%=type%>','<%=questionStatus%>','<%=questionState%>',<%=supportUrl%>,<%=answerOrder%>,'<%=countryTType%>','<%=priorty%>','<%=Math.round(paginator/40)%>')" />
                   </div>
                   <input type='hidden' value="<%=page%>" id='hiddenPage'/>
                   
@@ -931,7 +955,7 @@ input.largerCheckbox {
                   </div>  
                 </div>
                 <div class="col-sm-1" style="float:left;text-align: left;">
-                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=Math.round(paginator/40)%>/?filter[skip]=<%=(Math.round(paginator/40)-1)*10%>">Last</a>
+                  <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=priorty%>/<%=Math.round(paginator/40)%>/?filter[skip]=<%=(Math.round(paginator/40)-1)*10%>">Last</a>
                 </div>
             </div>
             </div>
@@ -1785,7 +1809,7 @@ input.largerCheckbox {
           }
 
 
-          function paginator(url,category_page_id,sub_page_category_id,package_id,age_id,region_id,fileType_id,type,questionStatus,questionState,supportUrl,answerOrder,countryTType,page)
+          function paginator(url,category_page_id,sub_page_category_id,package_id,age_id,region_id,fileType_id,type,questionStatus,questionState,supportUrl,answerOrder,countryTType,priorty,page)
           {
             //alert(page)
             //alert($('#pageNumber').val());
@@ -1794,11 +1818,11 @@ input.largerCheckbox {
             //alert(pagenUmer);
             if(parseInt(page) > parseInt(pagenUmer))
             {
-              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+pagenUmer+'?filter[skip]='+pagenUmer*40,"_self");
+              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+priorty+'/'+pagenUmer+'?filter[skip]='+pagenUmer*40,"_self");
             }
             else
             {
-              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+hiddenPage+'?filter[skip]='+hiddenPage*40,"_self");
+              window.open(url+'viewQuestions/'+category_page_id+'/'+sub_page_category_id+'/'+package_id+'/'+age_id+'/'+region_id+'/'+fileType_id+'/'+type+'/'+questionStatus+'/'+questionState+'/'+supportUrl+'/'+answerOrder+'/'+countryTType+'/'+priorty+'/'+hiddenPage+'?filter[skip]='+hiddenPage*40,"_self");
             }
           }
           // function myFunction()

@@ -1120,7 +1120,7 @@ Categories.getCateAge = function (req, cb)
 Categories.getCategory2 = function (req, cb) 
 {
 let reqObject = req.res.req;
-//let aData = JSON.parse(reqObject.body.data);
+let aData = JSON.parse(reqObject.body.data);
 let userModel = app.models.user;
 //let userCategoryModel = app.models.user_categories;
 let questions =  app.models.questions;
@@ -1128,7 +1128,7 @@ let ds1 = questions.dataSource;
 let regionCategories =  app.models.region_categories;
 
 //console.log(JSON.parse(reqObject.body.data))		
-let aData ={ userId: 14,region:'UK'}
+//let aData ={ userId: 14,region:'UK'}
 if(aData.region)
 {   
 let userCategoryModel = app.models.user_categories;
@@ -1603,9 +1603,8 @@ http: {path: '/getCategory2',verb: 'post'}
 
 function callNew2(cb,arr)
 {
-    let n=0;let newArr=[];
-    let tagModels = app.models.tags;
-
+	let tagModels = app.models.tags;
+    let n=0;let newArr=[]
     async.eachSeries(arr,function(fields, callback)
     {
         if(fields.purchased == 1)
@@ -1642,7 +1641,7 @@ function callNew2(cb,arr)
         if(n == arr.length)
         {
             newArr.push(newObj)
-            tagModels.find({fields:{id:true,category_id:true,tagName:true,order:true}},function(err,tagArr){
+	    tagModels.find({fields:{category_id:true,tagName:true,order:true}},function(err,tagArr){
                 cb(null,{status:"success",data:newArr,tags:tagArr})
             })
         }

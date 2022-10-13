@@ -15,7 +15,7 @@ let dsConfig = require('../datasources.json'),
     util = require('util');
     AWS = require('aws-sdk');
     sharp = require('sharp');
-    AWS.config.loadFromPath('./server/aws_config.json');
+    AWS.config.loadFromPath('/home/ubuntu/boardGameTest/board_game/server/aws_config.json');
    // AWS.config.loadFromPath('./server/aws_config.json');
     //AWS.config.loadFromPath('E:/Daljeet/outsmarted/server/aws_config.json');
     var bodyParser = require('body-parser');
@@ -1936,7 +1936,12 @@ methods.getFreePlayQuestions = function(req,res,cb)
           //////console.log("wwwwwwwwwww12");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "	
         }
-	      else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.region != 0)  && (req.params.fileType == 0))	
+	else if((req.params.category != 0) && (req.params.package == 0) && (req.params.age != 0)  && (req.params.region == 0)  && (req.params.fileType == 0))	
+        {	
+          console.log("wwwwwwwwwww12");
+          cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+"  and  CONCAT(',', age_id, ',') LIKE '%,"+req.params.age+",%' "+questionState+" "+regionCondition+" "	
+        }
+	else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.region != 0)  && (req.params.fileType == 0))	
         {	
           console.log("wwwwwwwwwww12");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "+regionCondition+" "	
@@ -2125,6 +2130,19 @@ methods.getFreePlayQuestions = function(req,res,cb)
         if(req.params.countrytype == '1')
         {
           cond = cond +" and  questions_"+searchRegion+".region = '"+req.params.region+"'";
+        }
+
+	if(req.params.priority == '1')
+        {
+          cond = cond +"and questions_"+searchRegion+".priority = '"+req.params.priority+"'";
+        }
+        else if(req.params.priority == '2')
+        {
+          cond = cond +"and questions_"+searchRegion+".priority = '"+req.params.priority+"'";
+        }
+        else if(req.params.priority == '0')
+        {
+          cond = cond 
         }
 
         console.log("=====================",cond)
@@ -2476,6 +2494,19 @@ methods.getFreePlayQuestions = function(req,res,cb)
         if(req.params.countrytype == '1')
         {
           cond = cond +" and  questions_"+searchRegion+".region = '"+req.params.region+"'";
+        }
+
+	if(req.params.priority == '1')
+        {
+          cond = cond +"and questions_"+searchRegion+".priority = '"+req.params.priority+"'";
+        }
+        else if(req.params.priority == '2')
+        {
+          cond = cond +"and questions_"+searchRegion+".priority = '"+req.params.priority+"'";
+        }
+        else if(req.params.priority == '0')
+        {
+          cond = cond 
         }
 		
         
@@ -2849,11 +2880,11 @@ methods.getFreePlayQuestions = function(req,res,cb)
 
         if(req.body.type == 0)
         {
-          query = 'SELECT questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  INNER JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
+          query = 'SELECT questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  INNER JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
         }
         else
         {
-          query = 'SELECT questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
+          query = 'SELECT questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
         }
         
         ////////console.log()
@@ -2879,7 +2910,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
                     ,answer1:data[i].answer1,answer2:data[i].answer2,answer3:data[i].answer3,answer4:data[i].answer4
                     ,correct_Answer:data[i].correct_Answer,created:data[i].created,questionMasterId:data[i].questionMasterId
                     ,questionState:data[i].questionState,timeAllowed:data[i].time_Allowed,hint:data[i].hint
-                    ,fileType:data[i].fileType,countryCreated:data[i].countryCreated}
+                    ,fileType:data[i].fileType,countryCreated:data[i].countryCreated,priority:data[i].priority}
 
                 finalQuestion.push(question);
                }
@@ -9101,8 +9132,10 @@ function getQuestionsData(skipV,params)
             userQuestionModel.deleteAll({questionMasterId:parseInt(id)},function(err,data)
             {
               //let regions = regionsd.split(","),
+	      if(regionsd.lengt > 1)
+              {	
               let x=0;
-
+		
               ////console.log("ddddddddddddddddddddddddddddddddddddddd",regionsd)
               async.eachSeries(regionsd, function(countryID, callback)
               {
@@ -9129,6 +9162,12 @@ function getQuestionsData(skipV,params)
                   })
                 })
               })
+		}
+		else
+		{
+		      resolve(1);
+
+		}
             })  
           })
 
@@ -9714,16 +9753,72 @@ function editQuestion(session,fields,files)
             if( fields.orderCheck != 'on')
             {
               fields.AnswerOrder = ""
-
             }
+
+            let image = fields['imageUrl_'+session.regionCode];
+                  let sound = fields['soundUrl_'+session.regionCode];
+                  let video = fields['videoUrl_'+session.regionCode];
+                  let Supportvideo = fields['SupportVideoURL_'+session.regionCode];
+
+                  if(files['image_'+session.regionCode].name)
+                    image = '';
+                  if(files['Video_'+session.regionCode].name)
+                    video = '';
+                  if(files['Sound_'+session.regionCode].name)
+                    sound = '';
+
+                  //console.log
+                  
+
+                  if(fields["fileType_"+session.regionCode]  == '0')
+                  {
+                    image = '';
+                    video = '';
+                    sound = '';
+                    Supportvideo=''
+                  }
+                  else if(fields["fileType_"+session.regionCode]  == 1 || fields["fileType_"+session.regionCode]  == 4)
+                  {
+                    Supportvideo='';
+                    video = '';
+                    sound = '';
+                  }
+                  else if(fields["fileType_"+session.regionCode]  == 2)
+                  {
+                    image = '';
+                    video = '';
+                    Supportvideo=''
+                  }
+                  else if(fields["fileType_"+session.regionCode]  == 3)
+                  {
+                    image = '';
+                    sound = '';
+                  }
+
+                  
+
+                  let pack_id=0;
+                  if(fields.finalRound != 1)
+                  {
+                    pack_id =fields.package;
+                  }
+
+                  if(session.adminUserType == 2)
+                  {
+                      pack_id =session.packValG;
+                  }	
+
+
+
             let obj ={category_id:fields.category,sub_category_id:fields.subCategory,
               pack_ID:fields.package,time_Allowed:fields.timeAllowed,age_id:fields.age,
               region:fields.region,question:fields.question.trim(),answer1:fields.option1,
               answer2:fields.option2,answer3:fields.option3,answer4:fields.option4,
-              correct_Answer:fields.answer,image_URL:fields.imageUrl,video_URL:fields.videoUrl,
-              sound_URL:fields.soundUrl,status:fields.finalRound,created:new Date(),
+              correct_Answer:fields.answer,image_URL:image,video_URL:video,
+              sound_URL:sound,status:fields.finalRound,created:new Date(),
               modified:new Date(),creditBy:fields.creditBy,questionActiveStatus:1,questionState:1
-              ,hint:fields.hint, priority:fields.priority,AnswerOrder:fields.AnswerOrder}
+              ,hint:fields["hint_"+session.regionCode], priority:fields.priority,
+              AnswerOrder:fields.AnswerOrder,sound_URL:sound,fileType:fields["fileType_"+session.regionCode]}
 
               userQuestionModel.updateAll({questionMasterId:fields.id},obj,function(err,data)
               {
@@ -9763,26 +9858,29 @@ function editQuestion(session,fields,files)
                   if(files['Sound_'+dataIdArray1].name)
                     sound = '';
 
-                  if(fields.fileType+'_'+dataIdArray1  == 0)
+                  //console.log
+                  
+
+                  if(fields["fileType_"+dataIdArray1]  == '0')
                   {
                     image = '';
                     video = '';
                     sound = '';
                     Supportvideo=''
                   }
-                  else if(fields.fileType+'_'+dataIdArray1  == 1 || fields.fileType+'_'+dataIdArray1  == 4)
+                  else if(fields["fileType_"+dataIdArray1]  == 1 || fields["fileType_"+dataIdArray1]  == 4)
                   {
                     Supportvideo='';
                     video = '';
                     sound = '';
                   }
-                  else if(fields.fileType+'_'+dataIdArray1  == 2)
+                  else if(fields["fileType_"+dataIdArray1]  == 2)
                   {
                     image = '';
                     video = '';
                     Supportvideo=''
                   }
-                  else if(fields.fileType+'_'+dataIdArray1  == 3)
+                  else if(fields["fileType_"+dataIdArray1]  == 3)
                   {
                     image = '';
                     sound = '';
@@ -9821,13 +9919,18 @@ function editQuestion(session,fields,files)
                       //////console.log("new Country add")
                       // let newRegionsModel =  fields.new_region_code.split(',');
                       // let newRegion = newRegionsModel.filter(a => a === parseInt(dataIdArray1));
+
+                      console.log("image",image)
+
+
+
                       userQuestionModel.create({category_id:fields.category,
-                             sub_category_id:fields.subCategory,pack_ID:pack_id,time_Allowed:fields.timeAllowed,age_id:fields.age              ,hint:fields.hint, priority:fields.priority,
-                             region:fields.region,question:fields["question_"+dataIdArray1].trim(),answer1:fields["option1_"+dataIdArray1],
-                             answer2:fields["option2_"+dataIdArray1],answer3:fields["option3_"+dataIdArray1],answer4:fields["option4_"+dataIdArray1],
-                             correct_Answer:fields["answer_"+dataIdArray1],hint:fields["hint_"+dataIdArray1],created:new Date(),modified:new Date(),creditBy: fields.creditBy
-                             ,status:fields.finalRound,questionActiveStatus:fields.questionActiveStatus,AnswerOrder:fields["AnswerOrder_"+dataIdArray1],
-                             created:new Date(),questionMasterId:fields.id,modified:new Date(),fileType:fields["fileType_"+dataIdArray1],image_URL:image,video_URL:video,sound_URL:sound}
+                      sub_category_id:fields.subCategory,pack_ID:pack_id,time_Allowed:fields.timeAllowed,age_id:fields.age              ,hint:fields.hint, priority:fields.priority,
+                      region:fields.region,question:fields["question_"+dataIdArray1].trim(),answer1:fields["option1_"+dataIdArray1],
+                      answer2:fields["option2_"+dataIdArray1],answer3:fields["option3_"+dataIdArray1],answer4:fields["option4_"+dataIdArray1],
+                      correct_Answer:fields["answer_"+dataIdArray1],hint:fields["hint_"+dataIdArray1],created:new Date(),modified:new Date(),creditBy: fields.creditBy
+                      ,status:fields.finalRound,questionActiveStatus:fields.questionActiveStatus,AnswerOrder:fields["AnswerOrder_"+dataIdArray1],
+                      created:new Date(),questionMasterId:fields.id,modified:new Date(),fileType:fields["fileType_"+dataIdArray1],image_URL:image,video_URL:video,sound_URL:sound}
                         ,function(err,data)
                           {
                             if(err)
@@ -10015,36 +10118,37 @@ function editQuestion(session,fields,files)
             }
           },
         function(userIdArray,callbackwater)
+        {
+          if(parseInt(session.adminUserType) == 2)
+          {
+            if(fields["fileType_"+session.regionCode]  != 0)
+            {
+              console.log("ennnnnnnnter0000222222")
+              if(files['image_'+session.regionCode].name != '' ||  files['Sound_'+session.regionCode].name != '' || files['Video_'+session.regionCode].name != '' || files['SupportVideoURL_'+session.regionCode].name != '')
               {
-                if(parseInt(session.adminUserType) != 4)
+                console.log("ennnnnnnnter0000000000000000")
+                editUploadFile(files,userIdArray,fields["fileType_"+session.regionCode],fields.zoom,fields.id,session.regionCode).then(function(upload)
                 {
-                  if(fields.fileType  != 0)
-                  {
-                    if(files['image_'+session.regionCode].name != '' ||  files['Sound_'+session.regionCode].name != '' || files['Video_'+session.regionCode].name != '' || files['SupportVideoURL_'+session.regionCode].name != '')
-                    {
-                      editUploadFile(files,userIdArray,fields.fileType,fields.zoom,fields.id,session.regionCode).then(function(upload)
-                      {
-                        callbackwater(null,upload);
-                      }).catch(function(err)
-                      {
-                        callbackwater(err);
-                      });
-                    }
-                    else
-                    {
-                      resolve("successfully saved");
-                    }
-                  }
-                  else
-                  {
-                    resolve("successfully saved");
-                  }
-
-
-
+                  callbackwater(null,upload);
+                }).catch(function(err)
+                {
+                  callbackwater(err);
+                });
+              }
+              else
+              {
+                console.log("ennnnnnnnter00000055555555555555555555")
+                resolve("successfully saved");
+              }
             }
+            else
+            {
+              resolve("successfully saved");
+            }
+          }
           else
           {
+            
             rgids = fields.region_code.split(',');
             let x=0 
             async.eachSeries(rgids, function(dataIdArray1, callback)

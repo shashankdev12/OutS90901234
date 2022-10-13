@@ -215,20 +215,10 @@
     "dataSource": "db",
     "public": true
   },
-  "questions_ind": {
-    "dataSource": "db",
-    "public": true
-  },
-  "questions_UUU": {
-    "dataSource": "db",
-    "public": true
-  },
-  "questions_JJJJ": {
-    "dataSource": "db",
-    "public": true
-  },
   "tags": {
     "dataSource": "db",
     "public": true
   }
+
+
 }

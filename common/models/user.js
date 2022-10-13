@@ -12,7 +12,7 @@ var zlib = require('zlib');
 
 var AWS = require('aws-sdk');
 //AWS.config.loadFromPath('E:/Daljeet/outsmarted/server/aws_config.json');
-    AWS.config.loadFromPath('./server/aws_config.json');
+    AWS.config.loadFromPath('/home/ubuntu/outsmartedNewUpdate/server/aws_config.json');
 
 
 

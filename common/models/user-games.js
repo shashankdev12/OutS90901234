@@ -21,7 +21,7 @@ module.exports = function(Usergames)
         if (aData.type == 'Player') {
           let games = app.models.user_games;
           let ds1 = games.dataSource;
-          ds1.connector.query('SELECT user_childs.games_played AS gamePlayed, user_childs.profilePic AS profilePic, user_childs.games_won AS wins, user_childs.firstName AS userName, user_childs.lastName AS lastName, user_games.user_id, SUM(user_score.questionAskedCount) AS questionAskedCount, SUM(user_score.questionCorrect) AS questionCorrect, user_score.user_child_id FROM user_games INNER JOIN user_score ON user_games.id = user_score.user_game_id LEFT JOIN user_childs ON user_childs.id = user_score.user_child_id WHERE user_childs.status = 1 AND  user_games.user_id =' + aData.userId + ' AND user_score.gameType=1 GROUP BY user_score.user_child_id LIMIT 10;', function (err, details) {
+          ds1.connector.query('SELECT user_childs.games_played AS gamePlayed, user_childs.profilePic AS profilePic, user_childs.games_won AS wins, CONCAT(user_childs.firstName," ",user_childs.lastName) AS userName, user_childs.lastName AS lastName, user_games.user_id, SUM(user_score.questionAskedCount) AS questionAskedCount, SUM(user_score.questionCorrect) AS questionCorrect, user_score.user_child_id FROM user_games INNER JOIN user_score ON user_games.id = user_score.user_game_id LEFT JOIN user_childs ON user_childs.id = user_score.user_child_id WHERE user_childs.status = 1 AND  user_games.user_id =' + aData.userId + ' AND user_score.gameType=1 GROUP BY user_score.user_child_id LIMIT 10;', function (err, details) {
             if (err) {
               console.log("error in player stats ", err)
               cb(null, { status: "fail", message: "Exception Error" + err });
@@ -841,7 +841,7 @@ Usergames.loadLastGame = function (req, cb)
                 //  let aData =  {"userId":14,"gameId":180,"winner":41,
                 //  "category":[{"categoryId":1,"Questions":"20,30"}],
                 //  "child":[{"id":41,"questionplayed":10,"correct":5,"timeConsumed":200}]}
-      console.log(aData)
+      console.log("=========================Save Games Details==============>>>>>>>>>>",aData)
       //let aData = {"userId":14,"gameId":247217,"winner":71595,
         //          "category":[{"categoryId":1,"Questions":"20,30"}]
           //      ,"child":[{"id":71595,"questionplayed":10,"correct":5,"timeConsumed":200}]}

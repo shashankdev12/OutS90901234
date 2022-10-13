@@ -356,7 +356,7 @@
 
                                 <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
                                   name="countryVal[]" <%=country.checked%> <%=disableValue%>
-                                  onclick="addCountryArray('<%=imageURL%>','<%=country.id%>','<%=country.lang%>','<%=country.image%>','<%=question.questionArr[0].question%>','<%=question.questionArr[0].answer1%>','<%=question.questionArr[0].answer2%>','<%=question.questionArr[0].answer3%>','<%=question.questionArr[0].answer4%>','<%=question.questionArr[0].correct_Answer%>','<%=question.questionArr[0].hint%>','<%=question.questionArr[0].fileType%>','<%=question.questionArr[0].image_URL%>','<%=question.questionArr[0].sound_URL%>','<%=question.questionArr[0].video_URL%>',this)"  />
+                                  onclick="addCountryArray('<%=imageURL%>','<%=country.id%>','<%=country.lang%>','<%=country.image%>',`<%=question.questionArr[0].question%>`,`<%=question.questionArr[0].answer1%>`,`<%=question.questionArr[0].answer2%>`,`<%=question.questionArr[0].answer3%>`,`<%=question.questionArr[0].answer4%>`,'<%=question.questionArr[0].correct_Answer%>',`<%=question.questionArr[0].hint%>`,'<%=question.questionArr[0].fileType%>','<%=question.questionArr[0].image_URL%>','<%=question.questionArr[0].sound_URL%>','<%=question.questionArr[0].video_URL%>',this)"  />
 				<% }else{ %>
 <input type="checkbox" id="country" class="floatLeft" value="<%=country.id%>"
                                   name="countryVal[]" <%=country.checked%> <%=disableValue%>
@@ -458,7 +458,7 @@
                             </div>
                           </div>
                         </div>
-
+                        <% if(userStatus == 2){%>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                           <div class="row">
                             <div class="col-md-2 col-sm-12 col-xs-12">
@@ -466,6 +466,7 @@
                                 File Type:
                               </label>
                             </div>
+                            
                             <div class="col-md-6 col-sm-12 col-xs-12">
                               <select class="form-control form-control-sm" id="fileType_<%=regionCode%>" name="fileType_<%=regionCode%>"
                                 onchange="changeFileType('<%=regionCode%>')">
@@ -496,6 +497,7 @@
                                 <% } %>
                               </select>
                             </div>
+                            
                             
                             <div class="col-md-4 col-sm-12 col-xs-12" style="display:none" id="zoomEffect">
                               <input type="checkbox" id="zoom" name="zoom">
@@ -687,6 +689,7 @@
                                       </div>
                                     </div>
                                     
+                                    
                                     <% } %>
                             <div class="col-md-4 col-sm-12 col-xs-12">
                               <!--<p id="errorAll" style="font:bold;color:red;display:none;text-align: center;">Uploading image from here will not effect as already images are set</p>-->
@@ -694,7 +697,7 @@
                             
                           </div>
                         </div>
-                        
+                        <% } %>
                         <div class="col-md-12" style="margin-top:15px;">
                           <div class="col-md-4">
                             <div class="col-md-4">
@@ -735,7 +738,18 @@
                     </div>
                     </div>
                     </div>
-
+                    <% if(userStatus == 2){%>
+                    <div class="col-md-12" style="margin-top:10px">
+                      <div class="col-md-2">
+                        <label for="image" class="col-form-label" >
+                          Explanation:
+                        </label>
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text" name="hint_<%=regionCode%>" id="" value = "<%=question.hint%>" class="form-control" >
+                      </div>
+                    </div>
+                    <% } %>
                     <%if(userStatus== 2)
                     { %>
                       <% if(type ==2){%>

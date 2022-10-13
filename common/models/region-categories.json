@@ -42,13 +42,11 @@
     }
   },
   "validations": [],
-  "relations": {
-    "categories": {
-      "type": "belongsTo",
-      "model": "categories",
-      "foreignKey": "category_id"
-    }
-  },
+  "relations": {"categories": {
+    "type": "belongsTo",
+    "model": "categories",
+    "foreignKey": "category_id"
+  }},
   "acls": [],
   "methods": {}
 }
