@@ -17,8 +17,7 @@
       "required": true
     },
     "lastName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "username": {
       "type": "string",

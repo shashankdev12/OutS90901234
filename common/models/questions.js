@@ -9,7 +9,7 @@ const fs = require('fs')
 var AWS = require('aws-sdk');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 //AWS.config.loadFromPath('./server/aws_config.json');
-    AWS.config.loadFromPath('/home/ubuntu/outsmartedNewUpdate/server/aws_config.json');
+    AWS.config.loadFromPath('./server/aws_config.json');
 
 
 

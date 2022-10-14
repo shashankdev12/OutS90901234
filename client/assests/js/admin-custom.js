@@ -587,8 +587,9 @@ function getCategory(web)
       
       let questionStateType =  $("#radioQuestionTypeClicked").val();
       let countryType = $("#countryTypeHidden").val();
+      let priorty =   $("#selectPriorty").val(); 
    
-      document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+      document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
     }
     else
     {
@@ -636,6 +637,7 @@ function getFreeplayCategory(web)
           $('#subCategory').append($('<option value="'+value.id+'" data-attr-id="'+category_id+'">'+value.subCategory+'</option>'))
         });
         if(window.location.href != webURL+'questions')
+
         document.getElementById("search").href = "/viewFreeplayQuestions/"+category_id+'/0/0/0';
       }
     });
@@ -675,7 +677,8 @@ function setPackage(web)
   let fileType =   $("#radioClicked").val();;
   //let fileType =  $("#fileTypeSearch").val();
   let questionStateType =  $("#radioQuestionTypeClicked").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+priorty+'/0';
 }
 
 
@@ -695,7 +698,8 @@ function setAge(web)
   //let fileType =  $("#fileTypeSearch").val();
   let questionStateType =  $("#radioQuestionTypeClicked").val();
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -715,7 +719,8 @@ function setRegion(web)
   //let fileType =  $("#fileTypeSearch").val();
   let questionStateType =  $("#radioQuestionTypeClicked").val();
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -739,7 +744,8 @@ function setFileType(web)
   let activeAnswerOrder =   $("#activeAnswerOrder").val();
   $("#supportUrlId").hide()
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -762,7 +768,8 @@ function setFileType1(web)
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   $("#supportUrlId").hide()
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 function setFileType2(web)
@@ -784,7 +791,8 @@ function setFileType2(web)
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   $("#supportUrlId").show()
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -807,7 +815,8 @@ function setFileType3(web)
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   $("#supportUrlId").hide()
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -830,7 +839,8 @@ function setQuestionType1(web)
   let activeSupport =   $("#activeSupport").val();;
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -852,7 +862,8 @@ function setQuestionType2(web)
   let activeSupport =   $("#activeSupport").val();;
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 function oneCounrySelected(e,web)
@@ -879,7 +890,8 @@ function oneCounrySelected(e,web)
     countryType =   0
     $("#countryTypeHidden").val(0);
   }
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType+'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -898,7 +910,8 @@ function setActive(web)
   let activeSupport =   $("#activeSupport").val();;
   let activeAnswerOrder =   $("#activeAnswerOrder").val();;
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 function activeSupport1(web,type)
@@ -920,7 +933,8 @@ function activeSupport1(web,type)
   $("#activeSupport1").hide()
   $("#activeSupport").val(1)
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 function activeSupport2(e,web)
@@ -949,7 +963,8 @@ function activeSupport2(e,web)
     activeSupport=0
   }
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -982,7 +997,8 @@ function activeAnswerOrder1(e,web)
     activeAnswerOrder=0
   }
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 function activeAnswerOrder2(web,type)
@@ -1003,7 +1019,33 @@ function activeAnswerOrder2(web,type)
   $("#activeAnswerOrder2").hide()
   $("#activeAnswerOrder").val(0)
   let countryType = $("#countryTypeHidden").val();
-  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/0';
+  let priorty =   $("#selectPriorty").val(); 
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
+}
+
+
+//change priorty
+
+function setPriorty(web,type)
+{
+  let priorty =   $("#selectPriorty").val(); 
+  let fileType =   $("#radioClicked").val();
+  let questionType =  $("#questionType").val();
+  let questionActiveInactive =  parseInt($("#questionActiveInactive").val());
+  let region =  $("#regionCountry").val();
+  let webURL =  web;
+  let package_id = $("#sltPackage").val();
+  let category_id = $("#category").val();
+  let sub_category_id =  $("#hdnSubCategory").val();
+  let age_id =  $("#age_id").val();
+  let questionStateType =  $("#radioQuestionTypeClicked").val();
+  let activeSupport =   $("#activeSupport").val();;
+  let activeAnswerOrder =   0
+  $("#activeAnswerOrder1").show()
+  $("#activeAnswerOrder2").hide()
+  $("#activeAnswerOrder").val(0)
+  let countryType = $("#countryTypeHidden").val();
+  document.getElementById("search").href = "/viewQuestions/"+category_id+'/'+sub_category_id+'/'+package_id+'/'+age_id+'/'+region+'/'+fileType+'/'+questionType+'/'+questionActiveInactive+'/'+questionStateType  +'/'+activeSupport+'/'+activeAnswerOrder+'/'+countryType+'/'+priorty+'/0';
 }
 
 
@@ -1035,10 +1077,10 @@ function changeFileType(lang)
 {
   //alert(lang)
   let fileType = $("#fileType_"+lang).val();
- // alert(fileType);
+  //alert(fileType);
   if(fileType == 1)
   {
-    //alert(2)
+    alert(2)
     $("#imageContainer_"+lang).show(250);
     $("#zoomEffect_"+lang).show(250);
     $("#soundContainer_"+lang).hide(250);
