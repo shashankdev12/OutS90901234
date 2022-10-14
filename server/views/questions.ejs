@@ -233,32 +233,34 @@ main{
                     </div>
                    </div> -->
                    <input type="hidden" value="1" name="package"/>
-                  <div class="col-sm-4 mt-2" id="hideFree">
-                    <div class="col-md 6 mt-3 mx-0 row fnlRnd">
+                  <div class="col-md-12" id="hideFree">
+                    <!-- <div class="col-md-12"> -->
 
                       <!-- ================ Packages ============== -->
-                      <div class="d-inline-block mr-2">
-                        <input type="checkbox" onclick="freePlaySelected(checked)">
-                        <input class="form-control" type="hidden" id="freePlay" name="finalRound" value="0" >
-                        <label for="city" class="col-form-label">
-                          Final Round Question
-                        </label>
-                      </div>
-                    </div>
+                      <!-- <div class="row"> -->
+                        <div class="d-inline-block mr-2 mt-4">
+                          <label for="city" class="col-form-label">
+                            Final Round Question: 
+                          </label>
+                          <input type="checkbox" onclick="freePlaySelected(checked)">
+                          <input class="form-control" type="hidden" id="freePlay" name="finalRound" value="0" >
+                        </div>
+                      <!-- </div> -->
+                    <!-- </div> -->
                   </div>
 
                     <!--  ============== Ages ============== -->
 
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
                       <div class="row">
                         <div class="col-md-1 col-sm-12 col-xs-12">
                           <label for="city" class="col-form-label">
                             Age:
                           </label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="col-xs-12">
                           <% ageData.forEach(function(ageData){ %>
-                          <div class="col-md-3 inline_collection agespace" style="padding-left:40px" id="ageC">
+                          <div class="d-inline-block inline_collection agespace" style="width: 150px;" id="ageC">
                             <% if(ageData.id == age){ %>
                             <input type="checkbox" id="age" value="<%=ageData.id%>"
                               onclick="addAgeArray('<%=ageData.id%>',this)" checked>
@@ -285,14 +287,14 @@ main{
                     <% if(userStatus == 1){%>
                       <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
                         <div class="row">
-                          <div class="col-md-1 col-sm-12 col-xs-12">
+                          <div style="min-width: 150px; display: inline-block;" class="col-md-1 col-sm-12 col-xs-12">
                             <label for="city" class="col-form-label">
                               Region:
                             </label>
                           </div>
-                          <div class="col-md-8 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             <% country.forEach(function(country){ %>
-                            <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <div style="width: 150px; display: inline-block;" style="padding-left:40px" id="regionCa">
                               <% if(country.id ==  region){ %>
                               <input type="checkbox" id="country" value="[<%=country.id%>]"
                                 onclick="addCountryArray('<%=country.id%>','<%=country.language%>',this)" checked>
@@ -651,7 +653,7 @@ main{
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12" style="float:left;padding:10px;font-size:16px;">
                         <div class="qbHead">
-                          <b>Question : </b>
+                          <b>Question: </b>
                         </div>
                         <div style="margin-top:10px;">
                           <textarea class="form-control" rows="4" cols="50" name="question" id="questionText" required>
@@ -663,7 +665,7 @@ main{
                         <div class="col-md-6" style="padding:10px;">
                           <div class="row">
                             <div class="col-md-12">
-                              <b>Option A: </b>
+                              <label>Option A: </label>
                             </div>
                           </div>
                           <div class="row">
@@ -676,7 +678,7 @@ main{
                         <div class="col-md-6" style="padding:10px;">
                           <div class="row">
                           <div class="col-md-12">
-                            <b>Option B: </b>
+                            <label>Option B: </label>
                           </div>
                         </div>
                         <div class="row">
@@ -689,7 +691,7 @@ main{
                         <div class="col-md-6" style="padding:10px;">
                           <div class="row">
                           <div class="col-md-12">
-                            <b>Option C: </b>
+                            <label>Option C: </label>
                           </div>
                           </div>
                           <div class="row">
@@ -702,7 +704,7 @@ main{
                         <div class="col-md-6" style="padding:10px; ">
                           <div claas="row">
                           <div class="col-md-12" style="padding-left:0px">
-                            <b>Option D: </b>
+                            <label>Option D: </label>
                           </div>
                         </div>
                         <div class="row">
@@ -714,7 +716,7 @@ main{
                         </div>
                         <div class="col-md-6" style="padding:10px;">
                           <div class="col-md-12" style="padding: 0px;">
-                            <b>Answer : </b>
+                            <label>Answer: </label>
                           </div>
                           <div class="col-md-12" style="padding: 0px;">
                             <select class="form-control" name="answer" id="answer">
@@ -745,9 +747,9 @@ main{
                           </div>
                           
                         </div>
-                        <div class="col-md-6" style="padding:10px;">
+                        <div class="col-md-12" style="padding:10px;">
                           <div class="col-md-12" style="padding: 0px;">
-                            <b>Answer Order : </b>
+                            <label>Answer Order: </label>
                             <input type="checkbox" onclick="answerSort(checked)">
                             <input type="hidden" class="form-control col-md-6" name="order" id="answerOrderBy">
                             <div id="sortable" style="display:none">
@@ -759,7 +761,7 @@ main{
                         </div>
                         
                           
-                        <div class="col-md-12 col-xs-12 col-sm-12 mrgTp algnCenter" style="margin-bottom:20px">
+                        <div class="col-md-12 col-xs-12 col-sm-12 algnCenter" style="margin-bottom:20px">
                           <div class="col-md-12 col-xs-12 col-sm-12">
                             <input type="submit" class="btn btn-success" value="save" style="width: 120px;" />
                           </div>
