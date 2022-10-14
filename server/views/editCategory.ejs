@@ -191,9 +191,9 @@
                       </div>
                       <div class="col-md-9 col-xs-12 col-sm-12">
                         <input type="text" class="form-control" id="category" placeholder="Category" name="category_<%=categoryData.code%>" value="<%=categoryData.category%>" required/>
+                        <div class="invalid-feedback enter-field">Please enter the field</div>
                         <input type="hidden" name="tag_<%=categoryData.code%>" value="<%=categoryData.tag%>" />
                         <input type="hidden"  name="tag_index_<%=categoryData.code%>" value="<%=categoryData.tag_index%>" />
-                        <div class="invalid-feedback enter-field">Please enter the field</div>
                       </div>
                     </div>
                     <div class="col-md-7 col-xs-12 col-sm-12 paddingSt" >
@@ -439,12 +439,18 @@
             catData.forEach(element => {
               if(element.value === '') {
                 err = true;
-                element.parentElement.childNodes[7].style.display = "block";
+                const countLen = element.parentElement.childElementCount;
+                for(let i = 0; i < countLen; i++) {
+                  if(element.parentElement.childNodes[i].classList && element.parentElement.childNodes[i].classList.contains('invalid-feedback')) {
+                    element.parentElement.childNodes[i].style.display = "block";
+                  }
+                }
               }
             });
             descData.forEach(element => {
               if(element.value === '') {
                 err = true;
+                element.parentElement.childNodes[1].style.display = "block";
                 element.parentElement.childNodes[3].style.display = "block";
               }
             });
