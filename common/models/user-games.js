@@ -117,7 +117,7 @@ Usergames.addGame = function (req, cb)
   {
     let reqObject = req.res.req;
     let aData = JSON.parse(reqObject.body.data);
-console.log("====",aData);
+    console.log("====",aData);
     //let aData = reqObject.body;
     console.log("===============add game =============================");
     let userInfoInRoom=[];

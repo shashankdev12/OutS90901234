@@ -15,7 +15,7 @@ let dsConfig = require('../datasources.json'),
     util = require('util');
     AWS = require('aws-sdk');
     sharp = require('sharp');
-    AWS.config.loadFromPath('/home/ubuntu/boardGameTest/board_game/server/aws_config.json');
+    AWS.config.loadFromPath('./server/aws_config.json');
    // AWS.config.loadFromPath('./server/aws_config.json');
     //AWS.config.loadFromPath('E:/Daljeet/outsmarted/server/aws_config.json');
     var bodyParser = require('body-parser');
@@ -1933,15 +1933,16 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }	
         else if((req.params.category != 0) && (req.params.package != 0) && (req.params.age == 0) && (req.params.region == 0) && (req.params.fileType == 0))	
         {	
-          //////console.log("wwwwwwwwwww12");
+          console.log("wwwwwwwwwww12>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "	
         }
-	else if((req.params.category != 0) && (req.params.package == 0) && (req.params.age != 0)  && (req.params.region == 0)  && (req.params.fileType == 0))	
+        
+	      else if((req.params.category != 0) && (req.params.package == 0) && (req.params.age != 0)  && (req.params.region == 0)  && (req.params.fileType == 0))	
         {	
           console.log("wwwwwwwwwww12");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+"  and  CONCAT(',', age_id, ',') LIKE '%,"+req.params.age+",%' "+questionState+" "+regionCondition+" "	
         }
-	else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.region != 0)  && (req.params.fileType == 0))	
+	      else if((req.params.category != 0) && (req.params.package != 0) && (req.params.age == 0)  && (req.params.region != 0)  && (req.params.fileType == 0))	
         {	
           console.log("wwwwwwwwwww12");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "+regionCondition+" "	
@@ -1953,7 +1954,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }	
         else if((req.params.category != 0)  && (req.params.package != 0) && (req.params.age != 0) && (req.params.region != 0) && (req.params.fileType == 0))	
         {	
-          //////console.log("wwwwwwwwwww14");
+          console.log("wwwwwwwwwww14");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+"  and questions_"+searchRegion+".status =  "+type+" and  CONCAT(',', age_id, ',') LIKE '%,"+req.params.age+",%' "+regionCondition+" "+questionStatus+" "+questionState+""	
         }	
         else if((req.params.category != 0)  && (req.params.package != 0) && (req.params.age != 0) && (req.params.region != 0) && (req.params.fileType != 0))	
@@ -2102,12 +2103,10 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }
         else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.age != 0)  && (req.params.region == 0)   && (req.params.fileType != 0))
         {
-          console.log("entery")
           cond = "where  questions_"+searchRegion+".category_id="+req.params.category+" and  questions_"+searchRegion+".status = "+type+"   and  CONCAT(',', age_id, ',') LIKE '%,"+req.params.age+",%' "+regionCondition+"   and questions_"+searchRegion+".fileType="+req.params.fileType+"   "+questionStatus+" "+questionState+""		
         }
         else	
         {	
-          //////console.log("helll is here");
           cond ="where questions_"+searchRegion+".status = "+type+"  "+questionStatus+" "+questionState+""	
         }	
         console.log("cond========",cond)
@@ -2132,7 +2131,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
           cond = cond +" and  questions_"+searchRegion+".region = '"+req.params.region+"'";
         }
 
-	if(req.params.priority == '1')
+	      if(req.params.priority == '1')
         {
           cond = cond +"and questions_"+searchRegion+".priority = '"+req.params.priority+"'";
         }
@@ -2146,7 +2145,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }
 
         console.log("=====================",cond)
-                 
+        console.log('SELECT questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.countryCreated,questions_'+searchRegion+'.priority,questions_'+searchRegion+'.id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.questionActiveStatus,questions_'+searchRegion+'.questionState,questions_'+searchRegion+'.category_id,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.sub_category_id,questions_'+searchRegion+'.age_id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.region,questions_'+searchRegion+'.status,questions_'+searchRegion+'.question,questions_'+searchRegion+'.answer1,questions_'+searchRegion+'.answer2,questions_'+searchRegion+'.answer3,questions_'+searchRegion+'.answer4,questions_'+searchRegion+'.hint,questions_'+searchRegion+'.correct_Answer,questions_'+searchRegion+'.image_URL,questions_'+searchRegion+'.sound_URL,questions_'+searchRegion+'.video_URL,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.pack_ID,questions_'+searchRegion+'.questionMasterId,questions_'+searchRegion+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+searchRegion+'.id) AS multiple FROM questions_'+searchRegion+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  LEFT JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questions_'+searchRegion+'.modified DESC LIMIT '+skipV+',40')         
         ds1.connector.query('SELECT questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.countryCreated,questions_'+searchRegion+'.priority,questions_'+searchRegion+'.id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.questionActiveStatus,questions_'+searchRegion+'.questionState,questions_'+searchRegion+'.category_id,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.sub_category_id,questions_'+searchRegion+'.age_id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.region,questions_'+searchRegion+'.status,questions_'+searchRegion+'.question,questions_'+searchRegion+'.answer1,questions_'+searchRegion+'.answer2,questions_'+searchRegion+'.answer3,questions_'+searchRegion+'.answer4,questions_'+searchRegion+'.hint,questions_'+searchRegion+'.correct_Answer,questions_'+searchRegion+'.image_URL,questions_'+searchRegion+'.sound_URL,questions_'+searchRegion+'.video_URL,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.pack_ID,questions_'+searchRegion+'.questionMasterId,questions_'+searchRegion+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+searchRegion+'.id) AS multiple FROM questions_'+searchRegion+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  LEFT JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questions_'+searchRegion+'.modified DESC LIMIT '+skipV+',40', function (err, data)	
         {	
           if(err)	
@@ -2305,9 +2304,14 @@ methods.getFreePlayQuestions = function(req,res,cb)
           //////console.log("wwwwwwwwwww12");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "	
         }
-	      else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.region != 0)   && (req.params.fileType == 0))	
+        else if((req.params.category != 0) && (req.params.package != 0) && (req.params.age != 0) && (req.params.region == 0) && (req.params.fileType == 0))	
         {	
-          console.log("wwwwwwwwwww12");
+          //////console.log("wwwwwwwwwww12");
+          cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+"   and  CONCAT(',', age_id, ',') LIKE '%,"+req.params.age+",%' "+questionStatus+" "+questionState+" "	
+        }
+	      else if((req.params.category != 0) && (req.params.package != 0)  && (req.params.age == 0) && (req.params.region != 0)   && (req.params.fileType == 0))	
+        {	
+          console.log("wwwwwwwwwww129999999999999999999999999999999999");
           cond = "where questions_"+searchRegion+".category_id="+req.params.category+"  and questions_"+searchRegion+".pack_ID = "+req.params.package+" and questions_"+searchRegion+".status =  "+type+" "+questionStatus+" "+questionState+" "+regionCondition+" "	
         }	
         else if((req.params.category != 0)  && (req.params.package != 0) && (req.params.age != 0) && (req.params.region == 0) && (req.params.fileType == 0))	
@@ -2826,7 +2830,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
   /* Get Ajax */
 
 
-       methods.getAjaxQuestions1 = function(req,res,cb)
+  methods.getAjaxQuestions1 = function(req,res,cb)
   {
     //////console.log("hit here")
     let questions =  app.models.questions;
@@ -2880,11 +2884,11 @@ methods.getFreePlayQuestions = function(req,res,cb)
 
         if(req.body.type == 0)
         {
-          query = 'SELECT questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  INNER JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
+          query = 'SELECT questions_'+countryData.language+'.countryCreated,questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  INNER JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
         }
         else
         {
-          query = 'SELECT questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
+          query = 'SELECT SELECT questions_'+countryData.language+'.countryCreated,questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
         }
         
         ////////console.log()

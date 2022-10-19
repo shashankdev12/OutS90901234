@@ -12,7 +12,7 @@ var zlib = require('zlib');
 
 var AWS = require('aws-sdk');
 //AWS.config.loadFromPath('E:/Daljeet/outsmarted/server/aws_config.json');
-    AWS.config.loadFromPath('/home/ubuntu/outsmartedNewUpdate/server/aws_config.json');
+    AWS.config.loadFromPath('./server/aws_config.json');
 
 
 
@@ -149,7 +149,7 @@ module.exports = function (User) {
       {
         let reqObject = req.res.req;
         let aData = JSON.parse(reqObject.body.data);
-	console.log("============ Add User=============");
+	      console.log("============ Add User=============");
          if(reqObject.accessToken)
          {
           let userChildsModel = app.models.user_childs;
