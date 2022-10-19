@@ -479,3 +479,7 @@ canvas{
     display: block;
     margin: 10% auto;
  }
+
+.col-form-label {
+  font-size: 14px;
+}

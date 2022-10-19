@@ -128,6 +128,9 @@ input.largerCheckbox {
    -moz-animation: zoomeffect 20s infinite;
    animation: zoomeffect 20s infinite;
 }
+.form-check-label, .col-form-label {
+  font-size: 14px;
+}
 @-webkit-keyframes zoomeffect{
 		0%{
 			background-position:center;
@@ -156,6 +159,23 @@ input.largerCheckbox {
 		  transform:scale(1,1);
 		}
 }
+.questionAndAnswers p{
+  margin-bottom: 6px;
+}
+.buttonCombo a {
+  margin-bottom: 4px;
+}
+.btnCombos a {
+  margin-right: 5px;
+}
+.switch-small .switch {
+  width: 45px;
+  height: 20px;
+}
+.switch-small .slider:before {
+  height: 12px;
+  width: 13px;
+}
     </style>
     <div id="content-wrapper">
       <div class="container-fluid">
@@ -183,11 +203,11 @@ input.largerCheckbox {
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;">
               <div class="row" >
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                  <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="col-md-4">
+                  <div class="col-xs-12">
                     <label for="city" class="col-form-label" >Category:</label>
                   </div>
-                  <div class="col-md-8 col-sm-12 col-xs-12">
+                  <div class="">
                     <select class="form-control form-control-sm" id="category" name="category" onchange="getCategory('<%=webURL%>')">
                       <option value="0">Select Category</option>
                       <% category.forEach(function(category)
@@ -213,7 +233,7 @@ input.largerCheckbox {
                             Sub Category:
                           </label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
                           <select class="form-control form-control-sm" id="subCategory" name="subCategory" onchange="getSubCategory(this,'<%=webURL%>')">>
                             <option value="0">Select SubCategory</option>
                           </select>
@@ -226,7 +246,7 @@ input.largerCheckbox {
                             Package:
                           </label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
                           <select class="form-control form-control-sm" id="sltPackage" name="sltPackage" onchange="setPackage('<%=webURL%>')">
                             <option value="0">Select Package</option>
                             <% packages.forEach(function(packages){ %>
@@ -247,11 +267,11 @@ input.largerCheckbox {
                         <input type="hidden" id="sltPackage" value="0"/>
                        <% }%>  -->
                        <input type="hidden" id="sltPackage" value="1"/>
-                        <div class="col-md-4 col-sm-12 col-xs-12">
-                          <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-md-4">
+                          <div class="col-xs-12">
                             <label for="city" class="col-form-label" >Age:</label>
                           </div>
-                          <div class="col-md-8 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             <select class="form-control form-control-sm" id="age_id" name="age_id" onchange="setAge('<%=webURL%>')">
                               <option value="0">Select Age</option>
                               <% ageInfo.forEach(function(ageInfo){ %>
@@ -268,11 +288,11 @@ input.largerCheckbox {
                             </select>
                           </div>
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                          <div class="col-md-4 col-sm-12 col-xs-12">
-                            <label for="city" class="col-form-label" >Region : </label>
+                        <div class="col-md-4">
+                          <div class="col-xs-12">
+                            <label for="city" class="col-form-label" >Region: </label>
                           </div>
-                          <div class="col-md-6 col-sm-12 col-xs-12">
+                          <div class="col-xs-12">
                             
                               <select class="form-control form-control-sm" id="regionCountry" name="category" onchange="setRegion('<%=webURL%>')">
                                 <option value="0">Select Region</option>
@@ -290,7 +310,7 @@ input.largerCheckbox {
                                   <% }); %>
                               </select>
                           </div>
-                          <div class="col-md-6">
+                          <div class="">
                             <label for="city" class="col-form-label" >Only this region: </label>
                             <% if(countryTType == '1')
                             { %>
@@ -307,11 +327,11 @@ input.largerCheckbox {
                         </div>
                         
                         <% if(type == 0){%>
-                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                              <label for="city" class="col-form-label" >File Type : </label>
+                          <div style="padding-left: 15px;" class="col-md-4 paddingSt">
+                            <div class="col-xs-12">
+                              <label for="city" class="col-form-label" >File Type: </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="">
                               <div class="form-check form-check-inline">
                                 <% if(fileType_id == 1){ %>
                                   <input
@@ -399,11 +419,11 @@ input.largerCheckbox {
                             </div>
                           </div>
                          <% } %> 
-                         <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                              <label for="city" class="col-form-label" >Quest Status : </label>
+                         <div style="padding-left: 15px;" class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-xs-12">
+                              <label for="city" class="col-form-label" >Quest Status: </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="">
                               <select class="form-control form-control-sm" id="questionActiveInactive" name="category" onchange="setActive('<%=webURL%>')">
                                 <option value="0">Select </option>
                                 <% if(questionStatus == 1){ %>
@@ -419,11 +439,11 @@ input.largerCheckbox {
                               </select>
                             </div>
                           </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                              <label for="city" class="col-form-label" >Question Type : </label>
+                          <div style="padding-left: 15px;" class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-xs-12">
+                              <label for="city" class="col-form-label" >Question Type: </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="">
                               
                               
                                 <div class="form-check-inline">
@@ -458,7 +478,7 @@ input.largerCheckbox {
                             <div class="col-md-4 col-sm-12 col-xs-12">
                               <label for="city" class="col-form-label" >Support Video Url : </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
 
                               <% if(supportUrl == 1){%>
                                 <input type="checkbox" onchange="activeSupport2(this,'<%=webURL%>')" id="activeSupport1" checked/>
@@ -471,26 +491,24 @@ input.largerCheckbox {
                               
                             </div>
                           </div>
-                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                          <div style="padding-left: 15px;" class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="">
                               <label for="city" class="col-form-label" >Answer Order: </label>
-                            </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
                               <% if(answerOrder == 1){%>
                                 <input type="checkbox" onchange="activeAnswerOrder1(this,'<%=webURL%>')" id="activeAnswerStatus" checked/>
                               <% } else{%>
                                 <input type="checkbox" onchange="activeAnswerOrder1(this,'<%=webURL%>')" id="activeAnswerStatus"/>
-                              <% } %>    
+                              <% } %>  
                               <input type="hidden" value="<%=answerOrder%>" id="activeAnswerOrder">
                             </div>
                           </div>
 
-                          <div class="col-md-4 col-sm-12 col-xs-12 paddingSt">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                          <div style="padding-left: 15px;" class="col-md-4 col-sm-12 col-xs-12 paddingSt">
+                            <div class="col-xs-12">
                               <label for="city" class="col-form-label" >Priorty: </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
-                              <select class="form-control" id="selectPriorty" name="selectPriorty" onchange="setPriorty('<%=webURL%>')">
+                            <div class="">
+                              <select class="form-control form-control-sm" id="selectPriorty" name="selectPriorty" onchange="setPriorty('<%=webURL%>')">
                                 <option value="0">Please select Priorty</option>
 				<% if(priorty ==  1){%>
 	                                <option value="1" selected>1</option>
@@ -527,17 +545,17 @@ input.largerCheckbox {
                     </div>
                   </div>
                 </form>
-                <div class="row" style="padding:15px;">
+                <!-- <div class="row" style="padding:15px;"> -->
                   <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/0/0/0/0" class="btn btn-success">Normal Game PLay Questions</a></div> -->
                   <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/2/0" class="btn btn-info">Free Gameplay Questions</a></div> -->
                   <!-- <div class="col-md-4"><a href="<%=webURL%>viewQuestions/0/0/0/0/0/0/1/0/0/0" class="btn btn-danger">Final Round Questions</a></div> -->
-                </div>
+                <!-- </div> -->
                 <div class="row" style="padding:15px;">
                   
-                  <div class="col-md-12" style="border:1px solid #dedede;padding:10px;text-align:center">
+                  <div class="col-md-12" style="border:1px solid #dedede;padding: 0px;text-align:center">
                     <div class="col-md-3 col-sm-12 col-xs-12 paddingSt" style="float:left">
                      
-                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="">
                         
                           <select class="form-control form-control-sm" id="regionCountryFilter" onchange="opensearchInput()" >
                             <option value="0">Select Region</option>
@@ -558,11 +576,11 @@ input.largerCheckbox {
                       </div>
                     </div>
                     <div class="col-md-9 col-sm-12 col-xs-12 paddingSt" style="float:left">
-                      <input type="text" id="QuestionData" class="form-control" placeholder="Filter Question" onKeyup="searchQuestion('<%=webURL%>','<%=type%>','<%=imageURL%>',0)" disabled/>
+                      <input type="text" id="QuestionData" class="form-control form-control-sm" placeholder="Filter Question" onKeyup="searchQuestion('<%=webURL%>','<%=type%>','<%=imageURL%>',0)" disabled/>
                     </div>
                   </div>
                   <!-- <div class="col-md-6" style="border:1px solid #dedede;padding:10px;text-align:center">
-                    <input type="text" class="form-control" id="optionSearch" placeholder="Answer Search"/>
+                    <input type="text" class="form-control form-control-sm" id="optionSearch" placeholder="Answer Search"/>
                   </div> -->
                   <div class="col-md-12" style="text-align:center">
                     <!-- <button class="buttonload">
@@ -573,7 +591,7 @@ input.largerCheckbox {
                 </div>
 
                 <div class="row">
-                  <div class="col-md-9 card-header">
+                  <div class="col-md-12 card-header">
                     <i class="fas fa-table"></i>
                     <b>
                       <% if(type == 0){%>
@@ -584,21 +602,21 @@ input.largerCheckbox {
                         Free Questions List
                        <% }%>   
                     </b>
-                  </div>
-                  <div class="col-md-2">
-                    <b>Found <%=paginator%> results </b>
+                    <div class="col-md-2" style="float: right;">
+                      <b>Found <%=paginator%> results </b>
+                    </div>
                   </div>
                   <% if(userStatus == 1){%>
-                    <div class="col-md-1">
-                      <a href="/exportQuestions" class="btn btn-success" style="float:right">Export</a>
+                    <div class="col-md-1" style="margin-top: 10px;">
+                      <a href="/exportQuestions" class="btn btn-success btn-sm">Export</a>
                     </div>
                   <% }%> 
                 </div>
               
-            <div class="row">
+            <div class="row" style=" padding: 15px 15px 5px 0;">
             <div class="col-md-4" style="margin-bottom:10px;">
               
-              <select class="form-control" id="multiplSelectValue" onchange="multipleActions('<%=webURL%>')">
+              <select class="form-control form-control-sm" id="multiplSelectValue" onchange="multipleActions('<%=webURL%>')">
                 <option>Select your action</option>
                 <option value="delete">Delete</option>
                 <option value ="copy">Copy</option>
@@ -608,7 +626,7 @@ input.largerCheckbox {
             </div>
             <% if(userStatus == 1){%>
               <div class="col-md-4" style="margin-bottom:10px;">
-                <select class="form-control" id="selectPackage" onchange="setmultipleQuestionPackage('<%=webURL%>','<%=questionsData.country%>')">
+                <select class="form-control form-control-sm" id="selectPackage" onchange="setmultipleQuestionPackage('<%=webURL%>','<%=questionsData.country%>')">
                   <option>Select your package</option>
                   <% packages.forEach(function(packages){ %>
                       <option value="<%= packages.id %>">
@@ -620,7 +638,7 @@ input.largerCheckbox {
             <% }%>  
             <% if(type == 0){%>
               <div class="col-md-4" style="margin-bottom:10px;">
-                <input type="button" class="btn btn-success" value="Final Round" onclick="setFinalQuestion('<%=webURL%>','<%=questionsData.country%>')"/>
+                <input type="button" class="btn btn-success btn-sm" value="Final Round" onclick="setFinalQuestion('<%=webURL%>','<%=questionsData.country%>')"/>
               </div>
             <% } %>  
 
@@ -640,11 +658,11 @@ input.largerCheckbox {
 		     <% if(questionsData.fileType == 4){ %>	
 			<div class="wrapper">
 				<div class="frame">
-			                     <img src="<%=imageURL+questionsData.image_URL%>" width="100%;" style="height:200px"/>
+			                     <img src="<%=imageURL+questionsData.image_URL%>" width="100%;"/>
 				</div>
 			</div>
 		     <% }else{ %>	
-			     <img src="<%=imageURL+questionsData.image_URL%>" class="" width="100%;" style="height:200px"/>
+			     <img src="<%=imageURL+questionsData.image_URL%>" class="" width="100%;"/>
 		    <% } %>
 
                     <br>
@@ -688,7 +706,7 @@ input.largerCheckbox {
                     </a>
                   <% } %>
                 </div>
-                <div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px">
+                <div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px; font-size:12px;">
                   <b>
                     <%=questionsData.category%>
                   </b>
@@ -712,7 +730,7 @@ input.largerCheckbox {
                   <% let age =  questionsData.age.split(",")%>       
                   <% if(age.length >0){%>
                     <%  age.forEach(function(age1){%>
-                      <div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%">
+                      <div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%; font-size: 12px;">
                         <%let arr2 = ageInfo.filter(a => a.id === parseInt(age1) )%>
                           <%=arr2[0].age%> 
                       </div>  
@@ -722,15 +740,15 @@ input.largerCheckbox {
                   }%>
                 </div>
               </div>
-                <div  style=" color:#fff;padding: 5px;line-height: 18px;">
-                  <div style="display: flex;" >
+                <div  style=" color:#fff;padding: 10px 12px 5px;line-height: 18px;">
+                  <div style="display: flex;font-size: 14px; align-items: center;" >
                     <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     
                       <%=questionsData.packageName%>
 
                   </div>
                 </div>
-                <div style="color:#fff;padding: 5px;line-height: 18px;">
+                <div style="color:#fff;padding: 0px 12px 5px; font-size: 14px; align-items: center;">
                   <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                   <% if(userStatus == 1){ %>
                     <% let region =  questionsData.country.split(",")%>
@@ -740,7 +758,7 @@ input.largerCheckbox {
                         <% if(arr[0].image == null || arr[0].image == ''){%>
                           <%=arr[0].name%> ,
                          <% }else{%>
-                          <img src="<%=imageURL+arr[0].image%>" style="height:30px"/>
+                          <img src="<%=imageURL+arr[0].image%>" style="display: inline-block;height:30px; margin-bottom:4px;"/>
                          <% }%>
                       <% } )%>
                     <% }else{
@@ -751,12 +769,12 @@ input.largerCheckbox {
                 </div>
                 <div style="color:#fff;padding: 5px;line-height: 18px;">
                  <div class="row" >
-                    <div class="col-sm-12" style="margin-bottom:10px">
+                    <div class="col-sm-12" style="padding: 0 12px; margin-bottom:10px">
                       <div  id="fullQuestion<%=questionsData.id%>" style="display:none">
                         <b><%=questionsData.question.substr(0, 60)%>....</b><a href="javascript:void(0)" onclick="openFullQuestion('<%=questionsData.id%>')">more</a>
                       </div> 
-                      <div id="hideQuestion<%=questionsData.id%>" >
-                        <p> <b><%=questionsData.question%> </b></p>
+                      <div class="questionAndAnswers" style="font-size: 13px;" id="hideQuestion<%=questionsData.id%>" >
+                        <p style="margin-bottom: 10px;"> <b><%=questionsData.question%> </b></p>
                         <p>A : <%=questionsData.answer1%></p>
                         <p>B : <%=questionsData.answer2%></p>
                         <p>C : <%=questionsData.answer3%></p>
@@ -770,8 +788,8 @@ input.largerCheckbox {
                         
                       </div>  
                     </div>
-                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
-                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">
+                      <div style="float: left;">
                         <b>Created Country: </b>
                           <%if(questionsData.countryCreated !=  null){  %>
                             <%let arr = countryInfo.filter(a => a.id === parseInt(questionsData.countryCreated) )%>
@@ -797,11 +815,11 @@ input.largerCheckbox {
                     </div>  
                     
 
-                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
-                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
-                        <b>Time Allowed:</b>
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">
+                      <div style="float: left;">
+                        <b>Time Allowed: </b>
                       </div> 
-                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                      <div style="margin-left: 10px;float: left;">
                         <select name="timeAllowed" id="timeAllowed<%=questionsData.questionMasterId%>">
                           <% if(questionsData.time_Allowed == 15){%>
                             <option selected>15</option>
@@ -858,11 +876,11 @@ input.largerCheckbox {
 
                     </div>
 
-                    <div class="col-sm-12" style="margin-bottom:10px;float: left;">
-                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                    <div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">
+                      <div class="" style="margin-bottom:10px;float: left;">
                         <b>Priority:</b>
                       </div> 
-                      <div class="col-md-6" style="margin-bottom:10px;float: left;">
+                      <div class="col-md-6" style="float: left;">
                       <select name="priority" id="priority<%=questionsData.questionMasterId%>">
                         <% if(questionsData.priority == 1){%>
                           <option value="1" selected>1</option>
@@ -880,10 +898,10 @@ input.largerCheckbox {
 
                   </div>   
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding-left: 12px; font-size: 12px;">
                       <%=questionsData.created.toLocaleDateString('en-us')%>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 switch-small">
                       <label class="switch">
                         <%if(questionsData.questionActiveStatus == 1){%>
                           <input type="checkbox" onchange="inactiveQuestion('<%=webURL%>','<%=questionsData.questionMasterId%>',0,'<%=questionsData.country%>')" checked>
@@ -894,23 +912,23 @@ input.largerCheckbox {
                         <%}%>    
                       </label>
                     </div>
-                    <div class="col-sm-12">
-                      <a href="/editQuestions/<%=questionsData.questionMasterId%>/1/3/<%=region_id%>/0" class="btn btn-success">
+                    <div class="col-sm-12 buttonCombo">
+                      <a href="/editQuestions/<%=questionsData.questionMasterId%>/1/3/<%=region_id%>/0" class="btn btn-success btn-sm">
                         Edit
                       </a>
-                      <a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=region_id%>')">
+                      <a href="#" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#myModal" onclick="deleteQF('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=region_id%>')">
                         Delete
                       </a>
-                      <a href="#" class="btn btn-info"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                      <a href="#" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
                         Copy
                       </a>
                       
                         <% if(questionsData.questionState == 1){%>
-                          <a href="javascript:void(0)" class="btn btn-success"  onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,0,'<%=questionsData.country%>')">Checked</a>
+                          <a href="javascript:void(0)" class="btn btn-success btn-sm"  onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,0,'<%=questionsData.country%>')">Checked</a>
                         <%}else{%>
-                          <a href="javascript:void(0)" class="btn btn-primary"   onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,1,'<%=questionsData.country%>')",1>No</a>
+                          <a href="javascript:void(0)" class="btn btn-primary btn-sm"   onclick="changeQuestionType('<%=webURL%>',<%=questionsData.questionMasterId%>,1,'<%=questionsData.country%>')",1>No</a>
                         <%}%>
-                        <a href="javascript:void(0)" class="btn btn-info"  onclick="SaveQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
+                        <a href="javascript:void(0)" class="btn btn-info btn-sm"  onclick="SaveQuestion('<%=webURL%>',<%=questionsData.questionMasterId%>,'<%=questionsData.country%>')">
                           Save
                         </a>
                     </div>
@@ -940,21 +958,21 @@ input.largerCheckbox {
               
           </div>
             <div class="row" id="paginator">
-              <div class='col-sm-12'>
-                <div class="col-sm-1" style="float:left;text-align: right;">
+              <div class='col-sm-12' style="display: flex; justify-content: center; align-items: flex-start;padding-bottom: 12px;">
+                <div style="float:left;text-align: right;padding-top: 3px;">
                   <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=priorty%>/0">First</a>
                 </div>
                 <div class="col-sm-2" style="float:left;text-align: center;">
                   <div  class="col-md-6" style="float:left;text-align: center;">
-                    <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=category_page_id%>','<%=sub_page_category_id%>','<%= package_id%>','<%=age_id%>','<%=region_id%>','<%=fileType_id%>','<%=type%>','<%=questionStatus%>','<%=questionState%>',<%=supportUrl%>,<%=answerOrder%>,'<%=countryTType%>','<%=priorty%>','<%=Math.round(paginator/40)%>')" />
+                    <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control form-control-sm' value="<%=page%>" id='pageNumber' oninput="paginator('<%=webURL%>','<%=category_page_id%>','<%=sub_page_category_id%>','<%= package_id%>','<%=age_id%>','<%=region_id%>','<%=fileType_id%>','<%=type%>','<%=questionStatus%>','<%=questionState%>',<%=supportUrl%>,<%=answerOrder%>,'<%=countryTType%>','<%=priorty%>','<%=Math.round(paginator/40)%>')" />
                   </div>
                   <input type='hidden' value="<%=page%>" id='hiddenPage'/>
                   
                   <div  class="col-md-6" style="float:left;text-align: left;">
-                    <label style='margin-left:10px;font-size:25px'> /<%=Math.round(paginator/40)%></label>  
+                    <label style='margin-left:10px;font-size:15px;margin-bottom: 0; padding-top: 4px;'> /<%=Math.round(paginator/40)%></label>  
                   </div>  
                 </div>
-                <div class="col-sm-1" style="float:left;text-align: left;">
+                <div style="float:left;text-align: left;padding-top: 3px;">
                   <a href="/viewQuestions/<%=category_page_id%>/<%=sub_page_category_id%>/<%= package_id%>/<%=age_id%>/<%=region_id%>/<%=fileType_id%>/<%=type%>/<%=questionStatus%>/<%=questionState%>/<%=supportUrl%>/<%=answerOrder%>/<%=countryTType%>/<%=priorty%>/<%=Math.round(paginator/40)%>/?filter[skip]=<%=(Math.round(paginator/40)-1)*10%>">Last</a>
                 </div>
             </div>
@@ -1298,13 +1316,13 @@ input.largerCheckbox {
                     html +=  '<input type="checkbox" class="custom-control-input" id="customCheck'+value.questionMasterId+'" onclick="checkBoxBox('+value.questionMasterId+')">'
                     html +=  '<label class="custom-control-label" for="customCheck'+value.questionMasterId+'"></label>'
                     html += '</div>'
-                    html += '<div  style="background:#898383;;padding-bottom:10px; margin-bottom:3px;text-align: center;">';
+                    html += '<div  style="background:#898383;padding-bottom:10px; margin-bottom:3px;text-align: center;">';
                     if(value.image_URL != '' &&  value.image_URL != '(NULL)' &&  value.image_URL != null){  
                     if(value.fileType == 4)
                     {
-                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" class="zoom-in-zoom-out" style="height:200px"/><br>';
+                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" class="zoom-in-zoom-out"/><br>';
                     }else{
-                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" style="height:200px"/><br>';
+                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;"/><br>';
                     }
                       html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
                       html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
@@ -1334,7 +1352,7 @@ input.largerCheckbox {
                     {
                       html += ' <img src="/assests/images/no-file.png" width="100%;" style="height:200px"/><br>';
                     }
-                    html += '<div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px"><b>';
+                    html += '<div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px; font-size: 12px;"><b>';
                     html += value.category;  
                     html += '</b></div>';
                     
@@ -1343,7 +1361,7 @@ input.largerCheckbox {
                       //let age =  value.age.split(",")       
                      if(age.length >0){
                         age.forEach(function(age1){
-                    html += '<div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%">';
+                    html += '<div style="background:#177310;text-align: center;border:1px solid #000;width:33.33%;font-size: 12px;">';
                         let arrww = ageInfo.filter(a => a.id === parseInt(age1) )
                         html += arrww[0].age; 
                         html += '</div>';  
@@ -1354,15 +1372,15 @@ input.largerCheckbox {
                     html += '</div>';
                     html += '</div>';  
 
-                    html += '<div  style=" color:#fff;padding: 5px;line-height: 18px;">';
-                    html += '<div style="display: flex;" >';
+                    html += '<div  style=" color:#fff;padding: 5px 12px;line-height: 18px;">';
+                    html += '<div style="display: flex;font-size: 14px; align-items: center;" >';
                     html += '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>'+value.packageName;  
                     html += '</div>';
                     html += '</div>';
 
 
-                    html += '<div  style=" color:#fff;padding: 5px;line-height: 18px;">';
-                    html += '<div style="display: flex;" >';
+                    html += '<div  style=" color:#fff;padding: 5px 12px;line-height: 18px;">';
+                    html += '<div style="font-size: 14px;text-align: left;" >';
                     html += '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>';
                     if(region.length >0){
                         region.forEach(function(country){
@@ -1370,7 +1388,7 @@ input.largerCheckbox {
                          if(arr[0].image == null || arr[0].image == ''){
                           html +=arr[0].name;
                           }else{
-                            html += '<img src="'+imageUrl+arr[0].image+'" style="height:30px"/>';
+                            html += '<img src="'+imageUrl+arr[0].image+'" style="display: inline-block;height:30px; margin-bottom:4px;margin-right: 5px;"/>';
                           }
                        } )
                      }else{
@@ -1383,8 +1401,8 @@ input.largerCheckbox {
                             html += '<div  id="fullQuestion'+value.id+'" style="display:none" style="text-align:left">';
                             html +=  value.question.substr(0, 60)+'....<a href="javascript:void(0)" onclick="openFullQuestion('+value.id+')">more</a>'
                             html += '</div>';
-                            html += '<div id="hideQuestion'+value.id+'">';
-                            html += '<p><b> '+value.question+'</b></p>';
+                            html += '<div class="questionAndAnswers" style="font-size: 13px;" id="hideQuestion'+value.id+'">';
+                            html += '<p style="margin-bottom: 10px;"><b> '+value.question+'</b></p>';
                             html += '<p>A : '+value.answer1+'</p>';
                             html += '<p>B : '+value.answer2+'</p>';
                             html += '<p>C : '+value.answer3+'</p>';
@@ -1394,8 +1412,8 @@ input.largerCheckbox {
                             
                             html += '</div>';  
                         html += '</div>';
-                        html +=  '<div class="col-sm-12" style="margin-bottom:10px;float: left;">';
-                          html +='<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                        html +=  '<div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">';
+                          html +='<div style="float: left;">';
                             html +='<b>Created Country: </b>'
                           if(value.countryCreated !=  null){  
                             let arr = countryInfo.filter(a => a.id === parseInt(value.countryCreated) )
@@ -1415,11 +1433,11 @@ input.largerCheckbox {
                            }   
                            html += '</div>'; 
                            html += '</div>'; 
-                        html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;">';
-                    html += '<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                        html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">';
+                    html += '<div style="float: left;">';
                     html += '<b>Time Allowed:</b>';
                     html += '</div>';
-                    html += '<div class="col-md-6" style="margin-bottom:10px;float: left;">';
+                    html += '<div style="margin-right: 5px;float: left;">';
                     html +=  '<select name="timeAllowed" id="timeAllowed">';
                       if(value.timeAllowed == 15)
                       {
@@ -1524,8 +1542,8 @@ input.largerCheckbox {
                     html +=  '</select>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;">'
-                        html +=   '<div class="col-md-6" style="margin-bottom:10px;float: left;">'
+                    html += '<div class="col-sm-12" style="margin-bottom:10px;float: left;padding-left: 12px; font-size: 12px;">'
+                        html +=   '<div style="float: left;">'
                           html +=  '<b>Priority:</b>'
                           html +='</div>' 
                           html +='<div class="col-md-6" style="margin-bottom:10px;float: left;">'
@@ -1550,10 +1568,10 @@ input.largerCheckbox {
                               html += '</div>'
 
                               html += '<div class="col-sm-12" style="float:left">';       
-                    html += '<div class="col-sm-6" style="float:left">';
+                    html += '<div style="font-size: 12px;float:left;margin-right: 10px">';
                     html += value.created;
                     html +='</div>';
-                    html +='<div class="col-sm-6" style="float:left">'
+                    html +='<div class="switch-small" style="float:left">'
                     html +=  '<label class="switch">'
                         if(value.questionActiveStatus == 1){
                     html += '<input type="checkbox" onchange="inactiveQuestion(`'+url+'`,'+value.questionMasterId+',0,`'+value.country+'`)" checked>'
@@ -1565,22 +1583,22 @@ input.largerCheckbox {
                     html += '</label>';
                     html +='</div>'
                     html +='</div>'
-                    html +='<div class="col-sm-12">'
-                    html +='<a href="/editQuestions/'+value.questionMasterId+'/1/3/'+region+'/0" class="btn btn-success">Edit'
+                    html +='<div class="col-sm-12 buttonCombo btnCombos">'
+                    html +='<a href="/editQuestions/'+value.questionMasterId+'/1/3/'+region+'/0" class="btn btn-success btn-sm">Edit'
                     html +='</a>'
-                    html +='<a href="#" class="btn btn-danger"  data-toggle="modal" data-target="#myModal" onclick="deleteQF(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Delete'
+                    html +='<a href="#" class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#myModal" onclick="deleteQF(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Delete'
                     html += '</a>'
-                    html += '<a href="#" class="btn btn-info"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Copy'
+                    html += '<a href="#" class="btn btn-info btn-sm"  data-toggle="modal" data-target="#myModal3" onclick="CopyQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Copy'
                     html +=  '</a>'
                     if(value.questionState == 1){
-                    html += '<a href="javascript:void(0)" class="btn btn-success"  onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',0,`'+value.country+'`)">Checked'
+                    html += '<a href="javascript:void(0)" class="btn btn-success btn-sm"  onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',0,`'+value.country+'`)">Checked'
                     html += '</a>'
                     
                     }else{
-                    html +='<a href="javascript:void(0)" class="btn btn-primary"   onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',1,`'+value.country+'`)",1>No'
+                    html +='<a href="javascript:void(0)" class="btn btn-primary btn-sm"   onclick="changeQuestionType(`'+url+'`,'+value.questionMasterId+',1,`'+value.country+'`)",1>No'
                     html += '</a>'
                     }
-                    html += '<a href="javascript:void(0)" class="btn btn-info"  onclick="SaveQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Save'
+                    html += '<a href="javascript:void(0)" class="btn btn-info btn-sm"  onclick="SaveQuestion(`'+url+'`,'+value.questionMasterId+',`'+value.country+'`)">Save'
                     html += '</a>'
 
 
@@ -1600,22 +1618,22 @@ input.largerCheckbox {
                 })
                 html += '</div>';
                 html += '<div class="row">';
-                  html += '<div class="col-md-12" style="float:left;">';  
-                  html += '<div class="col-sm-1" style="float:left;text-align:right">'; 
+                  html += '<div class="col-md-12" style="float:left; display: flex; justify-content: center; align-item: center;padding-bottom: 15px;">';  
+                  html += '<div style="float:left;text-align:right;padding-top: 2px">'; 
                   html += '<a href="javascript:void(0)" onclick="searchQuestion(`'+url+'`,`'+type+'`,`'+imageUrl+'`,0)">First';   
                   html += '</a>';     
                   html += '</div>'; 
                   html += '<div class="col-sm-2" style="float:left;text-align:right">'; 
                   html += '<div class="col-sm-6" style="float:left;text-align:right">';   
-                  html +=  '<input type="number"  min="0" class="col-md-12 col-xs-6 col-sm-6 form-control" value='+nData.questionsData[0].page+' id="pageSearchNumber" oninput="paginator2(`'+url+'`,`'+type+'`,`'+imageUrl+'`,`'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40)-1)+'`)"/>'
+                  html +=  '<input style="width: 70px" type="number" min="0" class="col-md-12 col-xs-6 col-sm-6 form-control form-control-sm" value='+nData.questionsData[0].page+' id="pageSearchNumber" oninput="paginator2(`'+url+'`,`'+type+'`,`'+imageUrl+'`,`'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40)-1)+'`)"/>'
                   html += '</div>'; 
                   html +=  '<input type="hidden" value='+nData.questionsData[0].page+' id="hiddenSearchPage"/>'
-                  html += '<div class="col-sm-6" style="float:left;text-align:right">';  
-                  html +=  '<label style="margin-left:10px;font-size:25px"> /'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40))+'</label>'   
+                  html += '<div style="float:left;text-align:right;padding-top: 2px;">';  
+                  html +=  '<label style="margin-left:10px;font-size:14px"> /'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40))+'</label>'   
                   html += '</div>'; 
                   html += '</div>'; 
                   
-                  html += '<div class="col-sm-1" style="float:left;text-align:right">';
+                  html += '<div style="float:left;text-align:right;padding-top: 2px;">';
                   html += '<a href="javascript:void(0)" onclick="searchQuestion(`'+url+'`,`'+type+'`,`'+imageUrl+'`,`'+Math.round((parseInt(nData.questionsData[0].totalQuestions)/40)-1)+'`)">Last';   
                   html += '</a>';               
                   html += '</div>'; 
