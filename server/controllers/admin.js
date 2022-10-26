@@ -1835,14 +1835,11 @@ methods.getFreePlayQuestions = function(req,res,cb)
             }
             else
             {
-				      //////console.log("123	")
               regionCondition ="and CONCAT(',', region, ',') LIKE '%,"+req.params.region+",%'"
-              //regionCondition ="and questions_"+req.session.regionCode+".region="+req.params.region+"";
             }
         }
         else
         {
-          //////console.log('one============><><>',)
             if(req.params.type == 1)
             {
               type = 1
@@ -2145,7 +2142,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }
 
         console.log("=====================",cond)
-        console.log('SELECT questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.countryCreated,questions_'+searchRegion+'.priority,questions_'+searchRegion+'.id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.questionActiveStatus,questions_'+searchRegion+'.questionState,questions_'+searchRegion+'.category_id,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.sub_category_id,questions_'+searchRegion+'.age_id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.region,questions_'+searchRegion+'.status,questions_'+searchRegion+'.question,questions_'+searchRegion+'.answer1,questions_'+searchRegion+'.answer2,questions_'+searchRegion+'.answer3,questions_'+searchRegion+'.answer4,questions_'+searchRegion+'.hint,questions_'+searchRegion+'.correct_Answer,questions_'+searchRegion+'.image_URL,questions_'+searchRegion+'.sound_URL,questions_'+searchRegion+'.video_URL,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.pack_ID,questions_'+searchRegion+'.questionMasterId,questions_'+searchRegion+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+searchRegion+'.id) AS multiple FROM questions_'+searchRegion+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  LEFT JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questions_'+searchRegion+'.modified DESC LIMIT '+skipV+',40')         
+        //console.log('SELECT questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.countryCreated,questions_'+searchRegion+'.priority,questions_'+searchRegion+'.id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.questionActiveStatus,questions_'+searchRegion+'.questionState,questions_'+searchRegion+'.category_id,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.sub_category_id,questions_'+searchRegion+'.age_id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.region,questions_'+searchRegion+'.status,questions_'+searchRegion+'.question,questions_'+searchRegion+'.answer1,questions_'+searchRegion+'.answer2,questions_'+searchRegion+'.answer3,questions_'+searchRegion+'.answer4,questions_'+searchRegion+'.hint,questions_'+searchRegion+'.correct_Answer,questions_'+searchRegion+'.image_URL,questions_'+searchRegion+'.sound_URL,questions_'+searchRegion+'.video_URL,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.pack_ID,questions_'+searchRegion+'.questionMasterId,questions_'+searchRegion+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+searchRegion+'.id) AS multiple FROM questions_'+searchRegion+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  LEFT JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questions_'+searchRegion+'.modified DESC LIMIT '+skipV+',40')         
         ds1.connector.query('SELECT questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.countryCreated,questions_'+searchRegion+'.priority,questions_'+searchRegion+'.id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.questionActiveStatus,questions_'+searchRegion+'.questionState,questions_'+searchRegion+'.category_id,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.sub_category_id,questions_'+searchRegion+'.age_id,questions_'+searchRegion+'.time_Allowed,questions_'+searchRegion+'.region,questions_'+searchRegion+'.status,questions_'+searchRegion+'.question,questions_'+searchRegion+'.answer1,questions_'+searchRegion+'.answer2,questions_'+searchRegion+'.answer3,questions_'+searchRegion+'.answer4,questions_'+searchRegion+'.hint,questions_'+searchRegion+'.correct_Answer,questions_'+searchRegion+'.image_URL,questions_'+searchRegion+'.sound_URL,questions_'+searchRegion+'.video_URL,questions_'+searchRegion+'.fileType,questions_'+searchRegion+'.pack_ID,questions_'+searchRegion+'.questionMasterId,questions_'+searchRegion+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age,question_packages.packageName, COUNT(questions_'+searchRegion+'.id) AS multiple FROM questions_'+searchRegion+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id  LEFT JOIN question_packages ON pack_ID = question_packages.id '+cond+' GROUP BY questionMasterId ORDER BY questions_'+searchRegion+'.modified DESC LIMIT '+skipV+',40', function (err, data)	
         {	
           if(err)	
@@ -2888,7 +2885,7 @@ methods.getFreePlayQuestions = function(req,res,cb)
         }
         else
         {
-          query = 'SELECT SELECT questions_'+countryData.language+'.countryCreated,questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
+          query = 'SELECT questions_'+countryData.language+'.countryCreated,questions_'+countryData.language+'.priority,questions_'+countryData.language+'.status,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.questionState,questions_'+countryData.language+'.id,questions_'+countryData.language+'.questionActiveStatus,questions_'+countryData.language+'.category_id,questions_'+countryData.language+'.sub_category_id,questions_'+countryData.language+'.age_id,questions_'+countryData.language+'.time_Allowed,questions_'+countryData.language+'.region,questions_'+countryData.language+'.question,questions_'+countryData.language+'.answer1,questions_'+countryData.language+'.answer2,questions_'+countryData.language+'.answer3,questions_'+countryData.language+'.answer4,questions_'+countryData.language+'.hint,questions_'+countryData.language+'.correct_Answer,questions_'+countryData.language+'.image_URL,questions_'+countryData.language+'.sound_URL,questions_'+countryData.language+'.video_URL,questions_'+countryData.language+'.fileType,questions_'+countryData.language+'.pack_ID,questions_'+countryData.language+'.questionMasterId,questions_'+countryData.language+'.created,categories.category,sub_categories.subCategory,countries.name,age_categories.age, COUNT(questions_'+countryData.language+'.id) AS multiple FROM questions_'+countryData.language+' INNER JOIN categories ON category_id = categories.id INNER JOIN sub_categories ON sub_category_id = sub_categories.id  INNER JOIN countries ON region = countries.id INNER JOIN age_categories ON age_id = age_categories.id '+cond+' GROUP BY questionMasterId ORDER BY questionMasterId DESC   LIMIT '+skipV+',40'
         }
         
         ////////console.log()
@@ -3921,10 +3918,8 @@ methods.setReddemCodeCSV = function(req,res,cb)
     //console.log('SELECT * FROM questions_multilang_status_temp left JOIN   questions_'+req.session.regionCode+' ON question_id = questions_'+req.session.regionCode+'.questionMasterId '+cond+'');
     if(req.session.adminUserType == 1)
     {
-	//console.log("'SELECT * FROM questions_multilang_status_temp where UKStatus=0 )
       ds1.connector.query('SELECT * FROM questions_multilang_status_temp where UKStatus=0 limit 10' , function (err, data)
       {
-        //console.log("allQuestions",data);
         if(data.length > 0)
         {
           let x=0;let questionarry = []
@@ -3944,7 +3939,7 @@ methods.setReddemCodeCSV = function(req,res,cb)
                 else
                 {
 		  		
-		//console.log("data1data1data1",data1)
+		              //console.log("data1data1data1",data1)
                   questionarry.push(data1[0]);
                   console.log(questionarry);
                   userCategoriesModel.find({},function(err,category)
@@ -3981,7 +3976,7 @@ methods.setReddemCodeCSV = function(req,res,cb)
         }
         else
         {
-		cb(null,{status:1,message:"sucess",info:[],category:[],questionCount:0})
+		      cb(null,{status:1,message:"sucess",info:[],category:[],questionCount:0})
         }
       })
       
@@ -4266,6 +4261,8 @@ methods.updateIgnoreQuestion = function(req,res,cb)
     let categories =  app.models.categories;
     let ds1 = categories.dataSource;
      console.log("req.params",req.params);
+     let tagsModel = app.models.tags;
+     let catgeoryModels = app.models.categories;
     ds1.connector.query('SELECT * FROM region_categories WHERE tag like "%'+req.params.name+'%"', function (err, data)	
     {
       console.log("datadata",data)
@@ -4273,11 +4270,13 @@ methods.updateIgnoreQuestion = function(req,res,cb)
       {
         //.log("=================",value)  
         //.log("=================",data)  
-        cb(null,{status:"sucess",categoryData:value,selectedCategories:data,tag_name:req.params.name});
+        tagsModel.findOne({where:{tagName:req.params.name}},function(err,tags){
+          catgeoryModels.find({},function(err,categories){
+            cb(null,{status:"sucess",categoryData:value,selectedCategories:data,tag_name:req.params.name,tags:tags,category:categories});
+          })
+        })
       })
-      
     })
-    
   }
 
  /* ===================== Edit Category ===================== */
@@ -5686,7 +5685,7 @@ methods.updateIgnoreQuestion = function(req,res,cb)
         ////.log('SELECT * FROM categories WHERE tag != "'+req.params.name+'" ');
         async.waterfall([
           function(callback) {
-            ds1.connector.query('SELECT GROUP_CONCAT(id) as id FROM region_categories WHERE tag like "%'+req.body.id+'%"', function (err, Catedata)	
+            ds1.connector.query('SELECT GROUP_CONCAT(category_id) as id FROM region_categories WHERE tag like "%'+req.body.id+'%"', function (err, Catedata)	
             {
                 console.log("Catedata",Catedata[0].id)
 
@@ -5698,16 +5697,24 @@ methods.updateIgnoreQuestion = function(req,res,cb)
                     i++
                     if(allCat.length == i)
                     {
-                      regionCategoryModel.findOne({where:{id:allCateg}},function(err,tagInfoN)
+                      regionCategoryModel.findOne({where:{category_id:allCateg,country_id:req.body.region}},function(err,tagInfoN)
                       {
-                        let tags = tagInfoN.tag.split(',');
-                        const index = tags.indexOf(req.body.id);
-                        if (index > -1) { // only splice array when item is found
-                          tags.splice(index, 1); // 2nd parameter means remove one item only
+                        let tags=''
+                        if(tagInfoN)
+                        {
+                          tags = tagInfoN.tag.split(',');
+                          const index = tags.indexOf(req.body.id);
+                          if (index > -1) { // only splice array when item is found
+                            tags.splice(index, 1); // 2nd parameter means remove one item only
+                          }
+                          console.log("tags",tags)
                         }
-                        console.log("tags",tags)
+                        else
+                        {
+                          tag ='';
+                        }
 
-                        regionCategoryModel.updateAll({id:allCateg},{tag:tags.toString()},function(err,update){
+                        regionCategoryModel.updateAll({category_id:allCateg,country_id:req.body.region},{tag:tags.toString()},function(err,update){
 
                           callback(null, 1);
                           })
@@ -5716,16 +5723,25 @@ methods.updateIgnoreQuestion = function(req,res,cb)
                     } 
                     else
                     {
-                      regionCategoryModel.findOne({where:{id:allCateg}},function(err,tagInfoN)
+                      regionCategoryModel.findOne({where:{category_id:allCateg,country_id:req.body.region}},function(err,tagInfoN)
                       {
-                        let tags = tagInfoN.tag.split(',');
-                        const index = tags.indexOf(req.body.id);
-                        if (index > -1) { // only splice array when item is found
-                          tags.splice(index, 1); // 2nd parameter means remove one item only
+                        console.log('====ppppppp=',err)
+                        let tags='';
+                        if(tagInfoN)
+                        {
+                          tags = tagInfoN.tag.split(',');
+                          const index = tags.indexOf(req.body.id);
+                          if (index > -1) { // only splice array when item is found
+                            tags.splice(index, 1); // 2nd parameter means remove one item only
+                          }
+                        }
+                        else
+                        {
+                          tag=''
                         }
                         console.log("tags",tags)
 
-                        regionCategoryModel.updateAll({id:allCateg},{tag:tags.toString()},function(err,update){
+                        regionCategoryModel.updateAll({category_id:allCateg,country_id:req.body.region},{tag:tags.toString()},function(err,update){
 
                             callbackn()
                           })
@@ -5742,8 +5758,9 @@ methods.updateIgnoreQuestion = function(req,res,cb)
             let arr2=[];
             async.eachSeries(list, function(fields, callback)
             {
+              console.log("..........................",fields)
               x++
-              regionCategoryModel.findOne({where:{id:fields.name}},function(err,tagInfo)
+              regionCategoryModel.findOne({where:{category_id:parseInt(fields.name),country_id:req.body.region}},function(err,tagInfo)
               {
                 if(err)
                 {
@@ -5763,7 +5780,7 @@ methods.updateIgnoreQuestion = function(req,res,cb)
                     tags = req.body.id 
                   }
                     //let newTag = tagInfo.tag+','+req.body.id;
-                      regionCategoryModel.updateAll({id:fields.name},{tag:tags },function(err,update){
+                      regionCategoryModel.updateAll({category_id:fields.name,country_id:req.body.region},{tag:tags },function(err,update){
                   
                           if(x == list.length)
                           {
@@ -5774,7 +5791,7 @@ methods.updateIgnoreQuestion = function(req,res,cb)
                             arr.push(list[i].name);
                           }
                           console.log(".........................,,,,,,,,,,,,,,",req.body);
-                          tagsModels.deleteAll({tagName:req.body.id,region:req.body.region,},function(err,deleted)
+                          tagsModels.deleteAll({tagName:req.body.id,region:req.body.region},function(err,deleted)
                           {
                             tagsModels.create({
                               category_id:arr2,tagIndex:1,tagName:req.body.id,region:req.body.region
@@ -5794,7 +5811,7 @@ methods.updateIgnoreQuestion = function(req,res,cb)
                   }
                   else
                   {
-                    regionCategoryModel.updateAll({id:fields.name},{tag:req.body.id},function(err,update){
+                    regionCategoryModel.updateAll({category_id:fields.name,country_id:req.body.region},{tag:req.body.id},function(err,update){
                 
                       if(x == list.length)
                       {
@@ -5854,17 +5871,10 @@ methods.updateIgnoreQuestion = function(req,res,cb)
             {
               console.log(err);
               cb(null,{status:"success",data:result,askedQuestionslist:questionsAsked})
-            })
-            
+            }) 
             
           }
         });
-
-
-
-
-
-        
     } 
 
    /* ======== Multiple Copy =========*/
@@ -7595,7 +7605,8 @@ function getUserGameCount(req)
           }
           else
           {
-            userGameModel.count({user_id:req.params.id,game_start:1},function(err,game_startCount){
+            userGameModel.count({user_id:req.params.id,game_start:1},function(err,game_startCount)
+            {
               if(err)
               {
                 reject(0)
@@ -8702,10 +8713,15 @@ function getQuestionsData(skipV,params)
               
               async.eachSeries(countriesIn, function(region, callback)
               {
-                i++
+                i++;
+
                 countriesModel.findOne({where:{id:region}},function(err,data1)
                 {
-                  
+                  let typeInfo  =2
+                  if(fields.id < 7)
+                  {
+                    typeInfo  =1
+                  }
                     
                       if(countriesIn.length  == i)
                       {
@@ -8715,7 +8731,7 @@ function getQuestionsData(skipV,params)
                               category:fields["category_"+data1.code],
                               description:fields["description_"+data1.code],
                               amountIndex:userCost[0],amount:userCost[1],categoryRegion:fields.countriesIn
-                              ,status:1,type:2,isPackage:isPack,created:new Date(),modified:new Date(),
+                              ,status:1,type:typeInfo,isPackage:isPack,created:new Date(),modified:new Date(),
                               regionId:fields.regionType,iconImage:fields.iconImageal,
                               buttonImage:fields.buttonImageal,image1:fields.image1al,image2:fields.image2al
                               ,image3:fields.image3al,image4:fields.image4al,image5:fields.image5al},
@@ -8757,7 +8773,7 @@ function getQuestionsData(skipV,params)
                             category:fields["category_"+data1.code],
                             description:fields["description_"+data1.code],
                             amountIndex:userCost[0],amount:userCost[1],categoryRegion:fields.countriesIn
-                            ,status:1,type:2,isPackage:isPack,created:new Date(),modified:new Date(),
+                            ,status:1,type:typeInfo,isPackage:isPack,created:new Date(),modified:new Date(),
                             regionId:fields.regionType,iconImage:fields.iconImageal,
                             buttonImage:fields.buttonImageal},
                             function(err,data)
@@ -9623,7 +9639,8 @@ function changeEncoding(path) {
                         answer3:fields.option3,answer4:fields.option4,correct_Answer:fields.answer,image_URL:fields.image_URL,
                         video_URL:fields.video_URL,sound_URL:fields.sound_URL,fileType:fields.fileType,creditBy:fields.creditBy,
                         created:new Date(),status:fields.status,questionActiveStatus:fields.questionState,hint:fields.hint,
-                        questionActiveStatus:fields.questionState,questionMasterId:masterid,modified:new Date()
+                        questionActiveStatus:fields.questionState,questionMasterId:masterid,countryCreated:fields.countryCreated
+                        ,modified:new Date()
 			                  },function(err,data)
                       {
                         if(err)
@@ -11000,6 +11017,7 @@ function editUploadFileUn(files,idArray,fileType,zoom,id,region)
          })
        })
        .catch( err => {
+
         });
      }else if(fileType==2){
 
@@ -11091,7 +11109,7 @@ function editUploadFileUn(files,idArray,fileType,zoom,id,region)
               if (err)
               {
 
-                //console.log(err)
+                console.log("-------------------------------------------",err)
                 reject(1);
               }
               else
@@ -11281,7 +11299,7 @@ function editUploadFileUn(files,idArray,fileType,zoom,id,region)
           &&  jsonObj[0].TIMEALLOWED != undefined &&  jsonObj[0].QUESTION != undefined  &&  jsonObj[0].ANSWER1 != undefined &&  jsonObj[0].ANSWER2 != undefined 
           &&  jsonObj[0].ANSWER3 != undefined &&  jsonObj[0].ANSWER4 != undefined &&  jsonObj[0].CORRECTANSWER != undefined &&  jsonObj[0].HINT != undefined
           &&  jsonObj[0].IMAGEURL != undefined &&  jsonObj[0].VIDEOURL != undefined &&  jsonObj[0].SOUNDURL != undefined &&  jsonObj[0].creditBy != undefined
-          &&  jsonObj[0].status != undefined &&  jsonObj[0].questionState != undefined &&  jsonObj[0].questionMasterId != undefined
+          &&  jsonObj[0].status != undefined &&  jsonObj[0].questionState != undefined &&  jsonObj[0].questionMasterId != undefined && countryCreated != undefined
           )
         {
           //console.log(jsonObj)
@@ -11667,7 +11685,8 @@ function editUploadFileUn(files,idArray,fileType,zoom,id,region)
                       timeAllowed:file.TIMEALLOWED,age:age,region:file.REGION,question:file.QUESTION,option1:file.ANSWER1,option2:file.ANSWER2,
                       option3:file.ANSWER3,option4:file.ANSWER4,answer:file.CORRECTANSWER,status:parseInt(file.status),
                       fileType:fileType,image_URL:imageUrl,sound_URL:soundUrl,video_URL:videoUrl,
-                      creditBy:file.creditBy,questionState:file.questionState,questionMasterId:file.questionMasterId,hint:file.HINT};
+                      creditBy:file.creditBy,questionState:file.questionState,
+                      questionMasterId:file.questionMasterId,hint:file.HINT,countryCreated:file.countryCreated};
 
                     exportAddQuestion(fields,null).then(function(data)
                     {

@@ -107,6 +107,7 @@ input.largerCheckbox {
             top:0;
             right:0;
             padding-left: 10px;
+	    z-index:1	
         }
 
 
@@ -176,13 +177,43 @@ input.largerCheckbox {
   height: 12px;
   width: 13px;
 }
+.imageEditIcon{
+  width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #ddd;
+    left: 0;
+}
+.questionCard {
+  width: 100%;
+  max-width: 25%;
+  padding-left: 10px;
+}
+@media screen and (max-width: 1260px) {
+  .questionCard {
+    width: 100%;
+    max-width: 33%;
+  }
+}
+@media screen and (max-width: 990px) {
+  .questionCard {
+    width: 100%;
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .questionCard {
+    width: 100%;
+    max-width: 100%;
+  }
+}
     </style>
     <div id="content-wrapper">
       <div class="container-fluid">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb" style="margin-bottom: 0px;">
           <li class="breadcrumb-item">
-            <a href="/viewQuestions/0/0/0/0/0/0/0/0/0/0/0/0" style="font-weight:bold;">
+            <a href="/viewQuestions/0/0/1/0/4/0/0/0/0/0/0/0/0/0" style="font-weight:bold;">
               <% if(type == 0){%>
                 Normal Questions
               <% }else if(type == 1){ %>
@@ -475,20 +506,16 @@ input.largerCheckbox {
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-12 col-xs-12 paddingSt" id="supportUrlId" <%=displayVal%>>
-                            <div class="col-md-4 col-sm-12 col-xs-12">
-                              <label for="city" class="col-form-label" >Support Video Url : </label>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
+                              <label for="city" class="col-form-label" >Support Video Url: </label>
                               <% if(supportUrl == 1){%>
                                 <input type="checkbox" onchange="activeSupport2(this,'<%=webURL%>')" id="activeSupport1" checked/>
                               <% } else{%>
                                 <input type="checkbox" onchange="activeSupport2(this,'<%=webURL%>')" id="activeSupport1"/>
                               <% } %>    
-
-
+  
+  
                               <input type="hidden" value="<%=supportUrl%>" id="activeSupport">
-                              
                             </div>
                           </div>
                           <div style="padding-left: 15px;" class="col-md-4 col-sm-12 col-xs-12 paddingSt">
@@ -602,7 +629,7 @@ input.largerCheckbox {
                         Free Questions List
                        <% }%>   
                     </b>
-                    <div class="col-md-2" style="float: right;">
+                    <div class="col-md-2" style="float: right; margin-bottom: 0;" id="totalCount">
                       <b>Found <%=paginator%> results </b>
                     </div>
                   </div>
@@ -650,41 +677,41 @@ input.largerCheckbox {
           <div class="col-md-12" id="questionArray">
             <div class="row">
             <%  questionsData.forEach(function(questionsData){%>
-              <div class="col-md-3 mb-3" >
+              <div class="questionCard mb-3" >
                 <div class="innercard" >
                   <input type="checkbox" class="largerCheckbox" id="customCheck<%=questionsData.questionMasterId%>" onclick="checkBoxBox('<%=questionsData.questionMasterId%>','<%=questionsData.country%>')">
-                <div  style="background:#dedede;padding-bottom:10px;border: 1px solid #000; margin-bottom:3px;text-align: center;">
+                <div  style="background:#dedede;padding-bottom:10px;border: 1px solid #000; margin-bottom:3px;text-align: center;height: 200px;position: relative;">
                   <% if((questionsData.image_URL != '') &&(questionsData.image_URL != '(NULL)' ) && (questionsData.image_URL != null )){ %>
 		     <% if(questionsData.fileType == 4){ %>	
-			<div class="wrapper">
+			<div class="wrapper" style="height: 100%">
 				<div class="frame">
-			                     <img src="<%=imageURL+questionsData.image_URL%>" width="100%;"/>
+			                     <img src="<%=imageURL+questionsData.image_URL%>" style="max-width: 100%;height: 100%;"/>
 				</div>
 			</div>
 		     <% }else{ %>	
-			     <img src="<%=imageURL+questionsData.image_URL%>" class="" width="100%;"/>
+			     <img src="<%=imageURL+questionsData.image_URL%>" class="" style="max-width: 100%; height: 100%;"/>
 		    <% } %>
 
                     <br>
-                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                    <a class="imageEditIcon" href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
                       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </a>
                     <br>
                   <% } else if((questionsData.video_URL != '') && (questionsData.video_URL != '(NULL)') && (questionsData.video_URL != null )){ %>
-                    <video width="280" height="240" controls>
+                    <video width="100%" height="100%" controls>
                       <source src="<%=imageURL+questionsData.video_URL%>" type="video/mp4">
                       <source src="<%=imageURL+questionsData.video_URL%>" type="video/ogg">
                     Your browser does not support the video tag.
                     </video>
                     <br>
-                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                    <a href="#" class="imageEditIcon" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
                       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </a>
                   <% } else if(questionsData.sound_URL!= '' && questionsData.sound_URL != '(NULL)' && (questionsData.sound_URL != null ))
                   {%>
 
-                    <audio controls>
-                      <source src="<%=imageURL+questionsData.sound_URL%>" type="audio/ogg">
+                    <audio controls style="width:100%;height:85%">
+                      <source src="<%=imageURL+questionsData.sound_URL%>" type="audio/ogg" >
                       <source src="<%=imageURL+questionsData.sound_URL%>" type="audio/mpeg">
                     Your browser does not support the audio element.
                     </audio>
@@ -692,14 +719,14 @@ input.largerCheckbox {
                     <!-- <a href="<%=imageURL+questionsData.sound_URL%>" target="_blank"> To See Sound Click Here</a> -->
                     <br>
                    
-                    <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
+                    <a href="#" class="imageEditIcon" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
                       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </a>
                     
                   <% }
                   else
                   { %>
-                    <img src="/assests/images/no-file.png"  width="100%;" style="height:200px"/>
+                    <img src="/assests/images/no-file.png"  width="100%;" style="height:90%"/>
                     <br>
                     <a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile(<%=questionsData.questionMasterId%>)">
                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -1301,6 +1328,24 @@ input.largerCheckbox {
                 let ageInfo = nData.age;
                 let countryInfo = nData.regions;  
                 html += '<div class="row">';
+                  if(nData.questionsData.length >0)
+                  {
+                    let html2 ="<p>Found <b>"+nData.questionsData[0].totalQuestions+"</b> results</p>"	    
+                      //$("#questionArray").html(html);
+
+
+                                $("#totalCount").html(html2)
+                  }
+                  else
+                  {
+                    let html2 ="<p>Found <b>0</b> results</p>"	    
+                      //$("#questionArray").html(html);
+
+
+                                $("#totalCount").html(html2)
+
+                  }
+
                 $.each(nData.questionsData, function(key,value)
                 {
                   let age =  value.age.split(",")       
@@ -1310,48 +1355,49 @@ input.largerCheckbox {
                   // $.each(value1, function(key,value)
                   // {
                     console.log(value);
-                    html += '<div class="col-md-3 mb-3">';
+                    html += '<div class="questionCard mb-3">';
                     html += '<div class="innercard" >';
                     html +=  '<div class="custom-control custom-checkbox">'
                     html +=  '<input type="checkbox" class="custom-control-input" id="customCheck'+value.questionMasterId+'" onclick="checkBoxBox('+value.questionMasterId+')">'
                     html +=  '<label class="custom-control-label" for="customCheck'+value.questionMasterId+'"></label>'
                     html += '</div>'
-                    html += '<div  style="background:#898383;padding-bottom:10px; margin-bottom:3px;text-align: center;">';
+                    html += '<div><div style="background:#dedede;padding-bottom:10px;border: 1px solid #000; margin-bottom:3px;text-align: center;position:relative; height: 200px;">';
                     if(value.image_URL != '' &&  value.image_URL != '(NULL)' &&  value.image_URL != null){  
                     if(value.fileType == 4)
                     {
-                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;" class="zoom-in-zoom-out"/><br>';
+                        html += ' <img src="'+imageUrl+value.image_URL+'" style="max-width: 100%;height: 100%;" class="zoom-in-zoom-out"/><br>';
                     }else{
-                        html += ' <img src="'+imageUrl+value.image_URL+'" width="100%;"/><br>';
+                        html += ' <img src="'+imageUrl+value.image_URL+'" style="max-width: 100%;height: 100%;"/><br>';
                     }
-                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<a class="imageEditIcon" href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
                       html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
-                      html += '</a>';  
+                      html += '</a></div>';  
                     }else if(value.video_URL != '' &&  value.video_URL != '(NULL)' &&  value.video_URL != null)
                     {
-                      html += ' <video width="320" height="240" controls>';
+                      html += ' <video width="100%" height="100%" controls>';
                       html += ' <source src="'+value.video_URL+'" type="video/mp4">';
                       html += ' <source src="'+value.video_URL+'" type="video/ogg"> Your browser does not support the video tag.';
                       html += ' </video>';
-                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<a class="imageEditIcon" href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
                       html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
-                      html += '</a>'; 
+                      html += '</a></div>'; 
                       
                     }
                     else if(value.sound_URL != '' &&  value.sound_URL != '(NULL)' &&  value.sound_URL != null )
                     {
-                      html += ' <audio controls>';
+                      html += ' <audio controls style=""width: 100%; height: 100%;>';
                       html += ' <source src="'+value.sound_URL+'" type="video/mp4">';
                       html += ' <source src="'+value.sound_URL+'" type="video/ogg"> Your browser does not support the video tag.';
                       html += ' </audio>';
-                      html += '<a href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
+                      html += '<a class="imageEditIcon" href="#" data-toggle="modal" data-target="#myModal2" onclick="addFile('+value.questionMasterId+')">';
                       html += '<i class="fas fa-pencil-alt" aria-hidden="true"></i>';  
-                      html += '</a>';  
+                      html += '</a></div>';  
                     }
                     else
                     {
                       html += ' <img src="/assests/images/no-file.png" width="100%;" style="height:200px"/><br>';
                     }
+                    // html += '</div>'
                     html += '<div style="background:#d17101;color:#fff;text-align: center;border:1px solid #000;margin-bottom:3px; font-size: 12px;"><b>';
                     html += value.category;  
                     html += '</b></div>';

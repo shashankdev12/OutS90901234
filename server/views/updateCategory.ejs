@@ -67,7 +67,7 @@
                 <%  categoryData.forEach(function(categoryData){%>
                   
                   
-                      <li value="<%=categoryData.id%>"><%=categoryData.category%></li> 
+                      <li value="<%=categoryData.category_id%>"><%=categoryData.category%></li> 
                   
                   
                   <% }) %>  
@@ -84,8 +84,12 @@
               </div>
               
               <ul class="connected-sortable draggable-right" >
-                <%  selected.forEach(function(selected){%>
-                  <li value="<%=selected.id%>"><%=selected.category%></li>
+                <%  
+                  let ttag = tags.category_id.split(',')
+                  ttag.forEach(function(ttag){
+                  let categoryFilter= category.filter(a=>a.id == ttag)
+                  %>
+                  <li value="<%=categoryFilter[0].id%>"><%=categoryFilter[0].category%></li>
                  
                   <% }) %>
               </ul>

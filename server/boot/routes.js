@@ -3026,7 +3026,7 @@ app.get('/updateCategory/:name', function (req, res, cb)
      {
        
        res.render('./updateCategory',{categoryData: data.categoryData,selected:data.selectedCategories,userStatus:req.session.adminUserType,
-          regionId:req.session.regionId,name:req.params.name});
+          regionId:req.session.regionId,name:req.params.name,tags:data.tags,category:data.category});
      });
    }
    else

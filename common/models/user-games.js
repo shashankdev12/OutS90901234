@@ -13,24 +13,113 @@ module.exports = function(Usergames)
 
   Usergames.getPlayersStats = function (req, cb) {
     let reqObject = req.res.req;
-    let aData = JSON.parse(reqObject.body.data);
+    //let aData = JSON.parse(reqObject.body.data);
+    let aData = {userId:14,type:'Player'}
     console.log("=====stats requested=====");
     // let aData = reqObject.body.data;
-    if (reqObject.accessToken) {
+    //if (reqObject.accessToken) {
       try {
         if (aData.type == 'Player') {
           let games = app.models.user_games;
+          let userscoreModel = app.models.user_score;
           let ds1 = games.dataSource;
-          ds1.connector.query('SELECT user_childs.games_played AS gamePlayed, user_childs.profilePic AS profilePic, user_childs.games_won AS wins, CONCAT(user_childs.firstName," ",user_childs.lastName) AS userName, user_childs.lastName AS lastName, user_games.user_id, SUM(user_score.questionAskedCount) AS questionAskedCount, SUM(user_score.questionCorrect) AS questionCorrect, user_score.user_child_id FROM user_games INNER JOIN user_score ON user_games.id = user_score.user_game_id LEFT JOIN user_childs ON user_childs.id = user_score.user_child_id WHERE user_childs.status = 1 AND  user_games.user_id =' + aData.userId + ' AND user_score.gameType=1 GROUP BY user_score.user_child_id LIMIT 10;', function (err, details) {
-            if (err) {
-              console.log("error in player stats ", err)
-              cb(null, { status: "fail", message: "Exception Error" + err });
+          // ds1.connector.query('SELECT user_childs.games_played AS gamePlayed, user_childs.profilePic AS profilePic, user_childs.games_won AS wins, CONCAT(user_childs.firstName," ",user_childs.lastName) AS userName, user_childs.lastName AS lastName, user_games.user_id, SUM(user_score.questionAskedCount) AS questionAskedCount, SUM(user_score.questionCorrect) AS questionCorrect, user_score.user_child_id FROM user_games INNER JOIN user_score ON user_games.id = user_score.user_game_id LEFT JOIN user_childs ON user_childs.id = user_score.user_child_id WHERE user_childs.status = 1 AND  user_games.user_id =' + aData.userId + ' AND user_score.gameType=1 GROUP BY user_score.user_child_id LIMIT 10;', function (err, details) {
+          //   if (err) {
+          //     console.log("error in player stats ", err)
+          //     cb(null, { status: "fail", message: "Exception Error" + err });
+          //   }
+          //   else {
+          //     //console.log("success in player stats ", details)
+          //     cb(null, { status: "success", message: "success", data: details });
+          //   }
+          // });
+
+          games.find({where:{user_id:aData.userId}},function(err,data){
+            if(err)
+            {
+
             }
-            else {
-              //console.log("success in player stats ", details)
-              cb(null, { status: "success", message: "success", data: details });
+            else
+            {
+              let i=0,userArr=[]
+              async.eachSeries(data, function(games, cback)
+              {
+                i++
+                if(i ==  data.length)
+                {
+
+                }
+                else
+                {
+                  userscoreModel.find({include:'user_childs',where:{user_game_id:games.id}},function(err,userscores){
+                    if(err){
+
+                    }
+                    else
+                    {
+                      console.log(userscores)
+                      for(let i=0;i<userscores.length;i++)
+                      {
+                        if(userArr.length == 0)
+                        {
+                          // user_child_id: 41,
+                          // questionAskedCount: 1,
+                          // questionCorrect: 0,
+                          // user_childs: {
+                          //   user_id: 14,
+                          //   firstName: 'Simrat',
+                          //   lastName: 'Kaur',
+                          //   username: '(NULL)',
+                          //   profilePic: 'storage/profile/child/wsCcfKitvPCrkjHkVbTKR5tcjwWF1JPL.png',
+                          //   games_played: 439,
+                          //   games_won: 9,
+                          // }
+                          let obj={};
+                          if(games.id== userscores[i].user_game_id)
+                          {
+                            if(games.game_end ==1)
+                            {
+                              obj = {"gamePlayed": 1,
+                                      "profilePic": userscores[i].toJSON().user_childs.profilePic,
+                                      "wins": userscores[i].toJSON().user_childs.games_won,
+                                      "userName": userscores[i].toJSON().user_childs.firstName,
+                                      "lastName": userscores[i].toJSON().user_childs.lastName,
+                                      "user_id": userscores[i].toJSON().user_childs.user_id,
+                                      "questionAskedCount": userscores[i].questionAskedCount,
+                                      "questionCorrect": userscores[i].questionCorrect,
+                                      "user_child_id": userscores[i].user_child_id}
+                            }
+                            else
+                            {
+                              obj = {"gamePlayed": 0,
+                                      "profilePic": userscores[i].toJSON().user_childs.profilePic,
+                                      "wins": 0,
+                                      "userName": userscores[i].toJSON().user_childs.firstName,
+                                      "lastName": userscores[i].toJSON().user_childs.lastName,
+                                      "user_id": userscores[i].toJSON().user_childs.user_id,
+                                      "questionAskedCount": userscores[i].questionAskedCount,
+                                      "questionCorrect": userscores[i].questionCorrect,
+                                      "user_child_id": userscores[i].user_child_id}
+                            }
+                          }
+                          
+                          console.log(obj)
+
+                          userArr.push(obj)
+
+                        }
+                        
+                        //userArr.push(userscores)
+                      }
+                    }
+                  })
+                }
+              })
             }
-          });
+          })
+
+
+
         }
         else if (aData.type == 'Team') {
           let games = app.models.user_teams;
@@ -95,10 +184,10 @@ module.exports = function(Usergames)
       catch (e) {
         cb(null, { status: "fail", message: "Exception Error" + e });
       }
-    }
-    else {
-      cb(null, { status: "fail", message: "AccessToken Error" });
-    }
+    //}
+    // else {
+    //   cb(null, { status: "fail", message: "AccessToken Error" });
+    // }
   }
 
   Usergames.remoteMethod(
@@ -171,12 +260,12 @@ Usergames.addGame = function (req, cb)
                         // let numberOfGames = foundParameter.games_played + 1;
                         if(foundParameter)
                         {	
-                          foundParameter.updateAttributes( { games_played: foundParameter.games_played + 1 }, function (err, updatedInfo) {
-                          if (err) {
-                            console.log("error in update");
-                          }
-                          else 
-                          {
+                          // foundParameter.updateAttributes( { games_played: foundParameter.games_played + 1 }, function (err, updatedInfo) {
+                          // if (err) {
+                          //   console.log("error in update");
+                          // }
+                          // else 
+                          // {
                             console.log("added players entry successfully ", aData.gameType);
                             let packagesSelected = [];
                             let questions =  app.models.questions;
@@ -237,8 +326,8 @@ Usergames.addGame = function (req, cb)
                                   
                                 })
                               }
-                            }
-                          });
+                          //   }
+                          // });
                         }
                         else
                         {
@@ -259,7 +348,7 @@ Usergames.addGame = function (req, cb)
                       else {
                         if(foundObject)
                         {
-                            foundObject.updateAttributes({ games_played: foundObject.games_played + 1 }, function (err, updatedInfo) {
+                            //foundObject.updateAttributes({ games_played: foundObject.games_played + 1 }, function (err, updatedInfo) {
                               console.log("added players entry successfully ", aData.gameType);
                             let packagesSelected = [];
                             let questions =  app.models.questions;
@@ -320,7 +409,7 @@ Usergames.addGame = function (req, cb)
                                   
                                 })
                               }
-                            });
+                            //});
                           }
                       }
                     });
@@ -836,15 +925,17 @@ Usergames.loadLastGame = function (req, cb)
    try
    {
      let reqObject = req.res.req;
-     let aData = JSON.parse(reqObject.body.data);
+     //let aData = JSON.parse(reqObject.body.data);
       			     //console.log(aData);
                 //  let aData =  {"userId":14,"gameId":180,"winner":41,
                 //  "category":[{"categoryId":1,"Questions":"20,30"}],
                 //  "child":[{"id":41,"questionplayed":10,"correct":5,"timeConsumed":200}]}
-      console.log("=========================Save Games Details==============>>>>>>>>>>",aData)
-      //let aData = {"userId":14,"gameId":247217,"winner":71595,
-        //          "category":[{"categoryId":1,"Questions":"20,30"}]
-          //      ,"child":[{"id":71595,"questionplayed":10,"correct":5,"timeConsumed":200}]}
+      //console.log("=========================Save Games Details==============>>>>>>>>>>",aData)
+      let aData = {"userId":14,"gameId":247217,"winner":0,
+                 "category":[{"categoryId":1,"Questions":"20,30"}]
+               ,"child":[{"id":42,"questionplayed":10,"correct":5,"timeConsumed":200},
+               {"id":43,"questionplayed":10,"correct":5,"timeConsumed":200}
+              ]}
       // if(reqObject.accessToken)
       // {
         let gameModel =app.models.user_games; 
@@ -1077,8 +1168,10 @@ Usergames.loadLastGame = function (req, cb)
                 {
                   if(userScore)
                   {
-                    userScoreModel.updateAll({user_game_id:aData.gameId,user_child_id:fields.id},{questionAskedCount:userScore.questionAskedCount+fields.questionplayed,
-                      questionCorrect:userScore.questionCorrect+fields.correct,TotalTimeConsumed:userScore.TotalTimeConsumed+fields.timeConsumed},function(err,userUpdateScore){
+                    userScoreModel.updateAll({user_game_id:aData.gameId,user_child_id:fields.id},
+                      {questionAskedCount:userScore.questionAskedCount+fields.questionplayed,
+                      questionCorrect:userScore.questionCorrect+fields.correct,
+                      TotalTimeConsumed:userScore.TotalTimeConsumed+fields.timeConsumed},function(err,userUpdateScore){
                         if(err)
                         {
                           console.log(err);
@@ -1115,10 +1208,17 @@ Usergames.loadLastGame = function (req, cb)
                                   }
                                   else
                                   {
-                                    console.log("3333")
-                                    userTeamModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                    
+                                    if(aData.winner != 0)
+                                    {
+                                      userTeamModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                        callback(null, 0);  
+                                      })
+                                    }
+                                    else
+                                    {
                                       callback(null, 0);  
-                                    })
+                                    }
                                   }
                                   
                                 }
@@ -1143,10 +1243,18 @@ Usergames.loadLastGame = function (req, cb)
                                   }
                                   else
                                   {
-                                    
-                                    userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                    if(aData.winner != 0)
+                                    {
+                                      userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                        callback(null, 0);  
+                                      })
+                                    }
+                                    else
+                                    {
                                       callback(null, 0);  
-                                    })
+                                    }
+                                    
+                                    
                                   }
                                   
                                 }
@@ -1176,9 +1284,17 @@ Usergames.loadLastGame = function (req, cb)
                                     else
                                     {
                                       console.log("3333")
-                                      userTeamModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
-                                        callback2()  
-                                      })
+                                      if(aData.winner != 0)
+                                      {
+                                        userTeamModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                          callback2()  
+                                        })
+                                      }
+                                      else
+                                      {
+                                        callback(null, 0);  
+                                      }
+                                      
                                     }
                                     
                                   }
@@ -1205,9 +1321,18 @@ Usergames.loadLastGame = function (req, cb)
                                     else
                                     {
                                       console.log("3333")
-                                      userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
-                                        callback2()  
-                                      })
+
+                                      if(aData.winner != 0)
+                                      {
+                                        userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                          callback2()  
+                                        })
+                                      }
+                                      else
+                                      {
+                                        callback(null, 0);  
+                                      }
+                                      
                                     }
                                     
                                   }
@@ -1243,9 +1368,17 @@ Usergames.loadLastGame = function (req, cb)
                             else
                             {
                               console.log("3333")
-                              userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                              if(aData.winner != 0)
+                              {
+                                userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                  callback(null, 0);  
+                                })
+                              }
+                              else
+                              {
                                 callback(null, 0);  
-                              })
+                              }
+                              
                             }
                             
                           }
@@ -1271,9 +1404,19 @@ Usergames.loadLastGame = function (req, cb)
                             else
                             {
                               console.log("66666")
-                              userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
-                                callback2()  
-                              })
+                              if(aData.winner != 0)
+                              {
+                                userChildModel.updateAll({id:fields.id},{games_played:uchildInfo.games_played+1},function(err,uUpdateChild){
+                                  callback2()  
+                                })
+                              }
+                              else
+                              {
+                                callback(null, 0);  
+                              }
+
+
+                              
                             }
                             
                           }
