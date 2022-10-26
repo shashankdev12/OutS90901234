@@ -2,6 +2,23 @@
 <html lang="en">
 <head>
   <% include ../views/elements/head %>
+  <style>
+    .filter-width {
+      margin-right: 20px;
+      margin-left: 20px;
+      width: 300px;
+    }
+    @media screen and (max-width: 1300px) {
+      .filter-width {
+        width: 42%;
+      }
+    }
+    @media screen and (max-width: 990px) {
+      .filter-width {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body id="page-top">
   <% include ../views/elements/header.html %>
@@ -27,14 +44,16 @@
               <b>Filter</b>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12" style="border:2px solid #dedede;padding:20px;margin-bottom:10px;">
+              <div class="alert alert-danger" id="alert-banner" style="display: none;" role="alert">
+                Please select atleast one field!!
+              </div>
               <div class="row" >
                   <!-- <div class="col-md-1 col-sm-12 col-xs-12">
                     <label for="city" class="col-form-label"> First Name:</label>
                     <input type="text" class="form-control" placeholder="firstName" name="userName" id="userName" />
 
                   </div> -->
-
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                  <div class="filter-width d-inline-xl-flex">
                     <div class="row mb-3 align-items-center">
                       <div class="col-12 col-md-4">
                         <label for="city" class="col-form-label"> First Name:</label>
@@ -45,7 +64,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                  <div class="filter-width d-inline-xl-flex">
                     <div class="row mb-3 align-items-center">
                       <div class="col-12 col-md-4">
                         <label for="city" class="col-form-label"> Last Name:</label>
@@ -56,7 +75,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-sm-flex d-inline-lg-flex d-inline-xl-flex">
+                  <div class="filter-width d-inline-sm-flex d-inline-lg-flex d-inline-xl-flex">
                     <div class="row mb-3 align-items-center">
                       <div class="col-12 col-md-4">
                         <label for="city" class="col-form-label"> Email Id:</label>
@@ -67,7 +86,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-inline-xl-flex">
+                  <div class="filter-width d-inline-xl-flex">
                     <div class="row mb-3 align-items-center">
                       <div class="col-12 col-md-4">
                         <label for="city" class="col-form-label"> Licence Id:</label>
@@ -92,7 +111,7 @@
                   <div class="col-md-2 col-sm-12 col-xs-12">
                     <input type="text" class="form-control" placeholder="Licence Id" name="licence" id="licence" />
                   </div> -->
-                  <div class="mt-3">
+                  <div class="">
                   <div class="col-12 col-md-3 text-left" style="text-align:center;">
                     <a href="#" class="btn btn-success" id="search" onclick="searchUserList('<%=webURL%>')">Search</a>
                   </div>
@@ -215,7 +234,27 @@
                       <% } %>
                   </tbody>
                 </table>
-                <span id='pagination'>
+                <div class="row" id="paginator">
+                  <div class='col-sm-12' style="display: flex; justify-content: center; align-items: flex-start;padding-bottom: 12px;">
+                    <div style="float:left;text-align: right;padding-top: 3px;">
+                      <a href="#">First</a>
+                    </div>
+                    <div class="col-sm-2" style="float:left;text-align: center;">
+                      <div  class="col-md-6" style="float:left;text-align: center;">
+                        <input type="number"  min="0" class='col-md-12 col-xs-2 col-sm-2 form-control form-control-sm' id='pageNumber' />
+                      </div>
+                      <input type='hidden' id='hiddenPage'/>
+                      
+                      <div  class="col-md-6" style="float:left;text-align: left;">
+                        <label style='margin-left:10px;font-size:15px;margin-bottom: 0; padding-top: 4px;'> /10</label>
+                      </div>  
+                    </div>
+                    <div style="float:left;text-align: left;padding-top: 3px;">
+                      <a href="#">Last</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- <span id='pagination'>
                   <%
                   let j=1;
 
@@ -257,7 +296,7 @@
                     <% } %>
                   </ul>
                   <% } %>
-                </span>
+                </span> -->
               </div>
             </div>
           </div>
@@ -297,14 +336,13 @@
             let emailId = $("#emailAddress").val();
             let lastName = $("#lastName").val();
 
-            //console.log("emailId==sss======>",emailId);
-
             if(userName == '' && licence == '' && emailId == '' &&  lastName == '')
             {
-              alert("please enter")
+              $("#alert-banner").show();
             }
             else
             {
+              $("#alert-banner").hide();
               $.ajax({
                 type: "POST",
                 url: url+'getUserListSearch',
