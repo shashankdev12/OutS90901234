@@ -18,9 +18,9 @@ module.exports = function(Questions)
   Questions.getQuestions = function (req, cb)
     {
       let reqObject = req.res.req;
-      let aData = JSON.parse(reqObject.body.data);
-	console.log(aData );
-      //let aData = {region:"EN",user_id:106,gameId:512,categoryId:11}
+      //let aData = JSON.parse(reqObject.body.data);
+	    //console.log(aData );
+      let aData = {region:"EN",user_id:172649,gameId:512,categoryId:6}
       // if(reqObject.accessToken)
       // {
 	aData["user_id"] = aData.child_id;

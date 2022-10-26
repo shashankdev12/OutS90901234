@@ -444,6 +444,7 @@ body.sidebar-toggled footer.sticky-footer {
   top: 0;
   right: 0;
   padding-left: 16px;
+  z-index: 1;
 }
 .innercard .custom-control-label::before{
   top: 0;
