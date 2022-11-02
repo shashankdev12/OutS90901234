@@ -50,6 +50,21 @@
 .table-alignment tr th {
   text-align: left;
 }
+.questionAnswer {
+  max-height: 15px;
+  display: inline-block;
+  overflow: hidden;
+}
+.enableReadMore {
+  color: #337ab7 !important;
+  cursor: pointer;
+}
+.hideLess {
+  display: none;
+  color: #337ab7 !important;
+  cursor: pointer;
+  word-break: break-word;
+}
 </style>
 <body id="page-top">
   <% include ../views/elements/header.html %>
@@ -233,8 +248,12 @@
                       </tr>
                       <tr>
                         <th style="min-width:100px;">PUB QUIZ</th>
-                        <td style="width: 100%;word-break: break-all;">
-                          <%=userData.PubQuizQuestionAsked%>
+                        <tdstyle="width: 100%;word-break: break-all;">
+                          <span class="questionAnswer"><%=userData.PubQuizQuestionAsked%></span>
+                          <% if(userData.PubQuizQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td>
                             <%let pub = userData.PubQuizQuestionAsked.split(',');%>
@@ -244,7 +263,11 @@
                       <tr>
                         <th style="min-width:100px;">BACK TO SCHOOL</th>
                         <td style="width: 100%;word-break: break-all;">
-                          <%=userData.BKSQuestionAsked%>
+                          <span class="questionAnswer"><%=userData.BKSQuestionAsked%></span>
+                          <% if(userData.BKSQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td >
                           <% let bks =userData.BKSQuestionAsked.split(',')%>
@@ -254,7 +277,11 @@
                       <tr>
                         <th style="min-width:100px;">QUICK THINKING</th>
                         <td style="width: 100%;word-break: break-all;">
-                          <%=userData.QTQuestionAsked%>
+                          <span class="questionAnswer"><%=userData.QTQuestionAsked%></span>
+                          <% if(userData.QTQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td>
                           <% let qt = userData.QTQuestionAsked.split(',') %>
@@ -264,7 +291,11 @@
                       <tr>
                         <th style="min-width:100px;">SOUND AND MUSIC</th>
                         <td style="width: 100%;word-break: break-all;">
-                          <%=userData.SNMQuestionAsked%>
+                          <span class="questionAnswer"><%=userData.SNMQuestionAsked%></span>
+                          <% if(userData.SNMQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td >
                           <% let snm =userData.SNMQuestionAsked.split(',')%>
@@ -274,7 +305,11 @@
                       <tr>
                         <th style="min-width:100px;">TV, FILM AND BOOKS</th>
                         <td style="width: 100%;word-break: break-all;">
-                          <%=userData.TVBQuestionAsked%>
+                          <span class="questionAnswer"><%=userData.TVBQuestionAsked%></span>
+                          <% if(userData.TVBQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td >
                           <% let tv =userData.TVBQuestionAsked.split(',')%>
@@ -284,7 +319,11 @@
                       <tr>
                         <th style="min-width:100px;">BREAKING NEWS</th>
                         <td style="width: 100%;word-break: break-all;">
-                          <%=userData.BKNQuestionAsked%>
+                          <span class="questionAnswer"><%=userData.BKNQuestionAsked%></span>
+                          <% if(userData.BKNQuestionAsked.split(',').length > 5) { %>
+                            <a class='enableReadMore'>Read more</a>
+                            <strong class="hideLess">Hide</strong>
+                          <% } %>
                         </td>
                         <td >
                           <% let bkn =userData.BKNQuestionAsked.split(',')%>
@@ -475,6 +514,17 @@
      // $("#startTime").on("dp.change", function (e) {
      //     $('#endTime').data("DateTimePicker").maxDate(e.date);
      // });
+
+     $('.enableReadMore').click(function(){
+      $(this).parent().find('span').removeClass('questionAnswer');
+      $(this).hide();
+      $(this).parent().find('strong').show();
+     })
+     $('.hideLess').click(function() {
+      $(this).parent().find('span').addClass('questionAnswer');
+      $(this).hide();
+      $(this).parent().find('a').show();
+     })
 
      function purchasePack(userid,packid,url)
      {
