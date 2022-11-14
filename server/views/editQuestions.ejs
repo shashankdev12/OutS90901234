@@ -62,6 +62,63 @@
   font-size: 24px;
   color: #000;
 }
+.label-width {
+  width: 180px; 
+  float: left;
+}
+.options-select b, .label-width label, .label-font {
+  font-size: 15px;
+}
+.options-select {
+  padding: 10px 0;
+}
+.input-width {
+  width: calc(100% - 200px);
+  float: left;
+}
+.answer-order {
+  margin-left: 0 !important;
+  margin-bottom: 15px !important;
+}
+.option-input input {
+  max-width: 90% !important;
+}
+.multiple-select {
+  min-width: 150px;
+  display: inline-block;
+}
+@media screen and (max-width: 1160px) {
+  .label-width {
+    width: 120px;
+  }
+  .input-width {
+    width: calc(100% - 120px);
+  }
+  .option-container {
+    max-width: 100%;
+  }
+  .option-container > .col-md-6 {
+    width: 49% !important;
+    display: inline-block;
+  }
+  .answer-container {
+    max-width: 49%;
+    padding-left: 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .answer-order-width {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 990px) {
+  .catergory-width {
+    width: 100% !important;
+    flex-basis: auto;
+    margin-bottom: 15px;
+    max-width: 100%;
+  }
+}
   </style>
 </head>
 
@@ -198,12 +255,12 @@
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <input type="hidden" name="id" value="<%=question.questionMasterId%>" />
                     <!--  ================ Category ============== -->
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                      <div class="row">
-                        <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="row">
+                      <div class="col catergory-width">
+                        <div class="label-width">
                           <label for="city" class="col-form-label">Category:</label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="input-width">
                           <select class="form-control form-control-sm" id="category" name="category"
                             onchange="getCategory('<%=webURL%>')" required  <%=disableValue%>>
                             <option value="">Select Category</option>
@@ -221,16 +278,14 @@
                           </select>
                         </div>
                       </div>
-                    </div>
-                    <!--  ================ SubCategory ============== -->
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                      <div class="row">
-                        <div class="col-md-4 col-sm-12 col-xs-12">
+                      <!--  ================ SubCategory ============== -->
+                      <div class="col catergory-width">
+                        <div class="label-width">
                           <label for="city" class="col-form-label">
                             Sub Category:
                           </label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="input-width">
 
                           <select class="form-control form-control-sm" id="subCategory" name="subCategory" required <%=disableValue%> >
                             <%if(subCategory_id){ %>
@@ -248,7 +303,6 @@
                             <% } %>
                           </select>
                         </div>
-
                       </div>
                     </div>
 
@@ -284,8 +338,8 @@
                       <input type="hidden" name="package" value='<%=pack_id%>'/>
                     </div>
 
-                    <div class="col-sm-12 mt-2">
-                      <div class="mt-3 mx-0 row">
+                    <div class="">
+                      <div class="mx-0 row">
                         <!---------------- Free play -------------------->
 
                         <div class="d-inline-block mr-2">
@@ -297,7 +351,7 @@
                             <input class="form-control" type="hidden" id="freePlay" name="finalRound" value="0">
                             <% } %>
 
-                          <label for="city" class="col-form-label">
+                          <label for="city" class="col-form-label label-font">
                             Final Round
                           </label>
                         </div>
@@ -308,14 +362,14 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:20px">
                       <div class="row">
-                        <div class="col-md-1 col-sm-12 col-xs-12">
+                        <div class="label-width">
                           <label for="city" class="col-form-label">
                             Age:
                           </label>
                         </div>
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="col-md-8 col-sm-12 col-xs-12" style="padding-left: 0;">
                           <% finalAgeData.forEach(function(ageData){ %>
-                          <div class="col-md-3 inline_collection" style="padding-left:40px" id="ageC">
+                          <div class="multiple-select inline_collection" style="padding-left: 0px" id="ageC">
                             <label for="ageVal[]">
                               <b style="padding:10px;">
                                 <%=ageData.age%>
@@ -339,16 +393,16 @@
                    
                       <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
                         <div class="row">
-                          <div class="col-md-1 col-sm-12 col-xs-12">
+                          <div class="label-width">
                             <label for="city" class="col-form-label">
                               Region:
                             </label>
                           </div>
-                          <div class="col-md-8 col-sm-12 col-xs-12">
+                          <div class="col-md-8 col-sm-12 col-xs-12 select-region" style="padding-left: 0;">
                             <% finalRegionData.forEach(function(country){ 
                               
                             %>
-                            <div class="col-md-3" style="padding-left:40px" id="regionCa">
+                            <div class="multiple-select" style="padding-left:0px" id="regionCa">
                               <label for="countryVal[]">
                                 <b style="padding:10px;"><%=country.name%></b>
                                 <%if(userStatus== 1)
@@ -393,14 +447,14 @@
                     <!--  ============== Time Allowed ============== -->
                     <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6 catergory-width">
                           <div class="row">
-                            <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="label-width">
                               <label for="city" class="col-form-label">
                                 Time Allowed:
                               </label>
                             </div>
-                            <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div class="input-width">
                               <!-- <input type="text" name="timeAllowed" id="timeAllowed" class="form-control"/> -->
                               <select class="form-control" name="timeAllowed" id="timeAllowed" <%=disableValue%>>
                                 <% if(time == 15){%>
@@ -461,13 +515,13 @@
                         <% if(userStatus == 2){%>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                           <div class="row">
-                            <div class="col-md-2 col-sm-12 col-xs-12">
+                            <div class="label-width">
                               <label for="image" class="col-form-label">
                                 File Type:
                               </label>
                             </div>
                             
-                            <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="input-width">
                               <select class="form-control form-control-sm" id="fileType_<%=regionCode%>" name="fileType_<%=regionCode%>"
                                 onchange="changeFileType('<%=regionCode%>')">
                                 <% if(fileType == 0){ %>
@@ -513,7 +567,7 @@
                             { %>
                                       
                               <div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="imageContainer_<%=regionCode%>">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="label-width">
                                   <label for="image" class="col-form-label">
                                     Image:
                                   </label>
@@ -698,25 +752,25 @@
                           </div>
                         </div>
                         <% } %>
-                        <div class="col-md-12" style="margin-top:15px;">
-                          <div class="col-md-4">
-                            <div class="col-md-4">
+                        <div class="row" style="width: 100%; margin-top:15px;">
+                          <div class="col catergory-width">
+                            <div class="label-width">
                               <label for="image" class="col-form-label" >
                                 Credit By:
                               </label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="input-width">
                               <input type="text" name="creditBy" id="" value = " <%=creditBy%>" class="form-control" >
                             </div>
                           </div>
                           
-                          <div class="col-md-4">
-                            <div class="col-md-4">
+                          <div class="col catergory-width">
+                            <div class="label-width">
                               <label for="image" class="col-form-label" >
                                 Priority:
                               </label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="input-width">
                               <select class="form-control" name="priority" id="timeAllowed" <%=disableValue%>>
                                   
                                 <% if(priority == 1){%>
@@ -742,7 +796,7 @@
                     <div class="col-md-12" style="margin-top:10px">
                       <div class="col-md-2">
                         <label for="image" class="col-form-label" >
-                          Explanation:
+                          Explanation 123:
                         </label>
                       </div>
                       <div class="col-md-9">
@@ -868,7 +922,7 @@
                           </div>
                           <div class="col-md-6" style="padding:10px;">
                             <div class="col-md-3">
-                              <b>Answer : </b>
+                              <b>Answer: </b>
                             </div>
                             <div class="col-md-4">
                               <select class="form-control" name="answer" id="answer">
@@ -906,7 +960,7 @@
 
                             <% question.questionArr.forEach(function(questioninfo){ %>
                             
-                              <div id="qdiv<%=questioninfo.country_id%>" class="col-md-12 col-sm-12 col-xs-12 qRpClass" style="padding:20px;float:left;">
+                              <div id="qdiv<%=questioninfo.country_id%>" class="col-md-12 col-sm-12 col-xs-12 qRpClass" style="padding:0px;float:left;">
 
                                 <!--<div class="col-md-12 col-sm-12 col-xs-12" style="float:left;padding:10px;font-size:16px;">
                                   <div>
@@ -922,40 +976,39 @@
                                </textarea>
                                 </div>
 
-                                <div class="col-md-6">  
-
-                                  <div class="col-md-6" style="padding:10px;">
-                                    <div class="col-md-12">
+                                <div class="col-md-6 option-container" style="padding-left: 0;">
+                                  <div class="col-md-6" style="padding:10px;padding-left: 0;">
+                                    <div class="options-select">
                                       <b>Option A: </b>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="option-input">
                                       <input type="text" class="form-control col-md-6" value="<%=questioninfo.answer1%>" name="option1_<%=questioninfo.language%>"
                                         id="option1" />
                                     </div>
                                   </div>
-                                  <div class="col-md-6" style="padding:10px;">
-                                    <div class="col-md-12">
+                                  <div class="col-md-6" style="padding:10px;padding-left: 0;">
+                                    <div class="options-select">
                                       <b>Option B: </b>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="option-input">
                                       <input type="text" class="form-control col-md-6" value="<%=questioninfo.answer2%>" name="option2_<%=questioninfo.language%>"
                                         id="option2" />
                                     </div>
                                   </div>
-                                  <div class="col-md-6" style="padding:10px;">
-                                    <div class="col-md-12">
+                                  <div class="col-md-6" style="padding:10px;padding-left: 0;">
+                                    <div class="options-select">
                                       <b>Option C: </b>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="option-input">
                                       <input type="text" class="form-control col-md-6" value="<%=questioninfo.answer3%>" name="option3_<%=questioninfo.language%>"
                                         id="option3" />
                                     </div>
                                   </div>
-                                  <div class="col-md-6" style="padding:10px;">
-                                    <div class="col-md-12">
+                                  <div class="col-md-6" style="padding:10px;padding-left: 0;">
+                                    <div class="options-select">
                                       <b>Option D: </b>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="option-input">
                                       <input type="text" class="form-control col-md-6" value="<%=questioninfo.answer4%>" name="option4_<%=questioninfo.language%>"
                                         id="option4" />
                                     </div>
@@ -964,12 +1017,12 @@
                                 <input type="hidden" value="<%=questioninfo.image_URL%>" name="imageUrl_<%=questioninfo.language%>" id="imageUrl_<%=questioninfo.language%>" />
                                 <input type="hidden" value="<%=questioninfo.sound_URL%>" name="soundUrl_<%=questioninfo.language%>"  id="soundUrl_<%=questioninfo.language%>"/>
                                 <input type="hidden" value="<%=questioninfo.video_URL%>" name="videoUrl_<%=questioninfo.language%>"  id="videoUrl_<%=questioninfo.language%>"/>
-                                <div class="col-md-3">
-                                  <div class="col-md-12" style="padding:10px;">
-                                    <div class="col-md-12">
-                                      <b>Answer : </b>
+                                <div class="col-md-3 answer-container">
+                                  <div class="col-md-12" style="padding:10px;padding-left: 0;">
+                                    <div class="options-select">
+                                      <b>Answer: </b>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="">
                                       <select class="form-control" name="answer_<%=questioninfo.language%>" id="answer">
                                         <option value="">Please Select</option>
                                         <% if(questioninfo.correct_Answer == "A"){%>
@@ -997,8 +1050,8 @@
                                      
                                     </div>
                                   </div>
-                                  <div class="col-md-12" style="padding:10px;">
-                                    <div style="width:40px;height:40px; margin-left:15px">
+                                  <div class="col-md-12" style="padding:10px;padding-left: 0;">
+                                    <div style="width:40px;height:40px;">
                                       <% if(questioninfo.countryImage != "null"){%>
                                         <img src="<%=imageURL+questioninfo.countryImage%>" class="" width="100%;"/>
                                       <% }else{ %>  
@@ -1008,15 +1061,15 @@
                                   </div>
 
                                 </div> 
-                                <div class="col-md-3">
+                                <div class="col-md-3 answer-container">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                   <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="options-select">
                                       <label for="image" class="col-form-label">
                                         File Type:
                                       </label>
                                     </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
                                       <select class="form-control form-control-sm" id="fileType_<%=questioninfo.language%>" name="fileType_<%=questioninfo.language%>"
                                         onchange="changeFileType('<%=questioninfo.language%>')">
                                         <% if(questioninfo.fileType == 0){ %>
@@ -1256,10 +1309,9 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-12">
-                                      
-                              <div class="col-md-6">
-                                <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="col-md-12" style="padding-left: 0;">
+                              <div class="col-sm-12" style="padding-left: 0;">
+                                <div class="label-width answer-order-width">
                                   <label for="city" class="col-form-label">
                                     Answer Order:
                                       <% if(questioninfo.AnswerOrder != "" && questioninfo.AnswerOrder != null){%>
@@ -1270,9 +1322,9 @@
                                   </label>
                                 </div>
                                 <% if(questioninfo.AnswerOrder != '' && questioninfo.AnswerOrder != null){%>
-                                  <div class="col-md-12 col-sm-12 col-xs-12">
+                                  <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0;">
                                     
-                                    <div id="sortable_<%=questioninfo.language%>">
+                                    <div class="answer-order" id="sortable_<%=questioninfo.language%>">
                                       <!--items go here-->
                                     </div>
                                   </div>
@@ -1288,14 +1340,14 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-12">
-                                  <div class="col-md-4">
+                              <div class="col-md-12" style="padding-left: 0;padding-bottom: 15px;">
+                                  <div class="label-width">
                                     <label for="image" class="col-form-label" >
                                       Explanation:
                                     </label>
                                   </div>
-                                  <div class="col-md-8">
-                                    <input type="text" name="hint_<%=questioninfo.language%>" id="" value = " <%=questioninfo.hint%>" class="form-control" <%=disableValue%>>
+                                  <div class="col-md-8" style="padding-left: 0;">
+                                    <input style="max-width: 260px;" type="text" name="hint_<%=questioninfo.language%>" id="" value = " <%=questioninfo.hint%>" class="form-control" <%=disableValue%>>
                                   </div>
                               </div>
                           
@@ -1616,7 +1668,7 @@
             ans4 ="selected"
           }
 
-          var qdHtml = '<div id="qdiv'+regionid+'" class="col-md-12 col-sm-12 col-xs-12 qRpClass" style="padding:20px;float:left;"> <div style="margin-top:10px;"><textarea class="form-control" rows="2" cols="50" name="question_'+lang+'" id="questionText" required="" aria-required="true">'+question+'</textarea></div><div class="col-md-6"><div class="col-md-6" style="padding:10px;"><div class="col-md-12"><b>Option A: </b> </div> <div class="col-md-12"><input type="text" class="form-control col-md-6 valid" value="'+option1+'" name="option1_'+lang+'" id="option1" aria-invalid="false" style="width: 353px !important;"></div></div><div class="col-md-6" style="padding:10px;"><div class="col-md-12"> <b>Option B: </b></div><div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option2+' name="option2_'+lang+'" id="option2"></div> </div> <div class="col-md-6" style="padding:10px;"><div class="col-md-12"> <b>Option C: </b></div><div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option3+' name="option3_'+lang+'" id="option3"></div> </div><div class="col-md-6" style="padding:10px;"><div class="col-md-12"><b>Option D: </b></div> <div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option4+' name="option4_'+lang+'" id="option4"></div></div></div><div class="col-md-3"><div class="col-md-12" style="padding:10px;"><div class="col-md-12"><b>Answer : </b> </div><div class="col-md-12"><select class="form-control" name="answer_'+lang+'" id="answer"><option value="">Please Select</option><option '+ans1+'>A</option><option '+ans2+'>B</option><option '+ans3+'>C</option><option '+ans4+'>D</option></select></div></div><div class="col-md-12" style="padding:10px;"><div style="width:40px;height:40px; margin-left:15px"><img src='+imageUrl+image+' style="width:100%"></div></div></div><div class="col-md-3"><div class="col-md-12" style="padding:10px;"><div class="col-md-12"><b>File Type</b></div><div class="col-md-12"><select class="form-control form-control-sm valid" id="fileType_'+lang+'" name="fileType_'+lang+'" onchange="changeFileType(\''+lang+'\')" aria-invalid="false"><option value="0" >Select File Type</option><option value="0">No File</option><option value="1" '+file1+' >Image</option><option value="2" '+file2+'>Sound</option><option value="3" '+file3+'>Video</option></select></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="imageContainer_'+lang+'" style='+displayCon+'><div class="col-md-12 col-sm-12 col-xs-12"><div class="col-md-12 col-sm-12 col-xs-12" id="zoomEffect_'+lang+'><input type="checkbox" id="zoom" name="zoom_'+lang+'><b class="paddingSt">Zoom</b></div><label for="image" class="col-form-label">Image:</label><div style="width:80px;margin-left:15px"><img src='+imageUrl+imagef+' style="width:100%"></div></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="file" class="form-control" name="image_'+lang+'"></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="soundContainer_'+lang+'" style="display:none;"><div class="col-md-12 col-sm-12 col-xs-12"><label for="city" class="col-form-label">Sound:</label></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="file" class="form-control" name="Sound_'+lang+'"></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="videoContainer_'+lang+'" style="display:none;"><div class="col-md-12 col-sm-12 col-xs-12"><label for="city" class="col-form-label">Main Video:</label></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="hidden" value='+imagef+' name="imageUrl_'+lang+'" /><input type="hidden" value="" name="soundUrl_'+lang+'" /><input type="hidden" value="" name="videoUrl_'+lang+'" /><input type="file" class="form-control" name="Video_'+lang+'"></div>Explanation Video<input type="file" class="form-control" name="SupportVideoURL_'+lang+'"></div></div></div><div class="col-md-6" style="padding:10px;"> <div class="col-md-12" style="padding: 0px;"><b>Answer Order : </b><input type="checkbox" name="orderCheck_'+lang+'" onclick="openClose(checked,`'+lang.trim()+'`)"> <input type="hidden" class="form-control col-md-6" id="AnswerOrder_'+lang+'"  name="AnswerOrder_'+lang+'"><div id="sortablenew_'+lang+'" style="display:none"> </div><div id="array" class="text" style="display:none"></div></div></div><div class="col-md-4"><div class="col-md-4"><label for="image" class="col-form-label" >Explanation: </label></div><div class="col-md-8"><input type="text" value="'+hint+'" name="hint_'+lang+'" id="" class="form-control"></div></div> </div></div>';
+          var qdHtml = '<div id="qdiv'+regionid+'" class="col-md-12 col-sm-12 col-xs-12 qRpClass" style="padding:20px;float:left;"> <div style="margin-top:10px;"><textarea class="form-control" rows="2" cols="50" name="question_'+lang+'" id="questionText" required="" aria-required="true">'+question+'</textarea></div><div class="col-md-6"><div class="col-md-6" style="padding:10px;"><div class="col-md-12"><b>Option A: </b> </div> <div class="col-md-12"><input type="text" class="form-control col-md-6 valid" value="'+option1+'" name="option1_'+lang+'" id="option1" aria-invalid="false" style="width: 353px !important;"></div></div><div class="col-md-6" style="padding:10px;"><div class="col-md-12"> <b>Option B: </b></div><div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option2+' name="option2_'+lang+'" id="option2"></div> </div> <div class="col-md-6" style="padding:10px;"><div class="col-md-12"> <b>Option C: </b></div><div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option3+' name="option3_'+lang+'" id="option3"></div> </div><div class="col-md-6" style="padding:10px;"><div class="col-md-12"><b>Option D: </b></div> <div class="col-md-12"><input type="text" class="form-control col-md-6" value='+option4+' name="option4_'+lang+'" id="option4"></div></div></div><div class="col-md-3"><div class="col-md-12" style="padding:10px;"><div class="col-md-12"><b>Answer : </b> </div><div class="col-md-12"><select class="form-control" name="answer_'+lang+'" id="answer"><option value="">Please Select</option><option '+ans1+'>A</option><option '+ans2+'>B</option><option '+ans3+'>C</option><option '+ans4+'>D</option></select></div></div><div class="col-md-12" style="padding:10px;padding-left:0;"><div style="width:40px;height:40px;"><img src='+imageUrl+image+' style="width:100%"></div></div></div><div class="col-md-3"><div class="col-md-12" style="padding:10px;"><div class="col-md-12"><b>File Type</b></div><div class="col-md-12"><select class="form-control form-control-sm valid" id="fileType_'+lang+'" name="fileType_'+lang+'" onchange="changeFileType(\''+lang+'\')" aria-invalid="false"><option value="0" >Select File Type</option><option value="0">No File</option><option value="1" '+file1+' >Image</option><option value="2" '+file2+'>Sound</option><option value="3" '+file3+'>Video</option></select></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="imageContainer_'+lang+'" style='+displayCon+'><div class="col-md-12 col-sm-12 col-xs-12"><div class="col-md-12 col-sm-12 col-xs-12" id="zoomEffect_'+lang+'><input type="checkbox" id="zoom" name="zoom_'+lang+'><b class="paddingSt">Zoom</b></div><label for="image" class="col-form-label">Image:</label><div style="width:80px;margin-left:15px"><img src='+imageUrl+imagef+' style="width:100%"></div></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="file" class="form-control" name="image_'+lang+'"></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="soundContainer_'+lang+'" style="display:none;"><div class="col-md-12 col-sm-12 col-xs-12"><label for="city" class="col-form-label">Sound:</label></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="file" class="form-control" name="Sound_'+lang+'"></div></div><div class="col-md-12 col-sm-12 col-xs-12 mrgTp no-mrg-pd" id="videoContainer_'+lang+'" style="display:none;"><div class="col-md-12 col-sm-12 col-xs-12"><label for="city" class="col-form-label">Main Video:</label></div><div class="col-md-12 col-sm-12 col-xs-12"><input type="hidden" value='+imagef+' name="imageUrl_'+lang+'" /><input type="hidden" value="" name="soundUrl_'+lang+'" /><input type="hidden" value="" name="videoUrl_'+lang+'" /><input type="file" class="form-control" name="Video_'+lang+'"></div>Explanation Video<input type="file" class="form-control" name="SupportVideoURL_'+lang+'"></div></div></div><div class="col-md-6" style="padding:10px;"> <div class="col-md-12" style="padding: 0px;"><b>Answer Order : </b><input type="checkbox" name="orderCheck_'+lang+'" onclick="openClose(checked,`'+lang.trim()+'`)"> <input type="hidden" class="form-control col-md-6" id="AnswerOrder_'+lang+'"  name="AnswerOrder_'+lang+'"><div id="sortablenew_'+lang+'" style="display:none"> </div><div id="array" class="text" style="display:none"></div></div></div><div class="col-md-4"><div class="col-md-4"><label for="image" class="col-form-label" >Explanation: </label></div><div class="col-md-8"><input type="text" value="'+hint+'" name="hint_'+lang+'" id="" class="form-control"></div></div> </div></div>';
 
           console.log(qdHtml);
           var stringToHTML = convertToHtml(qdHtml);
